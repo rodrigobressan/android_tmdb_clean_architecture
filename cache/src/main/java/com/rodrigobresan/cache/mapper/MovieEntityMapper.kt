@@ -5,6 +5,7 @@ import com.rodrigobresan.data.model.MovieEntity
 import javax.inject.Inject
 
 open class MovieEntityMapper @Inject constructor() : EntityMapper<MovieCached, MovieEntity> {
+
     override fun mapFromCached(cached: MovieCached): MovieEntity {
         return MovieEntity(cached.id, cached.title, cached.rating, cached.picture)
     }

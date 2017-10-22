@@ -10,7 +10,7 @@ import javax.inject.Inject
 class MovieRemoteImpl @Inject constructor(private val service: MovieService,
                                           private val movieEntityMapper: MovieEntityMapper)
     : MovieRemote {
-    override fun getPopularMovies(): Single<List<MovieEntity>> {
+    override fun getMovies(): Single<List<MovieEntity>> {
         return service.getPopularMovies()
                 .map {
                     it.results.map {
