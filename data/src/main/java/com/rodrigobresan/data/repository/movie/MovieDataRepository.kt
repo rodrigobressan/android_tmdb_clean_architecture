@@ -12,12 +12,12 @@ import javax.inject.Inject
 class MovieDataRepository @Inject constructor(private val factory: MovieDataStoreFactory,
                                               private val movieMapper: MovieMapper) : MovieRepository {
     override fun clearMovies(): Completable {
-        return factory.retrieveDataStore().clearMovies()
+        return factory.retrieveCachedDataStore().clearMovies()
     }
 
     override fun saveMovies(movies: List<Movie>): Completable {
         val movieEntities = movies.map { movieMapper.mapToEntity(it) }
-        return factory.retrieveDataStore().saveMovies(movieEntities)
+        return factory.retrieveCachedDataStore().saveMovies(movieEntities)
     }
 
     override fun getMovies(): Single<List<Movie>> {

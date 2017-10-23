@@ -16,11 +16,11 @@ open class MovieDataStoreFactory @Inject constructor(private val movieCache: Mov
         return retrieveRemoteDataStore()
     }
 
-    private fun retrieveRemoteDataStore(): MovieDataStore {
+    open fun retrieveRemoteDataStore(): MovieDataStore {
         return movieRemoteDataStore
     }
 
-    private fun retrieveCachedDataStore(): MovieDataStore {
+    open fun retrieveCachedDataStore(): MovieDataStore {
         return movieCacheDataStore
     }
 }

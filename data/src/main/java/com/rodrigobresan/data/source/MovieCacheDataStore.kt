@@ -7,7 +7,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class MovieCacheDataStore @Inject constructor(private val movieCache: MovieCache) : MovieDataStore {
+open class MovieCacheDataStore @Inject constructor(private val movieCache: MovieCache) : MovieDataStore {
     override fun clearMovies(): Completable {
         return movieCache.clearMovies()
     }
