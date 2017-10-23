@@ -1,0 +1,5 @@
+package com.rodrigobresan.presentation.base
+
+interface PresentationMapper<out V, in D> {
+    fun mapToView(type: D): V
+}
