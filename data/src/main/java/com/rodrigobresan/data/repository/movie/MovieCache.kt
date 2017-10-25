@@ -8,7 +8,7 @@ interface MovieCache {
 
     fun clearMovies(): Completable
 
-    fun saveMovies(mvoies: List<MovieEntity>): Completable
+    fun saveMovies(movies: List<MovieEntity>): Completable
 
     fun getMovies(): Single<List<MovieEntity>>
 

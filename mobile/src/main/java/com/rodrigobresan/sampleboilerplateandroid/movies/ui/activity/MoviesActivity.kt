@@ -2,9 +2,13 @@ package com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.model.MovieView
 import com.rodrigobresan.presentation.movies.presenter.MoviesPresenter
@@ -29,8 +33,24 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
         setUpRecyclerView()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.movies, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.item_top_rated_refresh -> {
+                Toast.makeText(this, "Reload", Toast.LENGTH_SHORT).show()
+                moviePresenter.loadMovies()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setUpRecyclerView() {
-        rv_movies.layoutManager = LinearLayoutManager(this)
+        rv_movies.layoutManager = GridLayoutManager(this, 2)
         rv_movies.adapter = movieAdapter
     }
 
@@ -69,12 +89,12 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
     }
 
     override fun showMovies(movies: List<MovieView>) {
-        rv_movies.visibility = View.VISIBLE
-        val moviesAdapter = rv_movies.adapter as MoviesAdapter
-        moviesAdapter.listItems = movies.map {
+        movieAdapter.listItems = movies.map {
             movieMapper.mapToViewModel(it)
         }
-        moviesAdapter.notifyDataSetChanged()
+
+        movieAdapter.notifyDataSetChanged()
+        rv_movies.visibility = View.VISIBLE
     }
 
     override fun hideMovies() {

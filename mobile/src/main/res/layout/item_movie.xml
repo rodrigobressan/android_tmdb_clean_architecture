@@ -2,43 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="128dp"
-        android:layout_height="172dp">
+        android:layout_width="match_parent"
+        android:layout_height="192dp">
 
         <ImageView
             android:id="@+id/img_movie_picture"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/ic_launcher_background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_launcher_background" />
 
         <TextView
-            android:layout_margin="@dimen/margin_small"
-            android:layout_gravity="right"
             android:id="@+id/txt_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/margin_small"
             android:textColor="@color/white"
             tools:text="4.5" />
 
         <LinearLayout
-            android:alpha="0.5"
-            android:background="@color/background_item_movie_text_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:background="@color/background_item_movie_text_section">
 
             <TextView
-                android:textSize="@dimen/text_item_section"
-                android:textColor="@color/white"
-                android:layout_margin="@dimen/margin_small"
                 android:id="@+id/txt_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_item_section"
                 tools:text="Lorem ipsum dolor sit amet" />
 
         </LinearLayout>
