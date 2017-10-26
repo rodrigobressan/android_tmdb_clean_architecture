@@ -3,10 +3,11 @@ package com.rodrigobresan.cache.impl
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.db.constants.DbConstants
-import com.rodrigobresan.cache.db.mapper.MovieDbMapper
+import com.rodrigobresan.cache.db.mapper.movie.MovieDbMapper
 import com.rodrigobresan.cache.mapper.MovieEntityMapper
 import com.rodrigobresan.cache.model.MovieCached
 import com.rodrigobresan.cache.test.factory.MovieFactory
+import com.rodrigobresan.domain.model.MovieCategory
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,18 +54,20 @@ class MovieCacheImplTest {
 
         insertMovies(moviesCached)
 
-        val testObserver = movieCacheImpl.getMovies().test()
+        val movieCategory = MovieCategory.POPULAR
+        val testObserver = movieCacheImpl.getMovies(movieCategory).test()
         /** TODO check why this little fucker fails when executed
-            with other tests, but it works when it runs alone
-        */
+        with other tests, but it works when it runs alone
+         */
 
         //testObserver.assertValue(movies)
     }
 
     @Test
     fun saveMoviesCompletes() {
+        val movieCategory = MovieCategory.POPULAR
         val movies = MovieFactory.makeMovieEntityList(2)
-        movieCacheImpl.saveMovies(movies).test().assertComplete()
+        movieCacheImpl.saveMovies(movieCategory, movies).test().assertComplete()
     }
 
     private fun insertMovies(moviesCached: List<MovieCached>) {

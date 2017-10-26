@@ -3,12 +3,13 @@ package com.rodrigobresan.data.repository
 import com.nhaarman.mockito_kotlin.*
 import com.rodrigobresan.data.mapper.MovieMapper
 import com.rodrigobresan.data.model.MovieEntity
-import com.rodrigobresan.data.repository.movie.MovieDataRepository
+import com.rodrigobresan.data.repository.movie.movie.MovieDataRepository
 import com.rodrigobresan.data.source.MovieCacheDataStore
 import com.rodrigobresan.data.source.MovieDataStoreFactory
 import com.rodrigobresan.data.source.MovieRemoteDataStore
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.model.Movie
+import com.rodrigobresan.domain.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before
@@ -70,41 +71,47 @@ class MovieDataRepositoryTest {
     // related to save
     @Test
     fun saveMoviesCompletes() {
-        stubMovieCacheSaveMovies(Completable.complete())
+        val movieCategory = MovieCategory.POPULAR
+        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
 
-        val testObserver = movieDataRepository.saveMovies(MovieFactory.makeMovieList(2)).test()
+        val testObserver = movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
         testObserver.assertComplete()
     }
 
     @Test
     fun saveMovieCallsCacheDataStore() {
-        stubMovieCacheSaveMovies(Completable.complete())
+
+        val movieCategory = MovieCategory.POPULAR
+        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
 
         val movies = MovieFactory.makeMovieList(2)
-        movieDataRepository.saveMovies(movies).test()
-        verify(movieCacheDataStore).saveMovies(any())
+        movieDataRepository.saveMovies(movieCategory, movies).test()
+        verify(movieCacheDataStore).saveMovies(movieCategory, any())
     }
 
     @Test
     fun saveMovieNeverCallRemoteDataStore() {
-        stubMovieCacheSaveMovies(Completable.complete())
+        val movieCategory = MovieCategory.POPULAR
+        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
 
-        movieDataRepository.saveMovies(MovieFactory.makeMovieList(2)).test()
-        verify(movieRemoteDataStore, never()).saveMovies(any())
+        movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
+        verify(movieRemoteDataStore, never()).saveMovies(movieCategory, any())
     }
 
     // related to get
     @Test
     fun getMoviesCompletes() {
+        val movieCategory = MovieCategory.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
-        stubMovieCacheDataStoreGetMovies(Single.just(MovieFactory.makeMovieEntityList(2)))
+        stubMovieCacheDataStoreGetMovies(movieCategory, Single.just(MovieFactory.makeMovieEntityList(2)))
 
-        val testObserver = movieDataRepository.getMovies().test()
+        val testObserver = movieDataRepository.getMovies(movieCategory).test()
         testObserver.assertComplete()
     }
 
     @Test
     fun getMoviesReturnsData() {
+        val movieCategory = MovieCategory.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
         val movies = MovieFactory.makeMovieList(2)
         val moviesEntities = MovieFactory.makeMovieEntityList(2)
@@ -113,28 +120,30 @@ class MovieDataRepositoryTest {
             stubMovieMapperMapFromEntity(moviesEntities[index], movie)
         }
 
-        stubMovieCacheDataStoreGetMovies(Single.just(moviesEntities))
+        stubMovieCacheDataStoreGetMovies(movieCategory, Single.just(moviesEntities))
 
-        val testObserver = movieDataRepository.getMovies().test()
+        val testObserver = movieDataRepository.getMovies(movieCategory).test()
         testObserver.assertValue(movies)
     }
 
     @Test
     fun getMoviesSavesMoviesWhenFromCacheDataStore() {
+        val movieCategory = MovieCategory.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
-        stubMovieCacheSaveMovies(Completable.complete())
+        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
 
-        movieDataRepository.saveMovies(MovieFactory.makeMovieList(2)).test()
-        verify(movieCacheDataStore).saveMovies(any())
+        movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
+        verify(movieCacheDataStore).saveMovies(movieCategory, any())
     }
 
     @Test
     fun getMoviesNeverSavedMoviesWhenRemoteDataStore() {
+        val movieCategory = MovieCategory.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
-        stubMovieCacheSaveMovies(Completable.complete())
+        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
 
-        movieDataRepository.saveMovies(MovieFactory.makeMovieList(2)).test()
-        verify(movieRemoteDataStore, never()).saveMovies(any())
+        movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
+        verify(movieRemoteDataStore, never()).saveMovies(movieCategory, any())
     }
 
 
@@ -143,8 +152,8 @@ class MovieDataRepositoryTest {
                 .thenReturn(movie)
     }
 
-    private fun stubMovieCacheDataStoreGetMovies(singleMovies: Single<List<MovieEntity>>?) {
-        whenever(movieCacheDataStore.getMovies())
+    private fun stubMovieCacheDataStoreGetMovies(movieCategory: MovieCategory, singleMovies: Single<List<MovieEntity>>?) {
+        whenever(movieCacheDataStore.getMovies(movieCategory))
                 .thenReturn(singleMovies)
     }
 
@@ -154,8 +163,8 @@ class MovieDataRepositoryTest {
     }
 
 
-    private fun stubMovieCacheSaveMovies(complete: Completable?) {
-        whenever(movieCacheDataStore.saveMovies(any()))
+    private fun stubMovieCacheSaveMovies(movieCategory: MovieCategory, complete: Completable?) {
+        whenever(movieCacheDataStore.saveMovies(movieCategory, any()))
                 .thenReturn(complete)
     }
 

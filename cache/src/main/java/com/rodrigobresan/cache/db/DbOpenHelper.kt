@@ -14,7 +14,8 @@ class DbOpenHelper @Inject constructor(context: Context)
         db.beginTransaction()
         try {
             db.execSQL(DbConstants.MovieTable.CREATE)
-
+            db.execSQL(DbConstants.CategoryTable.CREATE)
+            db.execSQL(DbConstants.MovieCategoryTable.CREATE)
             db.setTransactionSuccessful()
         } finally {
             db.endTransaction()

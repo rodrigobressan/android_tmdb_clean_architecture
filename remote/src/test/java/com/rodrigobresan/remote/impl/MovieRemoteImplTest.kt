@@ -48,7 +48,7 @@ class MovieRemoteImplTest {
             movieEntities.add(movieMapper.mapRemoteToEntity(it))
         }
 
-        val testObserver = movieRemoteImpl.getMovies().test()
+        val testObserver = movieRemoteImpl.getPopularMovies().test()
         testObserver.assertValue(movieEntities)
     }
 

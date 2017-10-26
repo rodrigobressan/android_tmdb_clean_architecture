@@ -2,7 +2,7 @@ package com.rodrigobresan.data.source
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.data.repository.movie.MovieCache
+import com.rodrigobresan.data.repository.movie.movie.MovieCache
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

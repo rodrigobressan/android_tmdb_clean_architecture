@@ -1,12 +1,13 @@
-package com.rodrigobresan.cache.db.mapper
+package com.rodrigobresan.cache.db.mapper.movie
 
 import android.content.ContentValues
 import android.database.Cursor
 import com.rodrigobresan.cache.db.constants.DbConstants
+import com.rodrigobresan.cache.db.mapper.ModelCacheMapper
 import com.rodrigobresan.cache.model.MovieCached
 import javax.inject.Inject
 
-class MovieDbMapper @Inject constructor(): ModelCacheMapper<MovieCached> {
+class MovieDbMapper @Inject constructor() : ModelCacheMapper<MovieCached> {
 
     override fun toContentValues(model: MovieCached): ContentValues {
         val values = ContentValues()

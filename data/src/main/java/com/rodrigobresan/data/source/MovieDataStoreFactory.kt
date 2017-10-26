@@ -1,7 +1,7 @@
 package com.rodrigobresan.data.source
 
-import com.rodrigobresan.data.repository.movie.MovieCache
-import com.rodrigobresan.data.repository.movie.MovieDataStore
+import com.rodrigobresan.data.repository.movie.movie.MovieCache
+import com.rodrigobresan.data.repository.movie.movie.MovieDataStore
 import javax.inject.Inject
 
 open class MovieDataStoreFactory @Inject constructor(private val movieCache: MovieCache,

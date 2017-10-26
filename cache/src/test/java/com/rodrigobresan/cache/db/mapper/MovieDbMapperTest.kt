@@ -4,6 +4,7 @@ import android.database.Cursor
 import com.rodrigobresan.cache.BuildConfig
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.db.constants.DbConstants
+import com.rodrigobresan.cache.db.mapper.movie.MovieDbMapper
 import com.rodrigobresan.cache.model.MovieCached
 import com.rodrigobresan.cache.test.DefaultConfig
 import com.rodrigobresan.cache.test.factory.MovieFactory
@@ -28,7 +29,6 @@ class MovieDbMapperTest {
     fun setUp() {
         movieDbMapper = MovieDbMapper()
     }
-
 
     @Test
     fun parseCursorMapsData() {

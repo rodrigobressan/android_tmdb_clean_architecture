@@ -2,6 +2,7 @@ package com.rodrigobresan.sampleboilerplateandroid
 
 import android.app.Activity
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.rodrigobresan.sampleboilerplateandroid.injection.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
@@ -16,6 +17,15 @@ class MovieApplication : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
 
+        initDaggerComponent()
+        initStetho()
+    }
+
+    private fun initStetho() {
+        Stetho.initializeWithDefaults(this)
+    }
+
+    private fun initDaggerComponent() {
         DaggerApplicationComponent.builder()
                 .application(this)
                 .build()

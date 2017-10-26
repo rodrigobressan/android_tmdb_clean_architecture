@@ -3,8 +3,9 @@ package com.rodrigobresan.data.source
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.data.repository.movie.MovieCache
+import com.rodrigobresan.data.repository.movie.movie.MovieCache
 import com.rodrigobresan.data.test.factory.MovieFactory
+import com.rodrigobresan.domain.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before
@@ -36,18 +37,20 @@ class MovieCacheDataStoreTest {
 
     @Test
     fun saveMoviesCompletes() {
-        whenever(movieCache.saveMovies(any()))
+        val movieCategory = MovieCategory.POPULAR
+        whenever(movieCache.saveMovies(movieCategory, any()))
                 .thenReturn(Completable.complete())
 
-        movieCacheDataStore.saveMovies(MovieFactory.makeMovieEntityList(2)).test().assertComplete()
+        movieCacheDataStore.saveMovies(movieCategory, MovieFactory.makeMovieEntityList(2)).test().assertComplete()
     }
 
     @Test
     fun getMoviesCompletes() {
+        val movieCategory = MovieCategory.POPULAR
         val movies = MovieFactory.makeMovieEntityList(2)
-        whenever(movieCache.getMovies())
+        whenever(movieCache.getMovies(movieCategory))
                 .thenReturn(Single.just(movies))
 
-        movieCache.getMovies().test().assertComplete()
+        movieCache.getMovies(movieCategory).test().assertComplete()
     }
 }

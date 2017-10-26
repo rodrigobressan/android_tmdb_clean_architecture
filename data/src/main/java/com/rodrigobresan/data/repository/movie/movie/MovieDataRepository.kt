@@ -1,9 +1,10 @@
-package com.rodrigobresan.data.repository.movie
+package com.rodrigobresan.data.repository.movie.movie
 
 import com.rodrigobresan.data.mapper.MovieMapper
 import com.rodrigobresan.data.source.MovieDataStoreFactory
 import com.rodrigobresan.data.source.MovieRemoteDataStore
 import com.rodrigobresan.domain.model.Movie
+import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.domain.repository.MovieRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -15,18 +16,18 @@ class MovieDataRepository @Inject constructor(private val factory: MovieDataStor
         return factory.retrieveCachedDataStore().clearMovies()
     }
 
-    override fun saveMovies(movies: List<Movie>): Completable {
+    override fun saveMovies(movieCategory: MovieCategory, movies: List<Movie>): Completable {
         val movieEntities = movies.map { movieMapper.mapToEntity(it) }
-        return factory.retrieveCachedDataStore().saveMovies(movieEntities)
+        return factory.retrieveCachedDataStore().saveMovies(movieCategory, movieEntities)
     }
 
-    override fun getMovies(): Single<List<Movie>> {
+    override fun getMovies(movieCategory: MovieCategory): Single<List<Movie>> {
         val dataStore = factory.retrieveDataStore()
 
-        return dataStore.getMovies()
+        return dataStore.getMovies(movieCategory)
                 .flatMap {
                     if (dataStore is MovieRemoteDataStore) {
-                        factory.retrieveCachedDataStore().saveMovies(it).toSingle { it }
+                        factory.retrieveCachedDataStore().saveMovies(movieCategory, it).toSingle { it }
                     } else {
                         Single.just(it)
                     }
