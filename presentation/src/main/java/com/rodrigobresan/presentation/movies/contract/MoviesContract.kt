@@ -15,7 +15,11 @@ interface MoviesContract {
         fun showEmptyState()
         fun hideEmptyState()
 
-        fun showMovies(movies: List<MovieView>)
+        fun showPopularMovies(movies: List<MovieView>)
+        fun showTopRatedMovies(movies: List<MovieView>)
+        fun showUpcomingMovies(movies: List<MovieView>)
+        fun showNowPlayingMovies(movies: List<MovieView>)
+
         fun hideMovies()
     }
 

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="text_item_section">12sp</dimen>
+    <dimen name="margin_large">24dp</dimen>
 </resources>

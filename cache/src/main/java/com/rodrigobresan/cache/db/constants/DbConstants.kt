@@ -34,7 +34,7 @@ object DbConstants {
 
         const val CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                        CATEGORY_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                        CATEGORY_ID + " TEXT PRIMARY KEY NOT NULL, " +
                         CATEGORY_NAME + " TEXT " +
                         ");"
 
@@ -51,7 +51,7 @@ object DbConstants {
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         MOVIE_ID + " INTEGER NOT NULL " +
                         "REFERENCES " + DbConstants.MovieTable.TABLE_NAME + "(" + DbConstants.MovieTable.MOVIE_ID + "), " + // pk
-                        CATEGORY_ID + " INTEGER NOT NULL " +
+                        CATEGORY_ID + " TEXT NOT NULL " +
                         "REFERENCES " + DbConstants.CategoryTable.TABLE_NAME + "(" + DbConstants.CategoryTable.CATEGORY_ID + "), " +
                         "PRIMARY KEY (" + MOVIE_ID + "," + CATEGORY_ID + ")" + // pk
                         ");"

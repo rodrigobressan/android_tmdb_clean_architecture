@@ -9,9 +9,6 @@ interface MovieService {
     @GET("movie/popular")
     fun getPopularMovies(): Single<MovieResponse>
 
-    @GET("movie/latest")
-    fun getLatestMovies(): Single<MovieResponse>
-
     @GET("movie/top_rated")
     fun getTopRatedMovies(): Single<MovieResponse>
 

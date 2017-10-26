@@ -16,10 +16,6 @@ class MovieRemoteImpl @Inject constructor(private val service: MovieService,
         return mapItems(service.getNowPlayingMovies())
     }
 
-    override fun getLatestMovies(): Single<List<MovieEntity>> {
-        return mapItems(service.getLatestMovies())
-    }
-
     override fun getTopRatedMovies(): Single<List<MovieEntity>> {
         return mapItems(service.getTopRatedMovies())
     }

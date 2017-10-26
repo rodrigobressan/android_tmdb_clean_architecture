@@ -10,8 +10,4 @@ interface MovieRepository {
     fun saveMovies(movieCategory: MovieCategory, movies: List<Movie>): Completable
 
     fun getMovies(movieCategory: MovieCategory): Single<List<Movie>>
-//    fun getNowPlayingMovies(): Single<List<Movie>>
-//    fun getLatestMovies(): Single<List<Movie>>
-//    fun getTopRatedMovies(): Single<List<Movie>>
-//    fun getUpcomingMovies(): Single<List<Movie>>
 }

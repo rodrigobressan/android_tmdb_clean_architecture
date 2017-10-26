@@ -68,7 +68,7 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
     private fun insertCategory(movieCategory: MovieCategory) {
         val values = ContentValues()
-        values.put(DbConstants.CategoryTable.CATEGORY_ID, movieCategory.getId())
+        values.put(DbConstants.CategoryTable.CATEGORY_ID, movieCategory.name)
 
         database.insert(DbConstants.CategoryTable.TABLE_NAME, null, values)
     }
@@ -77,7 +77,7 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
     private fun insertMovieCategory(movieCategory: MovieCategory, it: MovieEntity) {
         val values = ContentValues()
         values.put(DbConstants.MovieCategoryTable.MOVIE_ID, it.id)
-        values.put(DbConstants.MovieCategoryTable.CATEGORY_ID, movieCategory.getId())
+        values.put(DbConstants.MovieCategoryTable.CATEGORY_ID, movieCategory.name)
 
         database.insert(DbConstants.MovieCategoryTable.TABLE_NAME, null,
                 values)
@@ -93,7 +93,7 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                     " = " + DbConstants.MovieTable.TABLE_NAME + "." + DbConstants.MovieTable.MOVIE_ID +
                     " WHERE " +
                     DbConstants.MovieCategoryTable.TABLE_NAME + "." + DbConstants.MovieCategoryTable.CATEGORY_ID +
-                    " = " + movieCategory.getId()
+                    " = '" + movieCategory.name + "'"
 
             val updatesCursor = database.rawQuery(query, null)
             val movies = mutableListOf<MovieEntity>()

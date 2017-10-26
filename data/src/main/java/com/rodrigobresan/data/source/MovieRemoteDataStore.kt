@@ -20,10 +20,9 @@ open class MovieRemoteDataStore @Inject constructor(private val movieRemote: Mov
     override fun getMovies(movieCategory: MovieCategory): Single<List<MovieEntity>> {
         when (movieCategory) {
             MovieCategory.POPULAR -> return movieRemote.getPopularMovies()
-            MovieCategory.TOP_RATED -> TODO()
-            MovieCategory.LATEST -> TODO()
-            MovieCategory.NOW_PLAYING -> TODO()
-            MovieCategory.UPCOMING -> TODO()
+            MovieCategory.TOP_RATED -> return movieRemote.getTopRatedMovies()
+            MovieCategory.NOW_PLAYING -> return movieRemote.getNowPlayingMovies()
+            MovieCategory.UPCOMING -> return movieRemote.getUpcomingMovies()
             MovieCategory.FAVORITE -> TODO()
             MovieCategory.SEEN -> TODO()
         }

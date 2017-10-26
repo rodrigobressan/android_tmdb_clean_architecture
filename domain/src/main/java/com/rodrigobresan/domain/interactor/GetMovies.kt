@@ -12,10 +12,10 @@ open class GetMovies @Inject constructor(val movieRepository: MovieRepository,
                                          threadExecutor: ThreadExecutor,
                                          postExecutionThread: PostExecutionThread) :
 
-        SingleUseCase<List<Movie>, Void?>(threadExecutor, postExecutionThread) {
+        SingleUseCase<List<Movie>, MovieCategory>(threadExecutor, postExecutionThread) {
 
-    public override fun buildUseCaseObservable(params: Void?): Single<List<Movie>> {
-        return movieRepository.getMovies(MovieCategory.POPULAR)
+    public override fun buildUseCaseObservable(params: MovieCategory?): Single<List<Movie>> {
+        return movieRepository.getMovies(params!!)
     }
 
 }
