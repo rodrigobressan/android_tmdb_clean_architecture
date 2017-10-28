@@ -14,15 +14,15 @@ open class MoviesModule {
 
     @PerActivity
     @Provides
-    internal fun provideMovieView(moviesActivity: MoviesActivity) : MoviesContract.View {
-        return moviesActivity
+    internal fun provideMovieView(moviesView: MoviesActivity): MoviesContract.View {
+        return moviesView
     }
 
     @PerActivity
     @Provides
     internal fun provideMoviePresenter(moviesView: MoviesContract.View,
                                        getMovies: GetMovies,
-                                       movieMapper: MovieMapper) : MoviesContract.Presenter {
+                                       movieMapper: MovieMapper): MoviesContract.Presenter {
         return MoviesPresenter(moviesView, getMovies, movieMapper)
     }
 }

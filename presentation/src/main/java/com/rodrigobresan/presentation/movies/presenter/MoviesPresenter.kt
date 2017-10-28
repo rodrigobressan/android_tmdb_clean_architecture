@@ -5,13 +5,16 @@ import com.rodrigobresan.domain.model.Movie
 import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.mapper.MovieMapper
-import com.rodrigobresan.presentation.movies.model.MovieView
 import io.reactivex.observers.DisposableSingleObserver
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
                                           val getMoviesUseCase: GetMovies,
                                           val movieMapper: MovieMapper) : MoviesContract.Presenter {
+
+    val moviesToLoad = ArrayList<MovieCategory>(EnumSet.allOf(MovieCategory::class.java))
 
     init {
         moviesView.setPresenter(this)
@@ -26,56 +29,35 @@ class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
     }
 
     override fun loadMovies() {
-        moviesView.showProgress()
-        moviesView.hideMovies()
-        getMoviesUseCase.execute(MoviesSubscriber(MovieCategory.UPCOMING), MovieCategory.UPCOMING)
-        getMoviesUseCase.execute(MoviesSubscriber(MovieCategory.POPULAR), MovieCategory.POPULAR)
-        getMoviesUseCase.execute(MoviesSubscriber(MovieCategory.TOP_RATED), MovieCategory.TOP_RATED)
-        getMoviesUseCase.execute(MoviesSubscriber(MovieCategory.NOW_PLAYING), MovieCategory.NOW_PLAYING)
+        moviesToLoad.forEach {
+            moviesView.hideMovies(it)
+            getMoviesUseCase.execute(MoviesSubscriber(it), it)
+        }
     }
 
-
-    inner class MoviesSubscriber(private val movieCategory: MovieCategory) : DisposableSingleObserver<List<Movie>>() {
+    inner class MoviesSubscriber(var category: MovieCategory) : DisposableSingleObserver<List<Movie>>() {
         override fun onError(e: Throwable) {
-            moviesView.hideMovies()
-            moviesView.hideProgress()
-            moviesView.hideEmptyState()
-            moviesView.showErrorState()
+            moviesView.hideMovies(category)
+            moviesView.hideProgress(category)
+            moviesView.hideEmptyState(category)
+            moviesView.showErrorState(category)
         }
 
         override fun onSuccess(movies: List<Movie>) {
-            handleGetMoviesSuccess(movieCategory, movies)
+            handleGetMoviesSuccess(category, movies)
         }
-
     }
 
-    private fun handleGetMoviesSuccess(movieCategory: MovieCategory, movies: List<Movie>) {
-        moviesView.hideErrorState()
+    private fun handleGetMoviesSuccess(category: MovieCategory, movies: List<Movie>) {
+        moviesView.hideErrorState(category)
 
         if (movies.isNotEmpty()) {
-            moviesView.hideEmptyState()
-            moviesView.hideProgress()
-            showMovieList(movieCategory, movies.map { movieMapper.mapToView(it) })
+            moviesView.hideEmptyState(category)
+            moviesView.hideProgress(category)
+            moviesView.showMovies(category, movies.map { movieMapper.mapToView(it) })
         } else {
-            hideMovieList(movieCategory)
-            moviesView.showEmptyState()
-            moviesView.hideMovies()
+            moviesView.showEmptyState(category)
+            moviesView.hideMovies(category)
         }
     }
-
-    private fun hideMovieList(movieCategory: MovieCategory) {
-
-    }
-
-    private fun showMovieList(movieCategory: MovieCategory, movies: List<MovieView>) {
-        when (movieCategory) {
-            MovieCategory.TOP_RATED -> moviesView.showTopRatedMovies(movies)
-            MovieCategory.NOW_PLAYING -> moviesView.showNowPlayingMovies(movies)
-            MovieCategory.UPCOMING -> moviesView.showUpcomingMovies(movies)
-            MovieCategory.POPULAR -> moviesView.showPopularMovies(movies)
-            MovieCategory.FAVORITE -> TODO()
-            MovieCategory.SEEN -> TODO()
-        }
-    }
-
 }

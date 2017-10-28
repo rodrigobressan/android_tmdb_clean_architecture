@@ -2,13 +2,9 @@ package com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
+import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.model.MovieView
 import com.rodrigobresan.sampleboilerplateandroid.R
@@ -21,11 +17,13 @@ import javax.inject.Inject
 class MoviesActivity : AppCompatActivity(), MoviesContract.View {
 
     @Inject lateinit var moviePresenter: MoviesContract.Presenter
-
     @Inject lateinit var popularMoviesAdapter: MoviesAdapter
     @Inject lateinit var topRatedMoviesAdapter: MoviesAdapter
     @Inject lateinit var upcomingMoviesAdapter: MoviesAdapter
     @Inject lateinit var nowPlayingMoviesAdapter: MoviesAdapter
+
+    @Inject lateinit var favoritesMoviesAdapter: MoviesAdapter
+    @Inject lateinit var seenMoviesAdapter: MoviesAdapter
 
     @Inject lateinit var movieMapper: MovieMapper
 
@@ -34,7 +32,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
 
         setContentView(R.layout.activity_movies)
         AndroidInjection.inject(this)
-        setUpRecyclerViews()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -46,30 +43,10 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
 
         when (item.itemId) {
             R.id.item_top_rated_refresh -> {
-                Toast.makeText(this, "Reload", Toast.LENGTH_SHORT).show()
                 moviePresenter.loadMovies()
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun setUpRecyclerViews() {
-        rv_movies_popular.layoutManager = LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false)
-        rv_movies_popular.adapter = popularMoviesAdapter
-
-
-        rv_movies_top_rated.layoutManager = LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false)
-        rv_movies_top_rated.adapter = topRatedMoviesAdapter
-
-        rv_movies_now_playing.layoutManager = LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false)
-        rv_movies_now_playing.adapter = nowPlayingMoviesAdapter
-
-        rv_movies_upcoming.layoutManager = LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false)
-        rv_movies_upcoming.adapter = upcomingMoviesAdapter
     }
 
     override fun onStart() {
@@ -86,73 +63,59 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
         this.moviePresenter = presenter
     }
 
-    override fun showProgress() {
-        progress_movies.visibility = View.VISIBLE
+    override fun hideProgress(category: MovieCategory) {
+        getMovieSectionView(category).hideProgress()
     }
 
-    override fun hideProgress() {
-        progress_movies.visibility = View.GONE
+    override fun showProgress(movieCategory: MovieCategory) {
+        getMovieSectionView(movieCategory).showProgress()
     }
 
-    override fun showErrorState() {
+    override fun showErrorState(movieCategory: MovieCategory) {
+        getMovieSectionView(movieCategory).showErrorState()
     }
 
-    override fun hideErrorState() {
+    override fun hideErrorState(movieCategory: MovieCategory) {
+        getMovieSectionView(movieCategory).hideErrorState()
     }
 
-    override fun showEmptyState() {
+    override fun showEmptyState(movieCategory: MovieCategory) {
+        getMovieSectionView(movieCategory).showEmptyState()
     }
 
-    override fun hideEmptyState() {
+    override fun hideEmptyState(movieCategory: MovieCategory) {
+        getMovieSectionView(movieCategory).hideEmptyState()
     }
 
-    override fun showUpcomingMovies(movies: List<MovieView>) {
-        log("upcoming", movies)
-        upcomingMoviesAdapter.listItems = movies.map {
-            movieMapper.mapToViewModel(it)
+
+    override fun showMovies(movieCategory: MovieCategory, movies: List<MovieView>) {
+        getMovieSectionView(movieCategory).showMovies(getMovieAdapter(movieCategory), movies.map { movieMapper.mapToViewModel(it) })
+    }
+
+    override fun hideMovies(movieCategory: MovieCategory) {
+        getMovieSectionView(movieCategory).hideMovies()
+    }
+
+    fun getMovieSectionView(movieCategory: MovieCategory): MovieSectionView {
+        when (movieCategory) {
+            MovieCategory.TOP_RATED -> return movie_section_top_rated
+            MovieCategory.NOW_PLAYING -> return movie_section_now_playing
+            MovieCategory.UPCOMING -> return movie_section_upcoming
+            MovieCategory.POPULAR -> return movie_section_popular
+            MovieCategory.FAVORITE -> return movie_section_favorite
+            MovieCategory.SEEN -> return movie_section_seen
         }
-
-        upcomingMoviesAdapter.notifyDataSetChanged()
-        rv_movies_upcoming.visibility = View.VISIBLE
     }
 
-    override fun showNowPlayingMovies(movies: List<MovieView>) {
-        log("now playing", movies)
-        nowPlayingMoviesAdapter.listItems = movies.map {
-            movieMapper.mapToViewModel(it)
+    fun getMovieAdapter(movieCategory: MovieCategory): MoviesAdapter {
+        when (movieCategory) {
+            MovieCategory.TOP_RATED -> return topRatedMoviesAdapter
+            MovieCategory.NOW_PLAYING -> return nowPlayingMoviesAdapter
+            MovieCategory.UPCOMING -> return upcomingMoviesAdapter
+            MovieCategory.POPULAR -> return popularMoviesAdapter
+            MovieCategory.FAVORITE -> return favoritesMoviesAdapter
+            MovieCategory.SEEN -> return seenMoviesAdapter
         }
-
-        nowPlayingMoviesAdapter.notifyDataSetChanged()
-        rv_movies_now_playing.visibility = View.VISIBLE
-    }
-
-    override fun showPopularMovies(movies: List<MovieView>) {
-        log("popular", movies)
-        popularMoviesAdapter.listItems = movies.map {
-            movieMapper.mapToViewModel(it)
-        }
-
-        popularMoviesAdapter.notifyDataSetChanged()
-        rv_movies_popular.visibility = View.VISIBLE
-    }
-
-    override fun showTopRatedMovies(movies: List<MovieView>) {
-        log("top rated", movies)
-        topRatedMoviesAdapter.listItems = movies.map {
-            movieMapper.mapToViewModel(it)
-        }
-
-        topRatedMoviesAdapter.notifyDataSetChanged()
-        rv_movies_top_rated.visibility = View.VISIBLE
-    }
-
-    private fun log(s: String, movies: List<MovieView>) {
-        Log.d("LOG", ">>>>> " + s + " size: " + movies.size)
-    }
-
-    override fun hideMovies() {
-        // rv_movies_popular.visibility = View.GONE
-        // rv_movies_top_rated.visibility = View.GONE
     }
 
 }

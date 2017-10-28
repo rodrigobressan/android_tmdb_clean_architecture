@@ -1,7 +1,7 @@
 package com.rodrigobresan.data.repository.movie.movie
 
-import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.data.model.MovieEntity
+import com.rodrigobresan.domain.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 

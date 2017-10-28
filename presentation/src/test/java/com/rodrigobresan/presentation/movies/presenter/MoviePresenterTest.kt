@@ -81,7 +81,7 @@ class MoviePresenterTest {
 
         verify(getMoviesUseCase).execute(captor.capture(), eq(null))
         captor.firstValue.onSuccess(MovieFactory.makeMovieList(0))
-        verify(moviesView, times(2)).hideMovies()
+        verify(moviesView, times(2)).hideMovies(movieCategory)
     }
 
     @Test
@@ -99,7 +99,7 @@ class MoviePresenterTest {
 
         verify(getMoviesUseCase).execute(captor.capture(), eq(null))
         captor.firstValue.onError(RuntimeException())
-        verify(moviesView, times(2)).hideMovies()
+        verify(moviesView, times(2)).hideMovies(movieCategory)
     }
 
     @Test

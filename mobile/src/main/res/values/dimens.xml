@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_list_movies_text">12dp</dimen>
     <dimen name="text_item_section">12sp</dimen>
     <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_smallest">2dp</dimen>
 </resources>

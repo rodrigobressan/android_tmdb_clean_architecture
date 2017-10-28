@@ -23,11 +23,9 @@ open class MovieRemoteDataStore @Inject constructor(private val movieRemote: Mov
             MovieCategory.TOP_RATED -> return movieRemote.getTopRatedMovies()
             MovieCategory.NOW_PLAYING -> return movieRemote.getNowPlayingMovies()
             MovieCategory.UPCOMING -> return movieRemote.getUpcomingMovies()
-            MovieCategory.FAVORITE -> TODO()
-            MovieCategory.SEEN -> TODO()
         }
 
-        return movieRemote.getPopularMovies()
+        return movieRemote.getTopRatedMovies()
     }
 
 }

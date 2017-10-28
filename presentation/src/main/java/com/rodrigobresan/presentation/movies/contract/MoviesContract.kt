@@ -1,26 +1,23 @@
 package com.rodrigobresan.presentation.movies.contract
 
+import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.presentation.base.BasePresenter
 import com.rodrigobresan.presentation.base.BaseView
 import com.rodrigobresan.presentation.movies.model.MovieView
 
 interface MoviesContract {
     interface View : BaseView<Presenter> {
-        fun showProgress()
-        fun hideProgress()
+        fun showProgress(category: MovieCategory)
+        fun hideProgress(category: MovieCategory)
 
-        fun showErrorState()
-        fun hideErrorState()
+        fun showErrorState(category: MovieCategory)
+        fun hideErrorState(category: MovieCategory)
 
-        fun showEmptyState()
-        fun hideEmptyState()
+        fun showEmptyState(category: MovieCategory)
+        fun hideEmptyState(category: MovieCategory)
 
-        fun showPopularMovies(movies: List<MovieView>)
-        fun showTopRatedMovies(movies: List<MovieView>)
-        fun showUpcomingMovies(movies: List<MovieView>)
-        fun showNowPlayingMovies(movies: List<MovieView>)
-
-        fun hideMovies()
+        fun showMovies(category: MovieCategory, movies: List<MovieView>)
+        fun hideMovies(category: MovieCategory)
     }
 
     interface Presenter : BasePresenter {

@@ -1,48 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginLeft="12dp"
+    android:elevation="5dp"
+    android:orientation="vertical"
+    app:elevation="5dp">
 
-    <FrameLayout
-        android:layout_width="128dp"
-        android:layout_height="192dp"
-        android:layout_margin="@dimen/margin_large"
-        android:elevation="8dp">
+    <ImageView
+        android:id="@+id/img_movie_picture"
+        android:layout_width="104dp"
+        android:layout_height="156dp"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/ic_launcher_background" />
 
-        <ImageView
-            android:id="@+id/img_movie_picture"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@color/background_item_movie_text_section">
+
+        <TextView
+            android:id="@+id/txt_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/ic_launcher_background" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_item_section"
+            tools:text="Lorem ipsum dolor sit amet" />
 
         <TextView
             android:id="@+id/txt_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/txt_title"
             android:layout_gravity="right"
-            android:layout_margin="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="gone"
             tools:text="4.5" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/background_item_movie_text_section">
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin_small"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/txt_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_item_section"
-                tools:text="Lorem ipsum dolor sit amet" />
+    </RelativeLayout>
 
-        </LinearLayout>
-    </FrameLayout>
 
 </LinearLayout>

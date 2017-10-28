@@ -5,7 +5,6 @@ import android.app.Application
 import com.facebook.stetho.Stetho
 import com.rodrigobresan.sampleboilerplateandroid.injection.DaggerApplicationComponent
 import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
@@ -28,8 +27,9 @@ class MovieApplication : Application(), HasActivityInjector {
     private fun initDaggerComponent() {
         DaggerApplicationComponent.builder()
                 .application(this)
-                .build()
-                .inject(this)
+                .build().
+                inject(this)
+
     }
 
     override fun activityInjector(): AndroidInjector<Activity> {

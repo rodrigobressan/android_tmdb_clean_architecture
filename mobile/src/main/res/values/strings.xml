@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SampleBoilerPlateAndroid</string>
+    <string name="default_value_movie_section">hey</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="favorite">Favorited</string>
+    <string name="seen">Seen</string>
 </resources>

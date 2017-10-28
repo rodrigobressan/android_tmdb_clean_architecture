@@ -8,9 +8,9 @@ import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.db.constants.DbConstants
 import com.rodrigobresan.cache.db.mapper.movie.MovieDbMapper
 import com.rodrigobresan.cache.mapper.MovieEntityMapper
-import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.data.model.MovieEntity
 import com.rodrigobresan.data.repository.movie.movie.MovieCache
+import com.rodrigobresan.domain.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                                          private val movieDbMapper: MovieDbMapper,
                                          private val preferences: PreferencesHelper) : MovieCache {
 
-    private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
+    private val CACHE_EXPIRATION_TIME = (0.5 * 10 * 1000)
 
     private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
 
@@ -62,15 +62,23 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
     }
 
     private fun insertMovie(it: MovieEntity) {
-        database.insert(DbConstants.MovieTable.TABLE_NAME, null,
-                movieDbMapper.toContentValues(movieEntityMapper.mapToCached(it)))
+        try {
+            database.insert(DbConstants.MovieTable.TABLE_NAME, null,
+                    movieDbMapper.toContentValues(movieEntityMapper.mapToCached(it)))
+        } catch (e: Exception) {
+
+        }
     }
 
     private fun insertCategory(movieCategory: MovieCategory) {
         val values = ContentValues()
         values.put(DbConstants.CategoryTable.CATEGORY_ID, movieCategory.name)
 
-        database.insert(DbConstants.CategoryTable.TABLE_NAME, null, values)
+        try {
+            database.insert(DbConstants.CategoryTable.TABLE_NAME, null, values)
+        } catch (e: Exception) {
+            Log.e("LOG", "SQLiteConstraintException ")
+        }
     }
 
     // TODO use mapper
@@ -79,8 +87,12 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
         values.put(DbConstants.MovieCategoryTable.MOVIE_ID, it.id)
         values.put(DbConstants.MovieCategoryTable.CATEGORY_ID, movieCategory.name)
 
-        database.insert(DbConstants.MovieCategoryTable.TABLE_NAME, null,
-                values)
+        try {
+            database.insert(DbConstants.MovieCategoryTable.TABLE_NAME, null,
+                    values)
+        } catch (e: Exception) {
+
+        }
     }
 
     override fun getMovies(movieCategory: MovieCategory): Single<List<MovieEntity>> {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_movie_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_list_movies_text"
+            android:layout_marginLeft="@dimen/margin_list_movies_text"
+            android:layout_marginRight="@dimen/margin_list_movies_text"
+            android:layout_marginTop="@dimen/margin_large"
+            tools:text="Popular"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/progress_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressBackgroundTint="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/txt_movie_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nada aqui rapa" />
+
+    </LinearLayout>
+</merge>
