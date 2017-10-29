@@ -63,6 +63,8 @@ class MovieSectionView @JvmOverloads constructor(
                     .getResourceId(R.styleable.custom_component_attributes_custom_component_title, R.string.default_value_movie_section))
 
             txt_movie_section.text = title
+            txt_movie_error.visibility = GONE
+            txt_movie_empty.visibility = GONE
 
             typedArray.recycle()
 
