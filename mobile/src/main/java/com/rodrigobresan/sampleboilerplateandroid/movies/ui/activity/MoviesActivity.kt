@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.Toast
 import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.model.MovieView
@@ -13,8 +15,23 @@ import com.rodrigobresan.sampleboilerplateandroid.movies.ui.adapter.MoviesAdapte
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_movies.*
 import javax.inject.Inject
+import android.support.v4.content.ContextCompat.startActivity
+import android.content.Intent
+import android.R.attr.thumbnail
+import android.app.Activity
+import android.app.ActivityOptions
 
-class MoviesActivity : AppCompatActivity(), MoviesContract.View {
+
+class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.MovieClickListener {
+
+    override fun onMovieSelected(id: Long, imageView: ImageView) {
+        var options: ActivityOptions
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            options = ActivityOptions.makeSceneTransitionAnimation(this, imageView, "transition")
+            val intent = MovieDetailActivity.makeIntent(this, id)
+            startActivity(intent, options.toBundle())
+        }
+    }
 
     @Inject lateinit var moviePresenter: MoviesContract.Presenter
     @Inject lateinit var popularMoviesAdapter: MoviesAdapter
@@ -29,6 +46,12 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
 
         setContentView(R.layout.activity_movies)
         AndroidInjection.inject(this)
+
+        initMovieAdapters()
+    }
+
+    fun initMovieAdapters() {
+        //  popularMoviesAdapter.clickListener = this
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

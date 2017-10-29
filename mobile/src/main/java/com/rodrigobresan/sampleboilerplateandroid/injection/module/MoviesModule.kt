@@ -6,11 +6,17 @@ import com.rodrigobresan.presentation.movies.mapper.MovieMapper
 import com.rodrigobresan.presentation.movies.presenter.MoviesPresenter
 import com.rodrigobresan.sampleboilerplateandroid.injection.scope.PerActivity
 import com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MoviesActivity
+import com.rodrigobresan.sampleboilerplateandroid.movies.ui.adapter.MoviesAdapter
 import dagger.Module
 import dagger.Provides
 
 @Module
 open class MoviesModule {
+
+    @Provides
+    internal fun provideMovieAdapter(moviesView: MoviesActivity): MoviesAdapter {
+        return MoviesAdapter(moviesView)
+    }
 
     @PerActivity
     @Provides

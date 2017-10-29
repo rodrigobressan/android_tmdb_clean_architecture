@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CollapsingToolbarLayout android:id="@+id/collapsing_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    app:contentScrim="?attr/colorPrimary"
+    app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/img_movie_detail_picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:fitsSystemWindows="true"
+        android:scaleType="fitCenter"
+        android:transitionName="transition"
+        app:layout_collapseMode="parallax"/>
+
+</android.support.design.widget.CollapsingToolbarLayout>
