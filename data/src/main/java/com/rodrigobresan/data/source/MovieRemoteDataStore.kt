@@ -25,7 +25,7 @@ open class MovieRemoteDataStore @Inject constructor(private val movieRemote: Mov
             MovieCategory.UPCOMING -> return movieRemote.getUpcomingMovies()
         }
 
-        return movieRemote.getTopRatedMovies()
+        throw UnsupportedOperationException()
     }
 
 }

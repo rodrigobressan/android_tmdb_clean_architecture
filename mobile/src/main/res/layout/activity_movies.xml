@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/grey"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/grey">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -35,20 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:custom_component_title="@string/now_playing" />
-
-
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MovieSectionView
-            android:id="@+id/movie_section_favorite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:custom_component_title="@string/favorite" />
-
-
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MovieSectionView
-            android:id="@+id/movie_section_seen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:custom_component_title="@string/seen" />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

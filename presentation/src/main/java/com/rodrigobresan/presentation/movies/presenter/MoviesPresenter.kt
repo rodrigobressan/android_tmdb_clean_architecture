@@ -30,6 +30,7 @@ class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
 
     override fun loadMovies() {
         moviesToLoad.forEach {
+            moviesView.showProgress(it)
             moviesView.hideMovies(it)
             getMoviesUseCase.execute(MoviesSubscriber(it), it)
         }
@@ -50,10 +51,10 @@ class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
 
     private fun handleGetMoviesSuccess(category: MovieCategory, movies: List<Movie>) {
         moviesView.hideErrorState(category)
+        moviesView.hideProgress(category)
 
         if (movies.isNotEmpty()) {
             moviesView.hideEmptyState(category)
-            moviesView.hideProgress(category)
             moviesView.showMovies(category, movies.map { movieMapper.mapToView(it) })
         } else {
             moviesView.showEmptyState(category)

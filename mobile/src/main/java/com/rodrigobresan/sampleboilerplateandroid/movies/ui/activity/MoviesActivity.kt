@@ -22,9 +22,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
     @Inject lateinit var upcomingMoviesAdapter: MoviesAdapter
     @Inject lateinit var nowPlayingMoviesAdapter: MoviesAdapter
 
-    @Inject lateinit var favoritesMoviesAdapter: MoviesAdapter
-    @Inject lateinit var seenMoviesAdapter: MoviesAdapter
-
     @Inject lateinit var movieMapper: MovieMapper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +84,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
         getMovieSectionView(movieCategory).hideEmptyState()
     }
 
-
     override fun showMovies(movieCategory: MovieCategory, movies: List<MovieView>) {
         getMovieSectionView(movieCategory).showMovies(getMovieAdapter(movieCategory), movies.map { movieMapper.mapToViewModel(it) })
     }
@@ -102,8 +98,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
             MovieCategory.NOW_PLAYING -> return movie_section_now_playing
             MovieCategory.UPCOMING -> return movie_section_upcoming
             MovieCategory.POPULAR -> return movie_section_popular
-            MovieCategory.FAVORITE -> return movie_section_favorite
-            MovieCategory.SEEN -> return movie_section_seen
         }
     }
 
@@ -113,8 +107,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View {
             MovieCategory.NOW_PLAYING -> return nowPlayingMoviesAdapter
             MovieCategory.UPCOMING -> return upcomingMoviesAdapter
             MovieCategory.POPULAR -> return popularMoviesAdapter
-            MovieCategory.FAVORITE -> return favoritesMoviesAdapter
-            MovieCategory.SEEN -> return seenMoviesAdapter
         }
     }
 

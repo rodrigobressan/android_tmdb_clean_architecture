@@ -27,9 +27,11 @@ class MovieSectionView @JvmOverloads constructor(
     }
 
     fun showErrorState() {
+        txt_movie_error.visibility = VISIBLE
     }
 
     fun hideErrorState() {
+        txt_movie_error.visibility = GONE
     }
 
     fun showEmptyState() {
@@ -48,7 +50,7 @@ class MovieSectionView @JvmOverloads constructor(
     }
 
     fun hideMovies() {
-        rv_movies.visibility = View.GONE
+        rv_movies.visibility = View.INVISIBLE
     }
 
     init {

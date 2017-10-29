@@ -29,6 +29,7 @@ class MovieRemoteImplTest {
         movieRemoteImpl = MovieRemoteImpl(movieService, movieMapper)
     }
 
+    // Popular
     @Test
     fun getPopularMoviesCompletes() {
         stubMoviesServiceGetPopularMovies(Single.just(MovieFactory.makeMovieResponse()))
@@ -54,6 +55,35 @@ class MovieRemoteImplTest {
 
     private fun stubMoviesServiceGetPopularMovies(movieResponse: Single<MovieResponse>) {
         whenever(movieService.getPopularMovies())
+                .thenReturn(movieResponse)
+    }
+
+    // Top Rated
+    @Test
+    fun getTopRatedMoviesCompletes() {
+        stubMoviesServiceGetTopRatedMovies(Single.just(MovieFactory.makeMovieResponse()))
+
+        val testObserver = movieService.getTopRatedMovies().test()
+        testObserver.assertComplete()
+    }
+
+    @Test
+    fun getTopRatedMoviesReturnsData() {
+        val moviesResponse = MovieFactory.makeMovieResponse()
+        val movieEntities = mutableListOf<MovieEntity>()
+
+        stubMoviesServiceGetTopRatedMovies(Single.just(moviesResponse))
+
+        moviesResponse.results.forEach {
+            movieEntities.add(movieMapper.mapRemoteToEntity(it))
+        }
+
+        val testObserver = movieRemoteImpl.getTopRatedMovies().test()
+        testObserver.assertValue(movieEntities)
+    }
+
+    private fun stubMoviesServiceGetTopRatedMovies(movieResponse: Single<MovieResponse>) {
+        whenever(movieService.getTopRatedMovies())
                 .thenReturn(movieResponse)
     }
 }
