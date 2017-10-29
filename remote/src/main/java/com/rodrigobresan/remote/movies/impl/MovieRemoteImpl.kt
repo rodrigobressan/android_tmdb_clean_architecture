@@ -1,9 +1,9 @@
-package com.rodrigobresan.remote.impl
+package com.rodrigobresan.remote.movies.impl
 
 import com.rodrigobresan.data.model.MovieEntity
 import com.rodrigobresan.data.repository.movie.movie.MovieRemote
-import com.rodrigobresan.remote.mapper.MovieEntityMapper
-import com.rodrigobresan.remote.model.response.movies_list.MovieResponse
+import com.rodrigobresan.remote.movies.mapper.MovieEntityMapper
+import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 import com.rodrigobresan.remote.service.MovieService
 import io.reactivex.Single
 import javax.inject.Inject

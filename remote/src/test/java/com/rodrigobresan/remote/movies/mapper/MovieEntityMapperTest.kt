@@ -1,4 +1,4 @@
-package com.rodrigobresan.remote.mapper
+package com.rodrigobresan.remote.movies.mapper
 
 import com.rodrigobresan.remote.test.factory.MovieFactory
 import org.junit.Before

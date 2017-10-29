@@ -1,13 +1,13 @@
 package com.rodrigobresan.remote.test.factory
 
-import com.rodrigobresan.remote.model.response.movies_list.MovieModel
-import com.rodrigobresan.remote.model.response.movies_list.MovieResponse
+import com.rodrigobresan.remote.movies.model.movies.MovieItem
+import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 
 class MovieFactory {
     companion object Factory {
 
-        fun makeMovieModel(): MovieModel {
-            return MovieModel(DataFactory.randomLong(), DataFactory.randomUuid(),
+        fun makeMovieModel(): MovieItem {
+            return MovieItem(DataFactory.randomLong(), DataFactory.randomUuid(),
                     DataFactory.randomDouble(), DataFactory.randomUuid())
         }
 
@@ -17,8 +17,8 @@ class MovieFactory {
             return response
         }
 
-        fun makeMovieModelList(count: Int): List<MovieModel> {
-            val movieList = mutableListOf<MovieModel>()
+        fun makeMovieModelList(count: Int): List<MovieItem> {
+            val movieList = mutableListOf<MovieItem>()
             repeat(count) {
                 movieList.add(makeMovieModel())
             }

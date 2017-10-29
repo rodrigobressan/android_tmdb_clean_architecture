@@ -16,7 +16,7 @@ import com.rodrigobresan.data.source.MovieDataStoreFactory
 import com.rodrigobresan.domain.executor.PostExecutionThread
 import com.rodrigobresan.domain.executor.ThreadExecutor
 import com.rodrigobresan.domain.repository.MovieRepository
-import com.rodrigobresan.remote.impl.MovieRemoteImpl
+import com.rodrigobresan.remote.movies.impl.MovieRemoteImpl
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.service.MovieServiceFactory
 import com.rodrigobresan.sampleboilerplateandroid.BuildConfig
@@ -59,7 +59,7 @@ open class ApplicationModule {
     @Provides
     @PerApplication
     internal fun provideMovieRemote(service: MovieService,
-                                    entityMapper: com.rodrigobresan.remote.mapper.MovieEntityMapper): MovieRemote {
+                                    entityMapper: com.rodrigobresan.remote.movies.mapper.MovieEntityMapper): MovieRemote {
         return MovieRemoteImpl(service, entityMapper)
     }
 
