@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Nothing to show here" />
+                android:text="@string/text_movie_section_empty_view" />
 
             <!-- Error view -->
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Error while loading movies" />
+                android:text="@string/text_movie_section_error_view" />
         </FrameLayout>
 
 

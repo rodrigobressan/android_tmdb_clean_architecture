@@ -7,4 +7,6 @@
     <string name="now_playing">Now Playing</string>
     <string name="favorite">Favorited</string>
     <string name="seen">Seen</string>
+    <string name="text_movie_section_empty_view">Nothing to show here</string>
+    <string name="text_movie_section_error_view">Error while loading movies</string>
 </resources>

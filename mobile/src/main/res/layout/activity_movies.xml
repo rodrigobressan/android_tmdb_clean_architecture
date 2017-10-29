@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MovieSectionView
+        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
             android:id="@+id/movie_section_popular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,19 +18,19 @@
             android:focusableInTouchMode="true"
             app:custom_component_title="@string/popular_movies" />
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MovieSectionView
+        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
             android:id="@+id/movie_section_top_rated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:custom_component_title="@string/top_rated" />
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MovieSectionView
+        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
             android:id="@+id/movie_section_upcoming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:custom_component_title="@string/upcoming" />
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MovieSectionView
+        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
             android:id="@+id/movie_section_now_playing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
