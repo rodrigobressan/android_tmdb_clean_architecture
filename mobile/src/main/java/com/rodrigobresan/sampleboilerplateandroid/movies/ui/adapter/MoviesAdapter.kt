@@ -11,25 +11,24 @@ import com.rodrigobresan.sampleboilerplateandroid.R
 import com.rodrigobresan.sampleboilerplateandroid.movies.model.MovieViewModel
 import javax.inject.Inject
 
-class MoviesAdapter @Inject constructor(private val clickListener: MovieClickListener): RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class MoviesAdapter @Inject constructor(private val clickListener: MovieClickListener) :
+        RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
-    var listItems : List<MovieViewModel> = arrayListOf()
-
-   // var clickListener: MovieClickListener? = null
+    var listItems: List<MovieViewModel> = arrayListOf()
 
     interface MovieClickListener {
         fun onMovieSelected(id: Long, imageView: ImageView)
     }
-    // TODO set click listener interface in order to allow click events
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        val inflatedView = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_movie, parent, false)
 
         return ViewHolder(inflatedView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var currentItem = listItems.get(position)
+        val currentItem = listItems[position]
         holder.txtTitle.text = currentItem.title
         holder.txtRating.text = currentItem.rating.toString()
 
@@ -42,16 +41,12 @@ class MoviesAdapter @Inject constructor(private val clickListener: MovieClickLis
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var txtTitle: TextView
-        var txtRating: TextView
-        var imgPicture: ImageView
+        var txtTitle: TextView = itemView.findViewById(R.id.txt_title)
+        var txtRating: TextView = itemView.findViewById(R.id.txt_rating)
+        var imgPicture: ImageView = itemView.findViewById(R.id.img_movie_picture)
 
         init {
-            txtTitle = itemView.findViewById(R.id.txt_title)
-            txtRating = itemView.findViewById(R.id.txt_rating)
-            imgPicture = itemView.findViewById(R.id.img_movie_picture)
-
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 clickListener.onMovieSelected(listItems[adapterPosition].id, imgPicture)
             }
         }

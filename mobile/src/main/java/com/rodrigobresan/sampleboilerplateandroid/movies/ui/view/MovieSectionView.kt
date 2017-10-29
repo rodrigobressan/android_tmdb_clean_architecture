@@ -1,4 +1,4 @@
-package com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity
+package com.rodrigobresan.sampleboilerplateandroid.movies.ui.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager

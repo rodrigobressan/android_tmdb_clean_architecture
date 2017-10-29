@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.Toast
 import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.model.MovieView
@@ -15,23 +14,11 @@ import com.rodrigobresan.sampleboilerplateandroid.movies.ui.adapter.MoviesAdapte
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_movies.*
 import javax.inject.Inject
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.Intent
-import android.R.attr.thumbnail
-import android.app.Activity
 import android.app.ActivityOptions
-
+import com.rodrigobresan.sampleboilerplateandroid.movie_detail.ui.activity.MovieDetailActivity
+import com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
 
 class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.MovieClickListener {
-
-    override fun onMovieSelected(id: Long, imageView: ImageView) {
-        var options: ActivityOptions
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            options = ActivityOptions.makeSceneTransitionAnimation(this, imageView, "transition")
-            val intent = MovieDetailActivity.makeIntent(this, id)
-            startActivity(intent, options.toBundle())
-        }
-    }
 
     @Inject lateinit var moviePresenter: MoviesContract.Presenter
     @Inject lateinit var popularMoviesAdapter: MoviesAdapter
@@ -46,12 +33,15 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
 
         setContentView(R.layout.activity_movies)
         AndroidInjection.inject(this)
-
-        initMovieAdapters()
     }
 
-    fun initMovieAdapters() {
-        //  popularMoviesAdapter.clickListener = this
+    override fun onMovieSelected(id: Long, imageView: ImageView) {
+        val options: ActivityOptions
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            options = ActivityOptions.makeSceneTransitionAnimation(this, imageView, "transition")
+            val intent = MovieDetailActivity.makeIntent(this, id)
+            startActivity(intent, options.toBundle())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,7 +50,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.item_top_rated_refresh -> {
                 moviePresenter.loadMovies()
@@ -87,32 +76,33 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
         getMovieSectionView(category).hideProgress()
     }
 
-    override fun showProgress(movieCategory: MovieCategory) {
-        getMovieSectionView(movieCategory).showProgress()
+    override fun showProgress(category: MovieCategory) {
+        getMovieSectionView(category).showProgress()
     }
 
-    override fun showErrorState(movieCategory: MovieCategory) {
-        getMovieSectionView(movieCategory).showErrorState()
+    override fun showErrorState(category: MovieCategory) {
+        getMovieSectionView(category).showErrorState()
     }
 
-    override fun hideErrorState(movieCategory: MovieCategory) {
-        getMovieSectionView(movieCategory).hideErrorState()
+    override fun hideErrorState(category: MovieCategory) {
+        getMovieSectionView(category).hideErrorState()
     }
 
-    override fun showEmptyState(movieCategory: MovieCategory) {
-        getMovieSectionView(movieCategory).showEmptyState()
+    override fun showEmptyState(category: MovieCategory) {
+        getMovieSectionView(category).showEmptyState()
     }
 
-    override fun hideEmptyState(movieCategory: MovieCategory) {
-        getMovieSectionView(movieCategory).hideEmptyState()
+    override fun hideEmptyState(category: MovieCategory) {
+        getMovieSectionView(category).hideEmptyState()
     }
 
-    override fun showMovies(movieCategory: MovieCategory, movies: List<MovieView>) {
-        getMovieSectionView(movieCategory).showMovies(getMovieAdapter(movieCategory), movies.map { movieMapper.mapToViewModel(it) })
+    override fun showMovies(category: MovieCategory, movies: List<MovieView>) {
+        getMovieSectionView(category).showMovies(getMovieAdapter(category),
+                movies.map { movieMapper.mapToViewModel(it) })
     }
 
-    override fun hideMovies(movieCategory: MovieCategory) {
-        getMovieSectionView(movieCategory).hideMovies()
+    override fun hideMovies(category: MovieCategory) {
+        getMovieSectionView(category).hideMovies()
     }
 
     fun getMovieSectionView(movieCategory: MovieCategory): MovieSectionView {

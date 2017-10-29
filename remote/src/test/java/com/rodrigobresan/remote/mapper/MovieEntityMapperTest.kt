@@ -25,6 +25,6 @@ class MovieEntityMapperTest {
         assertEquals(movieModel.id, movieEntity.id)
         assertEquals(movieModel.title, movieEntity.title)
         assertEquals(movieModel.voteAverage, movieEntity.rating)
-        assertEquals(movieModel.posterPath, movieEntity.posterPath)
+        assertEquals(movieEntityMapper.moviePrefixImage + movieModel.posterPath, movieEntity.posterPath)
     }
 }

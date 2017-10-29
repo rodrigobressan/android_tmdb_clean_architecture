@@ -1,10 +1,9 @@
-package com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity
+package com.rodrigobresan.sampleboilerplateandroid.movie_detail.ui.activity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.rodrigobresan.sampleboilerplateandroid.R
 
 class MovieDetailActivity : AppCompatActivity() {
