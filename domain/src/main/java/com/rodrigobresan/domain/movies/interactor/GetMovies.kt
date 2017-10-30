@@ -1,10 +1,11 @@
-package com.rodrigobresan.domain.interactor
+package com.rodrigobresan.domain.movies.interactor
 
-import com.rodrigobresan.domain.executor.PostExecutionThread
-import com.rodrigobresan.domain.executor.ThreadExecutor
-import com.rodrigobresan.domain.model.Movie
-import com.rodrigobresan.domain.model.MovieCategory
-import com.rodrigobresan.domain.repository.MovieRepository
+import com.rodrigobresan.domain.base.executor.PostExecutionThread
+import com.rodrigobresan.domain.base.executor.ThreadExecutor
+import com.rodrigobresan.domain.interactor.SingleUseCase
+import com.rodrigobresan.domain.movies.model.Movie
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
+import com.rodrigobresan.domain.movies.repository.MovieRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -21,9 +21,9 @@ import com.rodrigobresan.data.movie.sources.MovieRemote
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
-import com.rodrigobresan.domain.executor.PostExecutionThread
-import com.rodrigobresan.domain.executor.ThreadExecutor
-import com.rodrigobresan.domain.repository.MovieRepository
+import com.rodrigobresan.domain.base.executor.PostExecutionThread
+import com.rodrigobresan.domain.base.executor.ThreadExecutor
+import com.rodrigobresan.domain.movies.repository.MovieRepository
 import com.rodrigobresan.remote.movies.impl.MovieRemoteImpl
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.service.MovieServiceFactory

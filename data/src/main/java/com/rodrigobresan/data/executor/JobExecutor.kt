@@ -1,6 +1,6 @@
 package com.rodrigobresan.data.executor
 
-import com.rodrigobresan.domain.executor.ThreadExecutor
+import com.rodrigobresan.domain.base.executor.ThreadExecutor
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor

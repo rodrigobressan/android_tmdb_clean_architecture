@@ -1,6 +1,6 @@
 package com.rodrigobresan.cache.movie
 
-import com.rodrigobresan.domain.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4

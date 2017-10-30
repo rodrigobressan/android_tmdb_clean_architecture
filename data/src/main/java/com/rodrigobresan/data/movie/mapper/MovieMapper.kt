@@ -2,7 +2,7 @@ package com.rodrigobresan.data.movie.mapper
 
 import com.rodrigobresan.data.base.mapper.DataMapper
 import com.rodrigobresan.data.movie.model.MovieEntity
-import com.rodrigobresan.domain.model.Movie
+import com.rodrigobresan.domain.movies.model.Movie
 import javax.inject.Inject
 
 open class MovieMapper @Inject constructor(): DataMapper<MovieEntity, Movie> {

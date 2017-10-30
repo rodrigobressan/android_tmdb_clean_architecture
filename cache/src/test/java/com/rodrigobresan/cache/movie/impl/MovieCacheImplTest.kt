@@ -10,7 +10,7 @@ import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.test.factory.MovieFactory
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
-import com.rodrigobresan.domain.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -13,7 +13,7 @@ import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.movie.sources.MovieCache
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
-import com.rodrigobresan.domain.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

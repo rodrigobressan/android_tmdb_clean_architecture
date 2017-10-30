@@ -1,6 +1,6 @@
 package com.rodrigobresan.presentation.movies.contract
 
-import com.rodrigobresan.domain.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import com.rodrigobresan.presentation.base.BasePresenter
 import com.rodrigobresan.presentation.base.BaseView
 import com.rodrigobresan.presentation.movies.model.MovieView

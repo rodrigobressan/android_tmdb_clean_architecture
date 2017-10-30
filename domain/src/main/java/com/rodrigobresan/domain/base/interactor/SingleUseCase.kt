@@ -1,7 +1,7 @@
 package com.rodrigobresan.domain.interactor
 
-import com.rodrigobresan.domain.executor.PostExecutionThread
-import com.rodrigobresan.domain.executor.ThreadExecutor
+import com.rodrigobresan.domain.base.executor.PostExecutionThread
+import com.rodrigobresan.domain.base.executor.ThreadExecutor
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

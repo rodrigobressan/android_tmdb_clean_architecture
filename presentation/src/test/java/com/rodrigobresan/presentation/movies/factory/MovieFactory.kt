@@ -1,6 +1,6 @@
 package com.rodrigobresan.presentation.movies.factory
 
-import com.rodrigobresan.domain.model.Movie
+import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.presentation.base.DataFactory
 
 class MovieFactory {

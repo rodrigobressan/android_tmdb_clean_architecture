@@ -1,4 +1,4 @@
-package com.rodrigobresan.domain.executor
+package com.rodrigobresan.domain.base.executor
 
 import io.reactivex.Scheduler
 

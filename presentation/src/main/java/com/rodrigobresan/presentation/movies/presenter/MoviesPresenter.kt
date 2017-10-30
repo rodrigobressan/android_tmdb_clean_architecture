@@ -1,8 +1,8 @@
 package com.rodrigobresan.presentation.movies.presenter
 
-import com.rodrigobresan.domain.interactor.GetMovies
-import com.rodrigobresan.domain.model.Movie
-import com.rodrigobresan.domain.model.MovieCategory
+import com.rodrigobresan.domain.movies.interactor.GetMovies
+import com.rodrigobresan.domain.movies.model.Movie
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.mapper.MovieMapper
 import io.reactivex.observers.DisposableSingleObserver

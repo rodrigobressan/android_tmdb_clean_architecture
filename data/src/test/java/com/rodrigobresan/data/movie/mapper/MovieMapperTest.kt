@@ -2,7 +2,7 @@ package com.rodrigobresan.data.movie.mapper
 
 import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.test.factory.MovieFactory
-import com.rodrigobresan.domain.model.Movie
+import com.rodrigobresan.domain.movies.model.Movie
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

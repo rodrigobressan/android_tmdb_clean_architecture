@@ -1,6 +1,6 @@
 package com.rodrigobresan.domain.test.factory
 
-import com.rodrigobresan.domain.model.Movie
+import com.rodrigobresan.domain.movies.model.Movie
 
 class MovieFactory {
     companion object Factory {

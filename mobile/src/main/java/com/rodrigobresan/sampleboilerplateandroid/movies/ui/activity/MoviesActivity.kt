@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import com.rodrigobresan.domain.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.model.MovieView
 import com.rodrigobresan.sampleboilerplateandroid.R

@@ -1,6 +1,6 @@
 package com.rodrigobresan.sampleboilerplateandroid.injection.module
 
-import com.rodrigobresan.domain.interactor.GetMovies
+import com.rodrigobresan.domain.movies.interactor.GetMovies
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.mapper.MovieMapper
 import com.rodrigobresan.presentation.movies.presenter.MoviesPresenter

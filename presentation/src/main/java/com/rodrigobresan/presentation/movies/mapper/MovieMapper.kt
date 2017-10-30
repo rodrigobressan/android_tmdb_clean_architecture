@@ -1,6 +1,6 @@
 package com.rodrigobresan.presentation.movies.mapper
 
-import com.rodrigobresan.domain.model.Movie
+import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.presentation.base.PresentationMapper
 import com.rodrigobresan.presentation.movies.model.MovieView
 import javax.inject.Inject

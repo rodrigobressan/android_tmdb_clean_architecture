@@ -1,4 +1,4 @@
-package com.rodrigobresan.domain.model
+package com.rodrigobresan.domain.movie_category.model
 
 // TODO change to enum annotation
 enum class MovieCategory {

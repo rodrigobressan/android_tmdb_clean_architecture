@@ -1,12 +1,11 @@
 package com.rodrigobresan.data.movie.source
 
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.data.movie.sources.MovieCache
 import com.rodrigobresan.data.movie.sources.data_store.MovieCacheDataStore
 import com.rodrigobresan.data.test.factory.MovieFactory
-import com.rodrigobresan.domain.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before
