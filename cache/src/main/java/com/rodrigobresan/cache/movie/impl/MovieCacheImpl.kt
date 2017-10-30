@@ -3,10 +3,10 @@ package com.rodrigobresan.cache.movie.impl
 import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.cache.mapper.MovieEntityMapper
 import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.cache.movie.MovieQueries.MovieTable
+import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.data.model.CategoryEntity
 import com.rodrigobresan.data.model.MovieCategoryEntity
 import com.rodrigobresan.data.model.MovieEntity

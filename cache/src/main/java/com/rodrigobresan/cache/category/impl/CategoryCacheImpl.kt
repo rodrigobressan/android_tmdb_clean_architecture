@@ -1,14 +1,11 @@
 package com.rodrigobresan.cache.category.impl
 
-import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
-import com.rodrigobresan.cache.db.DbConstants
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.data.model.CategoryEntity
 import com.rodrigobresan.data.repository.movie.movie.movie_category.CategoryCache
 import io.reactivex.Completable

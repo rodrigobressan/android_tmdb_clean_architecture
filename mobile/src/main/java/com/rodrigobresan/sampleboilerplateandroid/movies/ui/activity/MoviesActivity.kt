@@ -1,5 +1,6 @@
 package com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity
 
+import android.app.ActivityOptions
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -9,15 +10,13 @@ import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.model.MovieView
 import com.rodrigobresan.sampleboilerplateandroid.R
+import com.rodrigobresan.sampleboilerplateandroid.movie_detail.ui.activity.MovieDetailActivity
 import com.rodrigobresan.sampleboilerplateandroid.movies.mapper.MovieMapper
 import com.rodrigobresan.sampleboilerplateandroid.movies.ui.adapter.MoviesAdapter
+import com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_movies.*
 import javax.inject.Inject
-import android.app.ActivityOptions
-import android.util.Log
-import com.rodrigobresan.sampleboilerplateandroid.movie_detail.ui.activity.MovieDetailActivity
-import com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
 
 class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.MovieClickListener {
 

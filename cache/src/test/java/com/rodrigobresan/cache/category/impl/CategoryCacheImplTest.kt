@@ -1,6 +1,5 @@
 package com.rodrigobresan.cache.movie.impl
 
-import com.nhaarman.mockito_kotlin.mock
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
@@ -8,12 +7,7 @@ import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.MovieQueries
-import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.test.factory.CategoryFactory
-import com.rodrigobresan.cache.test.factory.MovieFactory
-import com.rodrigobresan.data.model.CategoryEntity
-import com.rodrigobresan.domain.model.MovieCategory
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

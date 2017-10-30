@@ -1,7 +1,7 @@
 package com.rodrigobresan.cache.movie_category
 
-import com.rodrigobresan.cache.movie.MovieQueries.MovieTable
 import com.rodrigobresan.cache.category.CategoryQueries.CategoryTable
+import com.rodrigobresan.cache.movie.MovieQueries.MovieTable
 
 object MovieCategoryQueries {
     object MovieCategoryTable {

@@ -6,8 +6,6 @@ import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.MovieQueries
-import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.test.DefaultConfig
 import com.rodrigobresan.cache.test.factory.CategoryFactory
 import org.junit.Before

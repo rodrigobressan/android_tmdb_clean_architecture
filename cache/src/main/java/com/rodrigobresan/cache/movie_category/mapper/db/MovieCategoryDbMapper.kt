@@ -3,8 +3,6 @@ package com.rodrigobresan.cache.movie.mapper.db
 import android.content.ContentValues
 import android.database.Cursor
 import com.rodrigobresan.cache.base.mapper.db.ModelCacheMapper
-import com.rodrigobresan.cache.movie.model.MovieCached
-import com.rodrigobresan.cache.movie.MovieQueries.MovieTable
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
 import javax.inject.Inject

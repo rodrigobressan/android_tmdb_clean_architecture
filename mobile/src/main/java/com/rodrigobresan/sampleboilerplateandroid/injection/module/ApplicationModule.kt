@@ -7,10 +7,10 @@ import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
-import com.rodrigobresan.cache.movie.impl.MovieCacheImpl
 import com.rodrigobresan.cache.mapper.MovieEntityMapper
+import com.rodrigobresan.cache.movie.impl.MovieCacheImpl
 import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryDbMapper
+import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
 import com.rodrigobresan.data.executor.JobExecutor

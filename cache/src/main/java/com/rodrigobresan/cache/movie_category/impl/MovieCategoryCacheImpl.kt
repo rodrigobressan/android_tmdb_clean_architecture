@@ -6,9 +6,7 @@ import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryDbMapper
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
-import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
 import com.rodrigobresan.data.model.MovieCategoryEntity
-import com.rodrigobresan.data.model.MovieEntity
 import com.rodrigobresan.data.repository.movie.movie.movie_category.MovieCategoryCache
 import io.reactivex.Completable
 import io.reactivex.Single

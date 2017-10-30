@@ -1,17 +1,13 @@
 package com.rodrigobresan.cache.movie.impl
 
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.db.DbConstants
-import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.cache.mapper.MovieEntityMapper
 import com.rodrigobresan.cache.movie.MovieQueries
+import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.test.factory.MovieFactory
-import com.rodrigobresan.data.model.CategoryEntity
-import com.rodrigobresan.data.repository.movie.movie.MovieCache
 import com.rodrigobresan.data.repository.movie.movie.movie_category.CategoryCache
 import com.rodrigobresan.data.repository.movie.movie.movie_category.MovieCategoryCache
 import com.rodrigobresan.domain.model.MovieCategory
