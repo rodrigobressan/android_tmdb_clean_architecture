@@ -1,4 +1,4 @@
-package com.rodrigobresan.data.model
+package com.rodrigobresan.data.movie.model
 
 data class MovieEntity(val id: Long, val title: String, val rating: Double, val posterPath: String) {
 

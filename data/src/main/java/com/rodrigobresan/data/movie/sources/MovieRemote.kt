@@ -1,6 +1,6 @@
-package com.rodrigobresan.data.repository.movie.movie
+package com.rodrigobresan.data.movie.sources
 
-import com.rodrigobresan.data.model.MovieEntity
+import com.rodrigobresan.data.movie.model.MovieEntity
 import io.reactivex.Single
 
 interface MovieRemote {

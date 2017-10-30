@@ -1,6 +1,6 @@
-package com.rodrigobresan.data.repository.movie.movie
+package com.rodrigobresan.data.movie.sources.data_store
 
-import com.rodrigobresan.data.model.MovieEntity
+import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.domain.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -2,7 +2,7 @@ package com.rodrigobresan.remote.movies.impl
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.data.model.MovieEntity
+import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.remote.movies.mapper.MovieEntityMapper
 import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 import com.rodrigobresan.remote.service.MovieService

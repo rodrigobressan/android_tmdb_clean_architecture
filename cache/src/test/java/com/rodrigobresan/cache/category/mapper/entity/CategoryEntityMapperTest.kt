@@ -3,7 +3,7 @@ package com.rodrigobresan.cache.mapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.test.factory.CategoryFactory
-import com.rodrigobresan.data.model.CategoryEntity
+import com.rodrigobresan.data.category.model.CategoryEntity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

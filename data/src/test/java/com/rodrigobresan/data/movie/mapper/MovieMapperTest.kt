@@ -1,6 +1,6 @@
-package com.rodrigobresan.data.mapper
+package com.rodrigobresan.data.movie.mapper
 
-import com.rodrigobresan.data.model.MovieEntity
+import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.model.Movie
 import org.junit.Before

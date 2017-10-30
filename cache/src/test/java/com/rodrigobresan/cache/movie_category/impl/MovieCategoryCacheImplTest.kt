@@ -17,7 +17,7 @@ import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
 import com.rodrigobresan.cache.test.factory.CategoryFactory
 import com.rodrigobresan.cache.test.factory.MovieCategoryFactory
 import com.rodrigobresan.cache.test.factory.MovieFactory
-import com.rodrigobresan.data.model.MovieCategoryEntity
+import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

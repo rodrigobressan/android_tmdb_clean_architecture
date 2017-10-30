@@ -8,8 +8,8 @@ import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.test.factory.MovieFactory
-import com.rodrigobresan.data.repository.movie.movie.movie_category.CategoryCache
-import com.rodrigobresan.data.repository.movie.movie.movie_category.MovieCategoryCache
+import com.rodrigobresan.data.category.sources.CategoryCache
+import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.domain.model.MovieCategory
 import org.junit.Before
 import org.junit.Test

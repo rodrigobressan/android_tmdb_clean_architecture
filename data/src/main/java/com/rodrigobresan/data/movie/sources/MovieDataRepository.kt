@@ -1,8 +1,8 @@
-package com.rodrigobresan.data.repository.movie.movie
+package com.rodrigobresan.data.movie.sources
 
-import com.rodrigobresan.data.mapper.MovieMapper
-import com.rodrigobresan.data.source.MovieDataStoreFactory
-import com.rodrigobresan.data.source.MovieRemoteDataStore
+import com.rodrigobresan.data.movie.mapper.MovieMapper
+import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
+import com.rodrigobresan.data.movie.sources.data_store.MovieRemoteDataStore
 import com.rodrigobresan.domain.model.Movie
 import com.rodrigobresan.domain.model.MovieCategory
 import com.rodrigobresan.domain.repository.MovieRepository

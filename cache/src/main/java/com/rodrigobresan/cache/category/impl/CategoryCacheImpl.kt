@@ -6,8 +6,8 @@ import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.data.model.CategoryEntity
-import com.rodrigobresan.data.repository.movie.movie.movie_category.CategoryCache
+import com.rodrigobresan.data.category.model.CategoryEntity
+import com.rodrigobresan.data.category.sources.CategoryCache
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

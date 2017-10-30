@@ -3,7 +3,7 @@ package com.rodrigobresan.cache.mapper
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
 import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
 import com.rodrigobresan.cache.test.factory.MovieCategoryFactory
-import com.rodrigobresan.data.model.MovieCategoryEntity
+import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

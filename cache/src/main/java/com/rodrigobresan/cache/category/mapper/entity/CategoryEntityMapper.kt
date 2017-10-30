@@ -2,7 +2,7 @@ package com.rodrigobresan.cache.category.mapper.entity
 
 import com.rodrigobresan.cache.base.mapper.entity.EntityMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
-import com.rodrigobresan.data.model.CategoryEntity
+import com.rodrigobresan.data.category.model.CategoryEntity
 import javax.inject.Inject
 
 open class CategoryEntityMapper @Inject constructor() : EntityMapper<CategoryCached, CategoryEntity> {

@@ -2,7 +2,7 @@ package com.rodrigobresan.cache.mapper
 
 import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.test.factory.MovieFactory
-import com.rodrigobresan.data.model.MovieEntity
+import com.rodrigobresan.data.movie.model.MovieEntity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

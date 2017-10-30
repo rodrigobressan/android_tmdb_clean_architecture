@@ -2,7 +2,7 @@ package com.rodrigobresan.cache.mapper
 
 import com.rodrigobresan.cache.base.mapper.entity.EntityMapper
 import com.rodrigobresan.cache.movie.model.MovieCached
-import com.rodrigobresan.data.model.MovieEntity
+import com.rodrigobresan.data.movie.model.MovieEntity
 import javax.inject.Inject
 
 open class MovieEntityMapper @Inject constructor() : EntityMapper<MovieCached, MovieEntity> {

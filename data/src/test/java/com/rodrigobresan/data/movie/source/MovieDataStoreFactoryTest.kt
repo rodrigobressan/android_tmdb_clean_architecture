@@ -1,8 +1,11 @@
-package com.rodrigobresan.data.source
+package com.rodrigobresan.data.movie.source
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.data.repository.movie.movie.MovieCache
+import com.rodrigobresan.data.movie.sources.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.MovieCacheDataStore
+import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
+import com.rodrigobresan.data.movie.sources.data_store.MovieRemoteDataStore
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

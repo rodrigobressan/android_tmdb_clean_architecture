@@ -1,7 +1,7 @@
 package com.rodrigobresan.cache.test.factory
 
 import com.rodrigobresan.cache.category.model.CategoryCached
-import com.rodrigobresan.data.model.CategoryEntity
+import com.rodrigobresan.data.category.model.CategoryEntity
 
 class CategoryFactory {
     companion object Factory {

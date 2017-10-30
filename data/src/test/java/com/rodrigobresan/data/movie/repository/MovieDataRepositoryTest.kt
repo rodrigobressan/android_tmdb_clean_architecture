@@ -1,12 +1,12 @@
-package com.rodrigobresan.data.repository
+package com.rodrigobresan.data.movie.repository
 
 import com.nhaarman.mockito_kotlin.*
-import com.rodrigobresan.data.mapper.MovieMapper
-import com.rodrigobresan.data.model.MovieEntity
-import com.rodrigobresan.data.repository.movie.movie.MovieDataRepository
-import com.rodrigobresan.data.source.MovieCacheDataStore
-import com.rodrigobresan.data.source.MovieDataStoreFactory
-import com.rodrigobresan.data.source.MovieRemoteDataStore
+import com.rodrigobresan.data.movie.mapper.MovieMapper
+import com.rodrigobresan.data.movie.model.MovieEntity
+import com.rodrigobresan.data.movie.sources.MovieDataRepository
+import com.rodrigobresan.data.movie.sources.data_store.MovieCacheDataStore
+import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
+import com.rodrigobresan.data.movie.sources.data_store.MovieRemoteDataStore
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.model.Movie
 import com.rodrigobresan.domain.model.MovieCategory
@@ -72,9 +72,10 @@ class MovieDataRepositoryTest {
     @Test
     fun saveMoviesCompletes() {
         val movieCategory = MovieCategory.POPULAR
-        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
+        val movieList = MovieFactory.makeMovieList(2)
+        stubMovieCacheSaveMovies(Completable.complete())
 
-        val testObserver = movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
+        val testObserver = movieDataRepository.saveMovies(movieCategory, movieList).test()
         testObserver.assertComplete()
     }
 
@@ -82,20 +83,20 @@ class MovieDataRepositoryTest {
     fun saveMovieCallsCacheDataStore() {
 
         val movieCategory = MovieCategory.POPULAR
-        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
+        stubMovieCacheSaveMovies(Completable.complete())
 
         val movies = MovieFactory.makeMovieList(2)
         movieDataRepository.saveMovies(movieCategory, movies).test()
-        verify(movieCacheDataStore).saveMovies(movieCategory, any())
+        verify(movieCacheDataStore).saveMovies(any(), any())
     }
 
     @Test
     fun saveMovieNeverCallRemoteDataStore() {
         val movieCategory = MovieCategory.POPULAR
-        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
+        stubMovieCacheSaveMovies(Completable.complete())
 
         movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
-        verify(movieRemoteDataStore, never()).saveMovies(movieCategory, any())
+        verify(movieRemoteDataStore, never()).saveMovies(any(), any())
     }
 
     // related to get
@@ -130,20 +131,20 @@ class MovieDataRepositoryTest {
     fun getMoviesSavesMoviesWhenFromCacheDataStore() {
         val movieCategory = MovieCategory.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
-        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
+        stubMovieCacheSaveMovies(Completable.complete())
 
         movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
-        verify(movieCacheDataStore).saveMovies(movieCategory, any())
+        verify(movieCacheDataStore).saveMovies(any(), any())
     }
 
     @Test
     fun getMoviesNeverSavedMoviesWhenRemoteDataStore() {
         val movieCategory = MovieCategory.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
-        stubMovieCacheSaveMovies(movieCategory, Completable.complete())
+        stubMovieCacheSaveMovies(Completable.complete())
 
         movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
-        verify(movieRemoteDataStore, never()).saveMovies(movieCategory, any())
+        verify(movieRemoteDataStore, never()).saveMovies(any(), any())
     }
 
 
@@ -163,8 +164,8 @@ class MovieDataRepositoryTest {
     }
 
 
-    private fun stubMovieCacheSaveMovies(movieCategory: MovieCategory, complete: Completable?) {
-        whenever(movieCacheDataStore.saveMovies(movieCategory, any()))
+    private fun stubMovieCacheSaveMovies(complete: Completable?) {
+        whenever(movieCacheDataStore.saveMovies(any(), any()))
                 .thenReturn(complete)
     }
 
