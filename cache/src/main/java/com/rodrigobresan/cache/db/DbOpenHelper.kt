@@ -4,7 +4,9 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
-import com.rodrigobresan.cache.db.constants.DbConstants
+import com.rodrigobresan.cache.category.CategoryQueries
+import com.rodrigobresan.cache.movie.MovieQueries
+import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import javax.inject.Inject
 
 class DbOpenHelper @Inject constructor(context: Context)
@@ -13,9 +15,9 @@ class DbOpenHelper @Inject constructor(context: Context)
     override fun onCreate(db: SQLiteDatabase) {
         db.beginTransaction()
         try {
-            db.execSQL(DbConstants.MovieTable.CREATE)
-            db.execSQL(DbConstants.CategoryTable.CREATE)
-            db.execSQL(DbConstants.MovieCategoryTable.CREATE)
+            db.execSQL(MovieQueries.MovieTable.CREATE)
+            db.execSQL(CategoryQueries.CategoryTable.CREATE)
+            db.execSQL(MovieCategoryQueries.MovieCategoryTable.CREATE)
             db.setTransactionSuccessful()
         } finally {
             db.endTransaction()

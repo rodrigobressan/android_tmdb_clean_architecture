@@ -1,12 +1,12 @@
 package com.rodrigobresan.cache.test.factory
 
-import com.rodrigobresan.cache.model.MovieCached
+import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.data.model.MovieEntity
 
 class MovieFactory {
     companion object Factory {
 
-        fun makeCachedMovie(): MovieCached {
+        fun makeMovieCached(): MovieCached {
             return MovieCached(DataFactory.randomLong(), DataFactory.randomUuid(),
                     DataFactory.randomDouble(), DataFactory.randomUuid())
         }
@@ -24,15 +24,5 @@ class MovieFactory {
 
             return movieEntities
         }
-
-        fun makeCachedMoviesList(count: Int): List<MovieCached> {
-            val cachedMovies = mutableListOf<MovieCached>()
-            repeat(count) {
-                cachedMovies.add(makeCachedMovie())
-            }
-
-            return cachedMovies
-        }
-
     }
 }

@@ -3,15 +3,23 @@ package com.rodrigobresan.sampleboilerplateandroid.injection.module
 import android.app.Application
 import android.content.Context
 import com.rodrigobresan.cache.PreferencesHelper
+import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
+import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
+import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.db.mapper.movie.MovieDbMapper
-import com.rodrigobresan.cache.impl.MovieCacheImpl
+import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
+import com.rodrigobresan.cache.movie.impl.MovieCacheImpl
 import com.rodrigobresan.cache.mapper.MovieEntityMapper
+import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryDbMapper
+import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
+import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
 import com.rodrigobresan.data.executor.JobExecutor
 import com.rodrigobresan.data.mapper.MovieMapper
 import com.rodrigobresan.data.repository.movie.movie.MovieCache
 import com.rodrigobresan.data.repository.movie.movie.MovieDataRepository
 import com.rodrigobresan.data.repository.movie.movie.MovieRemote
+import com.rodrigobresan.data.repository.movie.movie.movie_category.CategoryCache
+import com.rodrigobresan.data.repository.movie.movie.movie_category.MovieCategoryCache
 import com.rodrigobresan.data.source.MovieDataStoreFactory
 import com.rodrigobresan.domain.executor.PostExecutionThread
 import com.rodrigobresan.domain.executor.ThreadExecutor
@@ -49,11 +57,31 @@ open class ApplicationModule {
 
     @Provides
     @PerApplication
+    internal fun provideMovieCategoryCache(dbOpenHelper: DbOpenHelper,
+                                           dbMapper: MovieCategoryDbMapper,
+                                           entityMapper: MovieCategoryEntityMapper,
+                                           preferencesHelper: PreferencesHelper): MovieCategoryCache {
+        return MovieCategoryCacheImpl(dbOpenHelper, dbMapper, entityMapper, preferencesHelper)
+    }
+
+    @Provides
+    @PerApplication
+    internal fun provideCategoryCache(dbOpenHelper: DbOpenHelper,
+                                      categoryEntityMapper: CategoryEntityMapper,
+                                      categoryDbMapper: CategoryDbMapper,
+                                      preferences: PreferencesHelper): CategoryCache {
+        return CategoryCacheImpl(dbOpenHelper, categoryEntityMapper, categoryDbMapper, preferences)
+    }
+
+    @Provides
+    @PerApplication
     internal fun provideMovieCache(dbOpenHelper: DbOpenHelper,
+                                   categoryCache: CategoryCache,
+                                   movieCategoryCache: MovieCategoryCache,
                                    movieEntityMapper: MovieEntityMapper,
                                    movieDbMapper: MovieDbMapper,
                                    preferences: PreferencesHelper): MovieCache {
-        return MovieCacheImpl(dbOpenHelper, movieEntityMapper, movieDbMapper, preferences)
+        return MovieCacheImpl(dbOpenHelper, categoryCache, movieCategoryCache, movieEntityMapper, movieDbMapper, preferences)
     }
 
     @Provides
@@ -77,7 +105,7 @@ open class ApplicationModule {
 
     @Provides
     @PerApplication
-    internal fun provideMovieService() : MovieService {
+    internal fun provideMovieService(): MovieService {
         return MovieServiceFactory.makeMovieService(BuildConfig.DEBUG)
 
     }

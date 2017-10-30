@@ -15,6 +15,7 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_movies.*
 import javax.inject.Inject
 import android.app.ActivityOptions
+import android.util.Log
 import com.rodrigobresan.sampleboilerplateandroid.movie_detail.ui.activity.MovieDetailActivity
 import com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
 
@@ -61,11 +62,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
     override fun onStart() {
         super.onStart()
         moviePresenter.loadMovies()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        moviePresenter.stop()
     }
 
     override fun setPresenter(presenter: MoviesContract.Presenter) {
