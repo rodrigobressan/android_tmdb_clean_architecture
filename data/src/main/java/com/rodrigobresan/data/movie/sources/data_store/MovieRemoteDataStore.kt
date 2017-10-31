@@ -16,15 +16,13 @@ open class MovieRemoteDataStore @Inject constructor(private val movieRemote: Mov
         throw UnsupportedOperationException()
     }
 
-    override fun getMovies(movieCategory: MovieCategory): Single<List<MovieEntity>> {
-        when (movieCategory) {
+    override fun getMovies(category: MovieCategory): Single<List<MovieEntity>> {
+        when (category) {
             MovieCategory.POPULAR -> return movieRemote.getPopularMovies()
             MovieCategory.TOP_RATED -> return movieRemote.getTopRatedMovies()
             MovieCategory.NOW_PLAYING -> return movieRemote.getNowPlayingMovies()
             MovieCategory.UPCOMING -> return movieRemote.getUpcomingMovies()
         }
-
-        throw UnsupportedOperationException()
     }
 
 }
