@@ -1,15 +1,22 @@
 package com.rodrigobresan.sampleboilerplateandroid.movies
 
+import android.support.test.espresso.Espresso.*
+import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.contrib.RecyclerViewActions
+import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import android.support.v7.widget.RecyclerView
 import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.domain.movies.model.Movie
+import com.rodrigobresan.sampleboilerplateandroid.R
 import com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity.MoviesActivity
 import com.rodrigobresan.sampleboilerplateandroid.test.TestApplication
 import com.rodrigobresan.sampleboilerplateandroid.test.factory.movie.MovieFactory
+import com.rodrigobresan.sampleboilerplateandroid.test.util.RecyclerViewMatcher
 import io.reactivex.Single
+import kotlinx.android.synthetic.main.view_movie_section.view.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,6 +32,21 @@ class MoviesActivityTest {
     fun activityLaunches() {
         stubMovieRepositoryGetMovies(Single.just(MovieFactory.makeMovieList(2)))
         activity.launchActivity(null)
+    }
+
+    @Test
+    fun moviesDisplay() {
+        val movies = MovieFactory.makeMovieList(2)
+        stubMovieRepositoryGetMovies(Single.just(movies))
+
+        activity.launchActivity(null)
+        val posMovie = 0
+        checkIfMovieDetailsAreBeingDisplayed(movies[posMovie], posMovie)
+    }
+
+    private fun checkIfMovieDetailsAreBeingDisplayed(movie: Movie, posMovie: Int) {
+        onView(RecyclerViewMatcher.withRecyclerView(R.id.rv_movies).atPosition(posMovie))
+                .check(ViewAssertions.matches(ViewMatchers.hasDescendant(ViewMatchers.withText(movie.title))))
     }
 
     private fun stubMovieRepositoryGetMovies(singleMovies: Single<List<Movie>>) {
