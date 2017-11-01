@@ -1,7 +1,6 @@
 Android TMDB Sample Project
 ------
-
-[![Build Status](https://travis-ci.org/nearit/Android-SDK.svg?branch=2.2.9)](https://travis-ci.org/nearit/Android-SDK)
+[![Build Status](https://travis-ci.org/bresan/android_tmdb_clean_architecture.svg?branch=master)](https://travis-ci.org/bresan/android_tmdb_clean_architecture)
 
 
 #### What is this?
