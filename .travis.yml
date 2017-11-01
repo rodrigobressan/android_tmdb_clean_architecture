@@ -11,8 +11,8 @@ android:
 
 jdk:
   - oraclejdk8
-before_install:
 
+before_install:
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
   - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
@@ -22,13 +22,27 @@ licenses:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-install: ./cmds/ci/install.sh
+install:
+  - ./gradlew clean :build --stacktrace
 
-before_script: ./cmds/ci/before_script.sh
+before_script:
+  - ./cmds/ci/wait_for_emulator.sh
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - adb shell input keyevent 82 &
 
-script: ./cmds/ci/run_test.sh
+script:
+  - ./gradlew :remote:test
+  - ./gradlew :cache:test
+  - ./gradlew :data:test
+  - ./gradlew :domain:test
+  - ./gradlew :presentation:test
 
-after_success: ./cmds/ci/after_success.sh
+  - ./gradlew :mobile:connectedCheck -PdisablePreDex --stacktrace
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email: false
