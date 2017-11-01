@@ -58,7 +58,7 @@ before_install:
 #  - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew build
+  - ./gradlew build jacocoTestReport
   - ./gradlew :remote:test
   - ./gradlew :cache:test
   - ./gradlew :data:test
