@@ -1,3 +1,9 @@
 #!/bin/bash -xe
 
-./gradlew :app:check :app:connectedCheck -PdisablePreDex --stacktrace
+./gradlew :remote:test
+./gradlew :cache:test
+./gradlew :data:test
+./gradlew :domain:test
+./gradlew :presentation:test
+
+./gradlew :mobile:connectedCheck -PdisablePreDex --stacktrace

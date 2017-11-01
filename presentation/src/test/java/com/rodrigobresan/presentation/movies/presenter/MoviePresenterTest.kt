@@ -1,6 +1,7 @@
 package com.rodrigobresan.presentation.movies.presenter
 
 import com.nhaarman.mockito_kotlin.*
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import com.rodrigobresan.domain.movies.interactor.GetMovies
 import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
@@ -22,6 +23,8 @@ class MoviePresenterTest {
 
     private lateinit var captor: KArgumentCaptor<DisposableSingleObserver<List<Movie>>>
 
+    private val category: MovieCategory = MovieCategory.POPULAR
+
     @Before
     fun setUp() {
         captor = argumentCaptor<DisposableSingleObserver<List<Movie>>>()
@@ -37,18 +40,18 @@ class MoviePresenterTest {
     fun loadMoviesHideErrorState() {
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onSuccess(MovieFactory.makeMovieList(2))
-        verify(moviesView).hideErrorState()
+        verify(moviesView).hideErrorState(category)
     }
 
     @Test
     fun loadMoviesHideEmptyState() {
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onSuccess(MovieFactory.makeMovieList(2))
-        verify(moviesView).hideEmptyState()
+        verify(moviesView).hideEmptyState(category)
     }
 
     @Test
@@ -56,10 +59,10 @@ class MoviePresenterTest {
         val movies = MovieFactory.makeMovieList(2)
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onSuccess(movies)
 
-        verify(moviesView).showMovies(
+        verify(moviesView).showMovies(category,
                 movies.map {
                     movieMapper.mapToView(it)
                 }
@@ -70,45 +73,45 @@ class MoviePresenterTest {
     fun loadMoviesShowEmptyState() {
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onSuccess(MovieFactory.makeMovieList(0))
-        verify(moviesView).showEmptyState()
+        verify(moviesView).showEmptyState(category)
     }
 
     @Test
     fun loadMoviesHideMovies() {
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onSuccess(MovieFactory.makeMovieList(0))
-        verify(moviesView, times(2)).hideMovies(movieCategory)
+        verify(moviesView, times(2)).hideMovies(category)
     }
 
     @Test
     fun loadMoviesShowErrorState() {
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onError(RuntimeException())
-        verify(moviesView).showErrorState()
+        verify(moviesView).showErrorState(category)
     }
 
     @Test
     fun loadMoviesHideMoviesWhenErrorThrown() {
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onError(RuntimeException())
-        verify(moviesView, times(2)).hideMovies(movieCategory)
+        verify(moviesView, times(2)).hideMovies(category)
     }
 
     @Test
     fun loadMoviesHideEmptyStateWhenErrorIsThrown() {
         moviesPresenter.loadMovies()
 
-        verify(getMoviesUseCase).execute(captor.capture(), eq(null))
+        verify(getMoviesUseCase).execute(captor.capture(), eq(category))
         captor.firstValue.onError(RuntimeException())
-        verify(moviesView).hideEmptyState()
+        verify(moviesView).hideEmptyState(category)
     }
 
 }

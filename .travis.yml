@@ -20,6 +20,8 @@ before_script: ./cmds/ci/before_script.sh
 
 script: ./cmds/ci/run_test.sh
 
+after_success: ./cmds/ci/after_success.sh
+
 notifications:
   email: false
 
