@@ -24,6 +24,10 @@ object MovieQueries {
 
     }
 
+    /**
+     * @param movieCategory the movie category from where the movies will be fetched
+     * @return the query for fetching the movies of a specified category
+     */
     fun getQueryForMoviesOnCategory(movieCategory: String): String {
         return "SELECT * FROM " + MovieTable.TABLE_NAME +
                 " INNER JOIN " + MovieCategoryTable.TABLE_NAME +

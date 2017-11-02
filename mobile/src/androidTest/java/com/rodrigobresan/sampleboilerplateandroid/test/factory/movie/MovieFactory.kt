@@ -1,7 +1,7 @@
 package com.rodrigobresan.sampleboilerplateandroid.test.factory.movie
 
+import com.rodrigobresan.base.DataFactory
 import com.rodrigobresan.domain.movies.model.Movie
-import com.rodrigobresan.sampleboilerplateandroid.test.factory.DataFactory
 
 class MovieFactory {
 

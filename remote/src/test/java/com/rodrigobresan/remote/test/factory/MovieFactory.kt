@@ -1,5 +1,6 @@
 package com.rodrigobresan.remote.test.factory
 
+import com.rodrigobresan.base.DataFactory
 import com.rodrigobresan.remote.movies.model.movies.MovieItem
 import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 

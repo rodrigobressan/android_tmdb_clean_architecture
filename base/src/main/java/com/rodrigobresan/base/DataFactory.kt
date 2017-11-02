@@ -1,42 +1,47 @@
-package com.rodrigobresan.cache.test.factory
+package com.rodrigobresan.base
 
+import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
-/**
- * Factory class for data instances
- */
+
 class DataFactory {
 
     companion object Factory {
 
+        /**
+         * Returns a random String object
+         *
+         */
         fun randomUuid(): String {
             return java.util.UUID.randomUUID().toString()
         }
 
+        /**
+         * Returns a random Int object
+         */
         fun randomInt(): Int {
-            return ThreadLocalRandom.current().nextInt(0, 1000 + 1)
+            return Random().nextInt()
         }
 
+        /**
+         * Returns a random Double object
+         */
         fun randomDouble(): Double {
-            return ThreadLocalRandom.current().nextDouble(0.0, 1000.0 + 1)
+            return Random().nextDouble()
         }
 
+        /**
+         * Returns a random Long object
+         */
         fun randomLong(): Long {
             return randomInt().toLong()
         }
-
+        /**
+         * Returns a random Boolean object
+         */
         fun randomBoolean(): Boolean {
             return Math.random() < 0.5
         }
-
-        fun makeStringList(count: Int): List<String> {
-            val items: MutableList<String> = mutableListOf()
-            repeat(count) {
-                items.add(randomUuid())
-            }
-            return items
-        }
-
     }
 
 }

@@ -1,0 +1,24 @@
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+configurations.all {
+    resolutionStrategy {
+        force "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    }
+}
+
+dependencies {
+    def baseDependencies = rootProject.ext.baseDependencies
+    def baseTestDependencies = rootProject.ext.baseTestDependencies
+
+    implementation baseDependencies.javaxAnnotation
+    implementation baseDependencies.javaxInject
+    implementation baseDependencies.rxKotlin
+    implementation baseDependencies.kotlin
+
+    testImplementation baseTestDependencies.junit
+    testImplementation baseTestDependencies.mockito
+    testImplementation baseTestDependencies.assertj
+}

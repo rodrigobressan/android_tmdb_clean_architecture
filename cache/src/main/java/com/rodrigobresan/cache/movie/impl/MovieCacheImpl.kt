@@ -30,6 +30,9 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
     private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
 
+    /**
+     * Returns the database instance. Mostly used for testing
+     */
     fun getDatabase(): SQLiteDatabase {
         return database
     }

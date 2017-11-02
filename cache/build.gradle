@@ -63,4 +63,5 @@ dependencies {
     testImplementation cacheTestDependencies.mockito
     testImplementation cacheTestDependencies.assertj
     testImplementation cacheTestDependencies.robolectric
+    testCompile project(path: ':base')
 }

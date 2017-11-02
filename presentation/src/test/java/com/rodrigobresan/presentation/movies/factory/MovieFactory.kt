@@ -1,7 +1,7 @@
 package com.rodrigobresan.presentation.movies.factory
 
+import com.rodrigobresan.base.DataFactory
 import com.rodrigobresan.domain.movies.model.Movie
-import com.rodrigobresan.presentation.base.DataFactory
 
 class MovieFactory {
 

@@ -1,5 +1,6 @@
 package com.rodrigobresan.sampleboilerplateandroid.test
 
+import com.rodrigobresan.base.DataFactory
 import com.rodrigobresan.presentation.movies.model.MovieView
 
 class MovieFactory {

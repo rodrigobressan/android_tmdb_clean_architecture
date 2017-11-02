@@ -17,6 +17,15 @@ class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                                                  private val entityMapper: MovieCategoryEntityMapper,
                                                  private val preferencesHelper: PreferencesHelper) : MovieCategoryCache {
 
+    private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
+
+    /**
+     * Returns the database instance. Mostly used for testing
+     */
+    fun getDatabase(): SQLiteDatabase {
+        return database
+    }
+
     override fun getCategories(): Single<List<MovieCategoryEntity>> {
         return Single.defer<List<MovieCategoryEntity>> {
 
@@ -69,12 +78,5 @@ class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
         }
     }
 
-    private val CACHE_EXPIRATION_TIME = (0.5 * 10 * 1000)
-
-    private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
-
-    fun getDatabase(): SQLiteDatabase {
-        return database
-    }
 
 }

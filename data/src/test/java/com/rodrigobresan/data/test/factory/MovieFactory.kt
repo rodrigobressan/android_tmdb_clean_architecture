@@ -1,5 +1,6 @@
 package com.rodrigobresan.data.test.factory
 
+import com.rodrigobresan.base.DataFactory
 import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.domain.movies.model.Movie
 
