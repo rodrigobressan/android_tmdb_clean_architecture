@@ -12,6 +12,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * Implementation of the CategoryCache
+ */
 class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                                             private val categoryEntityMapper: CategoryEntityMapper,
                                             private val categoryDbMapper: CategoryDbMapper,
@@ -68,9 +71,7 @@ class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
     override fun getCategories(): Single<List<CategoryEntity>> {
         return Single.defer<List<CategoryEntity>> {
-            val query = "SELECT * FROM " + CategoryQueries.CategoryTable.TABLE_NAME
-
-            val updatesCursor = database.rawQuery(query, null)
+            val updatesCursor = database.rawQuery(CategoryQueries.CategoryTable.SELECT_ALL, null)
             val categories = mutableListOf<CategoryEntity>()
 
             while (updatesCursor.moveToNext()) {

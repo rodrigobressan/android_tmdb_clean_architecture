@@ -16,7 +16,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-
+/**
+ * Class for testing GetMovies use case class
+ */
 @RunWith(JUnit4::class)
 class GetMoviesTest {
 

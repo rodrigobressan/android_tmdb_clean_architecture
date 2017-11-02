@@ -9,6 +9,9 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
 
+/**
+ * Class for testing MovieMapper class
+ */
 @RunWith(JUnit4::class)
 class MovieMapperTest {
     private lateinit var movieMapper: MovieMapper

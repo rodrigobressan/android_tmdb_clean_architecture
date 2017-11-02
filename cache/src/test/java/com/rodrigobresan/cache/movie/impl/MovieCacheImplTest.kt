@@ -18,9 +18,11 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
+/**
+ * Class for testing MovieCacheImpl class
+ */
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = intArrayOf(21))
-
 class MovieCacheImplTest {
 
     private val context = RuntimeEnvironment.application

@@ -17,6 +17,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+/**
+ * Class for testing MovieDataRepository class
+ */
 @RunWith(JUnit4::class)
 class MovieDataRepositoryTest {
 
@@ -162,7 +165,6 @@ class MovieDataRepositoryTest {
         whenever(movieDataStoreFactory.retrieveDataStore())
                 .thenReturn(movieCacheDataStore)
     }
-
 
     private fun stubMovieCacheSaveMovies(complete: Completable?) {
         whenever(movieCacheDataStore.saveMovies(any(), any()))

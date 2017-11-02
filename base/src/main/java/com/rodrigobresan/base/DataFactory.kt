@@ -1,9 +1,10 @@
 package com.rodrigobresan.base
 
 import java.util.*
-import java.util.concurrent.ThreadLocalRandom
 
-
+/**
+ * This class is used to generate data objects for usage on tests
+ */
 class DataFactory {
 
     companion object Factory {

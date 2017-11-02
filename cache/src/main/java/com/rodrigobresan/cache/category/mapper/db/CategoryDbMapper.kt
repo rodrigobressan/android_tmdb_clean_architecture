@@ -7,6 +7,9 @@ import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.model.CategoryCached
 import javax.inject.Inject
 
+/**
+ * Category Mapper for persistence. CategoryCached <-> ContentValues
+ */
 class CategoryDbMapper @Inject constructor() : ModelCacheMapper<CategoryCached> {
 
     override fun toContentValues(model: CategoryCached): ContentValues {

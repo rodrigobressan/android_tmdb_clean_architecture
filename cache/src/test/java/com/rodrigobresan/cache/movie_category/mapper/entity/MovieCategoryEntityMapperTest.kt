@@ -9,7 +9,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
-
+/**
+ * Class for testing MovieCategoryEntityMapper class
+ */
 @RunWith(JUnit4::class)
 class MovieCategoryEntityMapperTest {
 

@@ -6,7 +6,9 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
 
-
+/**
+ * Class for testing MovieQueriesEntity class
+ */
 @RunWith(JUnit4::class)
 class MovieQueriesTest {
 

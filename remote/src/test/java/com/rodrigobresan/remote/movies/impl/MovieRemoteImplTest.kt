@@ -13,6 +13,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+/**
+ * Class for testing MovieRemoteImpl class
+ */
 @RunWith(JUnit4::class)
 class MovieRemoteImplTest {
 
