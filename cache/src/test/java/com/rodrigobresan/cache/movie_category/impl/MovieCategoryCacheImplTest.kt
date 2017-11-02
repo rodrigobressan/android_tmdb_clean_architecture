@@ -37,18 +37,15 @@ class MovieCategoryCacheImplTest {
     private var movieCategoryDbMapper = MovieCategoryDbMapper()
     private var preferencesHelper = PreferencesHelper(context)
 
-    private lateinit var movieCategoryCacheImpl: MovieCategoryCacheImpl
 
-    private lateinit var movieDbMapper: MovieDbMapper
-    private lateinit var categoryDbMapper: CategoryDbMapper
+    private var movieDbMapper: MovieDbMapper = MovieDbMapper()
+    private var categoryDbMapper: CategoryDbMapper = CategoryDbMapper()
+
+    private var movieCategoryCacheImpl: MovieCategoryCacheImpl =
+            MovieCategoryCacheImpl(DbOpenHelper(context), movieCategoryDbMapper, movieCategoryEntityMapper, preferencesHelper)
 
     @Before
     fun setUp() {
-        movieDbMapper = MovieDbMapper()
-        categoryDbMapper = CategoryDbMapper()
-
-        movieCategoryCacheImpl = MovieCategoryCacheImpl(DbOpenHelper(context),
-                movieCategoryDbMapper, movieCategoryEntityMapper, preferencesHelper)
         clearPreviousDataFromDatabase()
     }
 
