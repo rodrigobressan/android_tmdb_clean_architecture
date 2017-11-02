@@ -1,6 +1,6 @@
 Android TMDB Sample Project
 ------
-[![Build Status](https://travis-ci.org/bresan/android_tmdb_clean_architecture.svg?branch=master)](https://travis-ci.org/bresan/android_tmdb_clean_architecture)
+[![Build Status](https://travis-ci.org/bresan/android_tmdb_clean_architecture.svg?branch=master)](https://travis-ci.org/bresan/android_tmdb_clean_architecture) [![Known Vulnerabilities](https://snyk.io/test/github/bresan/android_tmdb_clean_architecture/badge.svg)](https://snyk.io/test/github/bresan/android_tmdb_clean_architecture)
 
 
 #### What is this?
@@ -9,13 +9,14 @@ Just a simple project to try new stuff on Android. Feel free to use it just for 
 - Kotlin
 - Clean Architecture
 - MVP (Model-View-Presenter)
-- RxJava
+- RxJava 2
 - Dagger 2
 - Retrofit
 - SQLite
+- Mockito
+- Robolectric
+- Espresso
 - Travis CI
-- Unit tests
-- UI tests
 
 In case of any questions, feel free to open an issue.
 
