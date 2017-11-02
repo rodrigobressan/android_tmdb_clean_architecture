@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Class to help with SharedPreferences usage
+ */
 @Singleton
 class PreferencesHelper @Inject constructor(context: Context) {
 

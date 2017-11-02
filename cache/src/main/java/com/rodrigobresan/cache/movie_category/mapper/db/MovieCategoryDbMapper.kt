@@ -7,6 +7,9 @@ import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
 import javax.inject.Inject
 
+/**
+ * Mapper for MovieCategory entity. Maps MovieCategoryCached <-> ContentValues
+ */
 class MovieCategoryDbMapper @Inject constructor() : ModelCacheMapper<MovieCategoryCached> {
 
     override fun toContentValues(model: MovieCategoryCached): ContentValues {

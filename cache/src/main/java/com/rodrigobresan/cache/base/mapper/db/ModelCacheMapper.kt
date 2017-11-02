@@ -8,6 +8,13 @@ import android.database.Cursor
  * to be persisted on the database later
  */
 interface ModelCacheMapper<T> {
+    /**
+     * Maps entity to content values
+     */
     fun toContentValues(model: T): ContentValues
+
+    /**
+     * Maps cursor to entity
+     */
     fun fromCursor(cursor: Cursor): T
 }

@@ -9,6 +9,9 @@ import com.rodrigobresan.domain.movies.repository.MovieRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * Use case that returns a [Single] for the operation of fetching movies from a specified category
+ */
 open class GetMovies @Inject constructor(val movieRepository: MovieRepository,
                                          threadExecutor: ThreadExecutor,
                                          postExecutionThread: PostExecutionThread) :

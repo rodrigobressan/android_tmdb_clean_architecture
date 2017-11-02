@@ -10,6 +10,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * MovieRepository implementation
+ */
 class MovieDataRepository @Inject constructor(private val factory: MovieDataStoreFactory,
                                               private val movieMapper: MovieMapper) : MovieRepository {
     override fun clearMovies(): Completable {

@@ -5,6 +5,9 @@ import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.data.category.model.CategoryEntity
 import javax.inject.Inject
 
+/**
+ * Mapper for CategoryCached and CategoryEntity
+ */
 open class CategoryEntityMapper @Inject constructor() : EntityMapper<CategoryCached, CategoryEntity> {
 
     override fun mapFromCached(cached: CategoryCached): CategoryEntity {

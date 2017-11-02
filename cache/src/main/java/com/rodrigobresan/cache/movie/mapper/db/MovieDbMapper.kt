@@ -7,6 +7,9 @@ import com.rodrigobresan.cache.movie.MovieQueries.MovieTable
 import com.rodrigobresan.cache.movie.model.MovieCached
 import javax.inject.Inject
 
+/**
+ * Mapper for Movie. MovieCached <-> ContentValues
+ */
 class MovieDbMapper @Inject constructor() : ModelCacheMapper<MovieCached> {
 
     override fun toContentValues(model: MovieCached): ContentValues {

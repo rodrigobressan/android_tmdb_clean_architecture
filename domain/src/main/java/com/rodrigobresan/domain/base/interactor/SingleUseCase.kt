@@ -8,6 +8,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
+/**
+ * Abstract class for any UseCase that returns an instance of a [Single]
+ */
 abstract class SingleUseCase<T, in Params> constructor(
         private val threadExecutor: ThreadExecutor,
         private val postExecutionThread: PostExecutionThread) {
@@ -17,6 +20,9 @@ abstract class SingleUseCase<T, in Params> constructor(
 
     protected abstract fun buildUseCaseObservable(params: Params? = null): Single<T>
 
+    /**
+     * Executes the use case
+     */
     open fun execute(singleObserver: DisposableSingleObserver<T>, params: Params? = null) {
         val single = this.buildUseCaseObservable(params)
                 .subscribeOn(Schedulers.from(threadExecutor))
@@ -25,12 +31,18 @@ abstract class SingleUseCase<T, in Params> constructor(
         addDisposable(single.subscribeWith(singleObserver))
     }
 
+    /**
+     * Dispose the use case
+     */
     fun dispose() {
         if (!disposables.isDisposed) {
             disposables.dispose()
         }
     }
 
+    /**
+     * Add a new disposable
+     */
     private fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
     }

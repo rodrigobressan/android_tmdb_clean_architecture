@@ -1,6 +1,6 @@
 Android TMDB Sample Project
 ------
-[![Build Status](https://travis-ci.org/bresan/android_tmdb_clean_architecture.svg?branch=master)](https://travis-ci.org/bresan/android_tmdb_clean_architecture) [![Known Vulnerabilities](https://snyk.io/test/github/bresan/android_tmdb_clean_architecture/badge.svg)](https://snyk.io/test/github/bresan/android_tmdb_clean_architecture) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6e921f05223141b1985cfdf1671c3d32)](https://www.codacy.com/app/bresan/android_tmdb_clean_architecture?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bresan/android_tmdb_clean_architecture&amp;utm_campaign=Badge_Grade)gst
+[![Build Status](https://travis-ci.org/bresan/android_tmdb_clean_architecture.svg?branch=master)](https://travis-ci.org/bresan/android_tmdb_clean_architecture) [![Known Vulnerabilities](https://snyk.io/test/github/bresan/android_tmdb_clean_architecture/badge.svg)](https://snyk.io/test/github/bresan/android_tmdb_clean_architecture) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6e921f05223141b1985cfdf1671c3d32)](https://www.codacy.com/app/bresan/android_tmdb_clean_architecture?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bresan/android_tmdb_clean_architecture&amp;utm_campaign=Badge_Grade)
 
 
 #### What is this?

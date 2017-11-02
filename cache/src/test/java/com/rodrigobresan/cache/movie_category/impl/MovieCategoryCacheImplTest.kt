@@ -58,7 +58,7 @@ class MovieCategoryCacheImplTest {
 
     @Test
     fun clearTableCompletes() {
-        movieCategoryCacheImpl.clearCategories().test().assertComplete()
+        movieCategoryCacheImpl.clearMovieCategories().test().assertComplete()
     }
 
     @Test

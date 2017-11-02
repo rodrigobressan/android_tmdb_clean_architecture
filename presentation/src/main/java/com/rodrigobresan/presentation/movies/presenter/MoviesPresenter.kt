@@ -10,10 +10,16 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
+/**
+ * Implementation of Presenter for Movies section
+ */
 class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
                                           val getMoviesUseCase: GetMovies,
                                           val movieMapper: MovieMapper) : MoviesContract.Presenter {
 
+    /**
+     * The movie list to be loaded
+     */
     val moviesToLoad = ArrayList<MovieCategory>(EnumSet.allOf(MovieCategory::class.java))
 
     init {

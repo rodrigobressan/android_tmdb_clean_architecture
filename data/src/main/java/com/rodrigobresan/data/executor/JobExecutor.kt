@@ -7,6 +7,9 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+/**
+ * Class for executing any job asynchronously
+ */
 open class JobExecutor @Inject constructor() : ThreadExecutor {
 
     private val workQueue: LinkedBlockingQueue<Runnable>

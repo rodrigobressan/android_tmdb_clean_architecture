@@ -4,8 +4,22 @@ import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 
+/**
+ * Contract to all the classes that want to cache the MovieCategory entity
+ */
 interface MovieCategoryCache {
+    /**
+     * Save the movie category into the cache
+     */
     fun saveMovieCategory(movieCategoryEntity: MovieCategoryEntity): Completable
-    fun clearCategories() : Completable
+
+    /**
+     * Clear all the cached movie categories
+     */
+    fun clearMovieCategories() : Completable
+
+    /**
+     * Get all the cached categories
+     */
     fun getCategories() : Single<List<MovieCategoryEntity>>
 }

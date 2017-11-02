@@ -12,6 +12,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * Movie Category Cache contract implementation
+ */
 class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                                                  private val dbMapper: MovieCategoryDbMapper,
                                                  private val entityMapper: MovieCategoryEntityMapper,
@@ -44,7 +47,7 @@ class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
         }
     }
 
-    override fun clearCategories(): Completable {
+    override fun clearMovieCategories(): Completable {
         return Completable.defer {
             database.beginTransaction()
 

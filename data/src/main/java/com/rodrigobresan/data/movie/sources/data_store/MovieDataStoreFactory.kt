@@ -3,6 +3,9 @@ package com.rodrigobresan.data.movie.sources.data_store
 import com.rodrigobresan.data.movie.sources.MovieCache
 import javax.inject.Inject
 
+/**
+ * Factory for MovieDataStore
+ */
 open class MovieDataStoreFactory @Inject constructor(private val movieCache: MovieCache,
                                                      private val movieCacheDataStore: MovieCacheDataStore,
                                                      private val movieRemoteDataStore: MovieRemoteDataStore) {

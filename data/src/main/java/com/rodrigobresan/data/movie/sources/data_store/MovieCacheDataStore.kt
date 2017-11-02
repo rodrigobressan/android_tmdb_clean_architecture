@@ -7,6 +7,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * Implementation of DataStore for Movies
+ */
 open class MovieCacheDataStore @Inject constructor(private val movieCache: MovieCache) : MovieDataStore {
     override fun clearMovies(): Completable {
         return movieCache.clearMovies()
@@ -22,6 +25,4 @@ open class MovieCacheDataStore @Inject constructor(private val movieCache: Movie
     override fun getMovies(category: MovieCategory): Single<List<MovieEntity>> {
         return movieCache.getMovies(category)
     }
-
-
 }

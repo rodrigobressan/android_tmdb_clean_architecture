@@ -8,6 +8,10 @@ import com.rodrigobresan.remote.service.MovieService
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * Implementation of MovieRemote contract. This class will call our service in order to fetch
+ * the data and pass it back to the data layer
+ */
 class MovieRemoteImpl @Inject constructor(private val service: MovieService,
                                           private val movieEntityMapper: MovieEntityMapper)
     : MovieRemote {

@@ -18,7 +18,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-
+/**
+ * Movie Cache contract implementation
+ */
 class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                                          private val categoryCache: CategoryCache,
                                          private val movieCategoryCache: MovieCategoryCache,
