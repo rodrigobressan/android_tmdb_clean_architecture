@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SampleBoilerPlateAndroid</string>
+    <string name="app_name">TMDB Client</string>
     <string name="default_value_movie_section">hey</string>
     <string name="popular_movies">Popular Movies</string>
     <string name="top_rated">Top Rated</string>

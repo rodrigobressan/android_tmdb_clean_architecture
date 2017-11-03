@@ -26,7 +26,7 @@ In case of any questions, feel free to open an issue.
 
 #### Future improvements
 
-- Room instead of SQLite;
+- Add Room;
 - Architecture Components;
 - Implementation of movie details section
 
