@@ -28,7 +28,7 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                                          private val movieDbMapper: MovieDbMapper,
                                          private val preferences: PreferencesHelper) : MovieCache {
 
-    private val CACHE_EXPIRATION_TIME = (0.5 * 10 * 1000)
+    private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
 
     private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
 

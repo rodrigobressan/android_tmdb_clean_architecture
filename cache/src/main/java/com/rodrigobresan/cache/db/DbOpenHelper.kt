@@ -7,6 +7,7 @@ import android.os.Build
 import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
+import com.rodrigobresan.cache.movie_detail.MovieDetailQueries
 import javax.inject.Inject
 
 class DbOpenHelper @Inject constructor(context: Context)
@@ -18,6 +19,7 @@ class DbOpenHelper @Inject constructor(context: Context)
             db.execSQL(MovieQueries.MovieTable.CREATE)
             db.execSQL(CategoryQueries.CategoryTable.CREATE)
             db.execSQL(MovieCategoryQueries.MovieCategoryTable.CREATE)
+            db.execSQL(MovieDetailQueries.MovieDetailTable.CREATE)
             db.setTransactionSuccessful()
         } finally {
             db.endTransaction()
