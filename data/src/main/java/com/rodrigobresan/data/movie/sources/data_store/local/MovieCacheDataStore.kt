@@ -1,7 +1,7 @@
-package com.rodrigobresan.data.movie.sources.data_store
+package com.rodrigobresan.data.movie.sources.data_store.local
 
 import com.rodrigobresan.data.movie.model.MovieEntity
-import com.rodrigobresan.data.movie.sources.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.MovieDataStore
 import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single

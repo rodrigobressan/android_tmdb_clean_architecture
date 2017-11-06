@@ -1,6 +1,8 @@
 package com.rodrigobresan.data.movie.sources.data_store
 
-import com.rodrigobresan.data.movie.sources.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
+import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
 import javax.inject.Inject
 
 /**

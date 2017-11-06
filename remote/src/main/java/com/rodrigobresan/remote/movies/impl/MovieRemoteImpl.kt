@@ -1,7 +1,7 @@
 package com.rodrigobresan.remote.movies.impl
 
 import com.rodrigobresan.data.movie.model.MovieEntity
-import com.rodrigobresan.data.movie.sources.MovieRemote
+import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
 import com.rodrigobresan.remote.movies.mapper.MovieEntityMapper
 import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 import com.rodrigobresan.remote.service.MovieService

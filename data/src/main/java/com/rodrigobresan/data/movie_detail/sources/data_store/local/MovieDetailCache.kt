@@ -1,4 +1,4 @@
-package com.rodrigobresan.data.movie_detail.sources
+package com.rodrigobresan.data.movie_detail.sources.data_store.local
 
 import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity
 import io.reactivex.Completable

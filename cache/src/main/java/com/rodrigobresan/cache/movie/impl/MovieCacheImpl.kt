@@ -10,7 +10,7 @@ import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.data.category.model.CategoryEntity
 import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import com.rodrigobresan.data.movie.model.MovieEntity
-import com.rodrigobresan.data.movie.sources.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.domain.movie_category.model.MovieCategory

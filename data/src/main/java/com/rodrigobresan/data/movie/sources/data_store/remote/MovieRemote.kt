@@ -1,4 +1,4 @@
-package com.rodrigobresan.data.movie.sources
+package com.rodrigobresan.data.movie.sources.data_store.remote
 
 import com.rodrigobresan.data.movie.model.MovieEntity
 import io.reactivex.Single

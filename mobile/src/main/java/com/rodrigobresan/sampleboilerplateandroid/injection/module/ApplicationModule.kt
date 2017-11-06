@@ -15,9 +15,9 @@ import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
 import com.rodrigobresan.data.executor.JobExecutor
 import com.rodrigobresan.data.movie.mapper.MovieMapper
-import com.rodrigobresan.data.movie.sources.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.MovieDataRepository
-import com.rodrigobresan.data.movie.sources.MovieRemote
+import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory

@@ -6,8 +6,8 @@ import com.nhaarman.mockito_kotlin.mock
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.executor.JobExecutor
-import com.rodrigobresan.data.movie.sources.MovieCache
-import com.rodrigobresan.data.movie.sources.MovieRemote
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.domain.base.executor.PostExecutionThread
 import com.rodrigobresan.domain.base.executor.ThreadExecutor

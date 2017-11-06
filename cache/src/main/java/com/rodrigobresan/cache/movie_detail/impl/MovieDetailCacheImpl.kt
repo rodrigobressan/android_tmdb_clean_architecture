@@ -7,7 +7,7 @@ import com.rodrigobresan.cache.movie_detail.MovieDetailQueries
 import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailDbMapper
 import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailEntityMapper
 import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity
-import com.rodrigobresan.data.movie_detail.sources.MovieDetailCache
+import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCache
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

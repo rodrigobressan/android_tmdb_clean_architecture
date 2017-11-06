@@ -6,6 +6,10 @@ import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
+import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataStoreFactory
+import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCache
+import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCacheDataStore
+import com.rodrigobresan.data.movie_detail.sources.data_store.remote.MovieDetailRemoteDataStore
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,13 +18,13 @@ import org.junit.runners.JUnit4
  * Class for testing MovieDataStoreFactory class
  */
 @RunWith(JUnit4::class)
-class MovieDataStoreFactoryTest {
+class MovieDetailDataStoreFactoryTest {
 
-    private lateinit var movieDataStoreFactory: MovieDataStoreFactory
+    private lateinit var movieDataStoreFactory: MovieDetailDataStoreFactory
 
-    private lateinit var movieCache: MovieCache
-    private lateinit var movieCacheDataStore: MovieCacheDataStore
-    private lateinit var movieRemoteDataStore: MovieRemoteDataStore
+    private lateinit var movieCache: MovieDetailCache
+    private lateinit var movieCacheDataStore: MovieDetailCacheDataStore
+    private lateinit var movieRemoteDataStore: MovieDetailRemoteDataStore
 
     @Before
     fun setUp() {
@@ -28,7 +32,7 @@ class MovieDataStoreFactoryTest {
         movieCacheDataStore = mock()
         movieRemoteDataStore = mock()
 
-        movieDataStoreFactory = MovieDataStoreFactory(movieCache, movieCacheDataStore, movieRemoteDataStore)
+        movieDataStoreFactory = MovieDetailDataStoreFactory(movieCache, movieCacheDataStore, movieRemoteDataStore)
     }
 
     @Test
@@ -36,7 +40,7 @@ class MovieDataStoreFactoryTest {
         stubMovieIsCached(false)
 
         val dataStore = movieDataStoreFactory.retrieveDataStore()
-        assert(dataStore is MovieRemoteDataStore)
+        assert(dataStore is MovieDetailRemoteDataStore)
     }
 
     @Test
@@ -45,7 +49,7 @@ class MovieDataStoreFactoryTest {
         stubMovieIsExpired(true)
 
         val dataStore = movieDataStoreFactory.retrieveDataStore()
-        assert(dataStore is MovieRemoteDataStore)
+        assert(dataStore is MovieDetailRemoteDataStore)
     }
 
     @Test
@@ -54,19 +58,19 @@ class MovieDataStoreFactoryTest {
         stubMovieIsExpired(false)
 
         val dataStore = movieDataStoreFactory.retrieveDataStore()
-        assert(dataStore is MovieCacheDataStore)
+        assert(dataStore is MovieDetailCacheDataStore)
     }
 
     @Test
     fun retrieveRemoteDataStoreReturnsRemoteDataStore() {
         val movieDataStore = movieDataStoreFactory.retrieveRemoteDataStore()
-        assert(movieDataStore is MovieRemoteDataStore)
+        assert(movieDataStore is MovieDetailRemoteDataStore)
     }
 
     @Test
     fun retrieveCachedDataStoreReturnsCachedDataStore() {
         val movieDataStore = movieDataStoreFactory.retrieveCachedDataStore()
-        assert(movieDataStore is MovieCacheDataStore)
+        assert(movieDataStore is MovieDetailCacheDataStore)
     }
 
     private fun stubMovieIsCached(isCached: Boolean) {

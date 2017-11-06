@@ -2,8 +2,8 @@ package com.rodrigobresan.data.movie.source
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.data.movie.sources.MovieCache
-import com.rodrigobresan.data.movie.sources.data_store.MovieCacheDataStore
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
@@ -12,12 +12,12 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+
 /**
  * Class for testing MovieCacheDataStore class
  */
 @RunWith(JUnit4::class)
 class MovieCacheDataStoreTest {
-
 
     private lateinit var movieCacheDataStore: MovieCacheDataStore
     private lateinit var movieCache: MovieCache

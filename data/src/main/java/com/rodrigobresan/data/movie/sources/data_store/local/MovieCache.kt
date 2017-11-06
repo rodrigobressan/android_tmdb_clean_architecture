@@ -1,4 +1,4 @@
-package com.rodrigobresan.data.movie.sources
+package com.rodrigobresan.data.movie.sources.data_store.local
 
 import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.domain.movie_category.model.MovieCategory
