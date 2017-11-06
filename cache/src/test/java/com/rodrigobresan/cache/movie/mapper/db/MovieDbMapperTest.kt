@@ -21,8 +21,7 @@ import kotlin.test.assertEquals
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(DefaultConfig.EMULATE_SDK))
 class MovieDbMapperTest {
-
-
+    
     private lateinit var movieDbMapper: MovieDbMapper
 
     private val database = DbOpenHelper(RuntimeEnvironment.application).writableDatabase

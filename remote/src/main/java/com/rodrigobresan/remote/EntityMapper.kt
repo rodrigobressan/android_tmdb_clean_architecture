@@ -1,4 +1,4 @@
-package com.rodrigobresan.remote.movies.mapper
+package com.rodrigobresan.remote
 
 /**
  * Contract between API response and our entities

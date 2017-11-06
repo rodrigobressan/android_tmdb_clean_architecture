@@ -1,6 +1,7 @@
 package com.rodrigobresan.remote.movies.mapper
 
 import com.rodrigobresan.data.movie.model.MovieEntity
+import com.rodrigobresan.remote.EntityMapper
 import com.rodrigobresan.remote.movies.model.movies.MovieItem
 import javax.inject.Inject
 

@@ -1,8 +1,10 @@
 package com.rodrigobresan.remote.service
 
+import com.rodrigobresan.remote.movie_detail.model.MovieDetailResponse
 import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * Contract defined to be used by our Retrofit client, in order to create the calls to the
@@ -33,4 +35,10 @@ interface MovieService {
      */
     @GET("movie/now_playing")
     fun getNowPlayingMovies(): Single<MovieResponse>
+
+    /**
+     * Get the details of a specified movie
+     */
+    @GET("/movie/{movieId}")
+    fun getMovieDetails(@Path("movieId") movieId: Long): Single<MovieDetailResponse>
 }
