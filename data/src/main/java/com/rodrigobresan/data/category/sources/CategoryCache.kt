@@ -16,7 +16,7 @@ interface CategoryCache {
     /**
      * Save the list of categories specified into the cache
      */
-    fun saveCategories(categoryList: List<CategoryEntity>): Completable
+    fun saveCategory(category: CategoryEntity): Completable
 
     /**
      * Get the list of the categories in the cache
@@ -31,7 +31,7 @@ interface CategoryCache {
     /**
      * Define the last time it was cached
      */
-    fun setLastCacheTime(lastCacheTime: Long)
+    fun updateLastCacheTime()
 
     /**
      * Check if the cache was expired

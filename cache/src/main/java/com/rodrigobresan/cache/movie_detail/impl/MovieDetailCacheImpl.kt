@@ -77,12 +77,12 @@ class MovieDetailCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
     }
 
     override fun setLastCacheTime(lastCacheTime: Long) {
-        preferencesHelper.lastCacheTime = lastCacheTime
+        preferencesHelper.updateLastCacheTime(MovieDetailQueries.MovieDetailTable.TABLE_NAME)
     }
 
     override fun isExpired(): Boolean {
         val currentTime = System.currentTimeMillis()
-        val lastUpdate = this.preferencesHelper.lastCacheTime
+        val lastUpdate = this.preferencesHelper.getLastCacheTime(MovieDetailQueries.MovieDetailTable.TABLE_NAME)
 
         return currentTime - lastUpdate > CACHE_EXPIRATION_TIME
     }

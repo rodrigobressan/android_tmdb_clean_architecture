@@ -1,9 +1,12 @@
 package com.rodrigobresan.data.movie.source
 
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
+import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
+import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
@@ -21,11 +24,16 @@ class MovieCacheDataStoreTest {
 
     private lateinit var movieCacheDataStore: MovieCacheDataStore
     private lateinit var movieCache: MovieCache
+    private lateinit var movieCategoryCache: MovieCategoryCache
+    private lateinit var categoryCache: CategoryCache
 
     @Before
     fun setUp() {
         movieCache = mock()
-        movieCacheDataStore = MovieCacheDataStore(movieCache)
+        categoryCache = mock()
+        movieCategoryCache = mock()
+
+        movieCacheDataStore = MovieCacheDataStore(categoryCache, movieCategoryCache, movieCache)
     }
 
     @Test
@@ -42,6 +50,12 @@ class MovieCacheDataStoreTest {
         val movieCategory = MovieCategory.POPULAR
         val movieEntityList = MovieFactory.makeMovieEntityList(2)
         whenever(movieCache.saveMovies(movieCategory, movieEntityList))
+                .thenReturn(Completable.complete())
+
+        whenever(movieCategoryCache.saveMovieCategory(any()))
+                .thenReturn(Completable.complete())
+
+        whenever(categoryCache.saveCategory(any()))
                 .thenReturn(Completable.complete())
 
         movieCacheDataStore.saveMovies(movieCategory, movieEntityList).test().assertComplete()

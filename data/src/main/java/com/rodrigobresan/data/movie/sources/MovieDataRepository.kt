@@ -30,7 +30,8 @@ class MovieDataRepository @Inject constructor(private val factory: MovieDataStor
         return dataStore.getMovies(movieCategory)
                 .flatMap {
                     if (dataStore is MovieRemoteDataStore) {
-                        factory.retrieveCachedDataStore().saveMovies(movieCategory, it).toSingle { it }
+                        factory.retrieveCachedDataStore().saveMovies(movieCategory, it)
+                                .toSingle { it }
                     } else {
                         Single.just(it)
                     }

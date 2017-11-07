@@ -33,7 +33,7 @@ interface MovieCache {
     /**
      * Define the last time it was cached
      */
-    fun setLastCacheTime(lastCacheTime: Long)
+    fun updateLastCacheTime()
 
     /**
      * Check if the current cache is expired or not

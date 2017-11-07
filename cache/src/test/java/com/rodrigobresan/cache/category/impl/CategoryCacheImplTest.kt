@@ -63,7 +63,7 @@ class CategoryCacheImplTest {
 
     @Test
     fun saveCategoriesCompletes() {
-        categoryCacheImpl.saveCategories(CategoryFactory.makeCategoryEntityList(2)).test()
+        categoryCacheImpl.saveCategory(CategoryFactory.makeCategoryEntity()).test()
                 .assertComplete()
     }
 

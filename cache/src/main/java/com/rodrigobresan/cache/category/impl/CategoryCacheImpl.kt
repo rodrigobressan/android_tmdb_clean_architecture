@@ -6,6 +6,7 @@ import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
 import com.rodrigobresan.cache.db.DbOpenHelper
+import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.data.category.model.CategoryEntity
 import com.rodrigobresan.data.category.sources.CategoryCache
 import io.reactivex.Completable
@@ -46,15 +47,12 @@ class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
         }
     }
 
-    override fun saveCategories(categoryList: List<CategoryEntity>): Completable {
+    override fun saveCategory(category: CategoryEntity): Completable {
         return Completable.defer {
             database.beginTransaction()
 
             try {
-                categoryList.forEach {
-                    insertCategory(it)
-                }
-
+                insertCategory(category)
                 database.setTransactionSuccessful()
             } finally {
                 database.endTransaction()
@@ -89,13 +87,13 @@ class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
         return database.rawQuery(CategoryQueries.CategoryTable.SELECT_ALL, null).count > 0
     }
 
-    override fun setLastCacheTime(lastCacheTime: Long) {
-        preferences.lastCacheTime = lastCacheTime
+    override fun updateLastCacheTime() {
+        preferences.updateLastCacheTime(CategoryQueries.CategoryTable.TABLE_NAME)
     }
 
     override fun isExpired(): Boolean {
         val currentTime = System.currentTimeMillis()
-        val lastUpdate = this.preferences.lastCacheTime
+        val lastUpdate = this.preferences.getLastCacheTime(CategoryQueries.CategoryTable.TABLE_NAME)
 
         return currentTime - lastUpdate > CACHE_EXPIRATION_TIME
     }

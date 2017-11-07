@@ -22,8 +22,6 @@ import javax.inject.Inject
  * Movie Cache contract implementation
  */
 class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
-                                         private val categoryCache: CategoryCache,
-                                         private val movieCategoryCache: MovieCategoryCache,
                                          private val movieEntityMapper: MovieEntityMapper,
                                          private val movieDbMapper: MovieDbMapper,
                                          private val preferences: PreferencesHelper) : MovieCache {
@@ -60,8 +58,6 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
             try {
                 movies.forEach {
                     insertMovie(it)
-                    insertCategory(movieCategory.name)
-                    insertMovieCategory(movieCategory, it)
                 }
                 database.setTransactionSuccessful()
             } finally {
@@ -70,15 +66,6 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
             Completable.complete()
         }
-    }
-
-    private fun insertMovieCategory(movieCategory: MovieCategory, movie: MovieEntity) {
-        movieCategoryCache.saveMovieCategory(MovieCategoryEntity(movie.id, movieCategory.name))
-    }
-
-    private fun insertCategory(categoryName: String) {
-        // TODO need to figure out about the name of the category.. but not now :D
-        categoryCache.saveCategories(mutableListOf(CategoryEntity(categoryName, categoryName)))
     }
 
     private fun insertMovie(it: MovieEntity) {
@@ -108,13 +95,13 @@ class MovieCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
         return database.rawQuery(MovieTable.SELECT_ALL, null).count > 0
     }
 
-    override fun setLastCacheTime(lastCacheTime: Long) {
-        preferences.lastCacheTime = lastCacheTime
+    override fun updateLastCacheTime() {
+        preferences.updateLastCacheTime(MovieTable.TABLE_NAME)
     }
 
     override fun isExpired(): Boolean {
         val currentTime = System.currentTimeMillis()
-        val lastUpdate = this.preferences.lastCacheTime
+        val lastUpdate = this.preferences.getLastCacheTime(MovieTable.TABLE_NAME)
 
         return currentTime - lastUpdate > CACHE_EXPIRATION_TIME
     }

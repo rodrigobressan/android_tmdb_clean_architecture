@@ -76,12 +76,10 @@ open class ApplicationModule {
     @Provides
     @PerApplication
     internal fun provideMovieCache(dbOpenHelper: DbOpenHelper,
-                                   categoryCache: CategoryCache,
-                                   movieCategoryCache: MovieCategoryCache,
                                    movieEntityMapper: MovieEntityMapper,
                                    movieDbMapper: MovieDbMapper,
                                    preferences: PreferencesHelper): MovieCache {
-        return MovieCacheImpl(dbOpenHelper, categoryCache, movieCategoryCache, movieEntityMapper, movieDbMapper, preferences)
+        return MovieCacheImpl(dbOpenHelper, movieEntityMapper, movieDbMapper, preferences)
     }
 
     @Provides

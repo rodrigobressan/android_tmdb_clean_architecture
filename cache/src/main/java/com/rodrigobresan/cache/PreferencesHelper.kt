@@ -22,7 +22,11 @@ class PreferencesHelper @Inject constructor(context: Context) {
         prefs = context.getSharedPreferences(PREF_APP_PACKAGE_NAME, Context.MODE_PRIVATE)
     }
 
-    var lastCacheTime: Long
-        get() = prefs.getLong(PREF_KEY_LAST_CACHE, 0)
-        set(lastCache) = prefs.edit().putLong(PREF_KEY_LAST_CACHE, lastCache).apply()
+    fun updateLastCacheTime(tableName: String) {
+        prefs.edit().putLong(PREF_KEY_LAST_CACHE + "_" + tableName, System.currentTimeMillis()).apply()
+    }
+
+    fun getLastCacheTime(tableName: String): Long {
+        return prefs.getLong(PREF_KEY_LAST_CACHE + "_" + tableName, 0)
+    }
 }

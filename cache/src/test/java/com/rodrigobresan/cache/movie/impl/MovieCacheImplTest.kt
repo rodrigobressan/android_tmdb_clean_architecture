@@ -42,8 +42,8 @@ class MovieCacheImplTest {
         movieCategoryCache = mock()
         categoryCache = mock()
 
-        movieCacheImpl = MovieCacheImpl(DbOpenHelper(context), categoryCache, movieCategoryCache,
-                movieEntityMapper, movieDbMapper, preferencesHelper)
+        movieCacheImpl = MovieCacheImpl(DbOpenHelper(context), movieEntityMapper, movieDbMapper,
+                preferencesHelper)
         clearPreviousDataFromDatabase()
     }
 

@@ -3,6 +3,7 @@ package com.rodrigobresan.cache.movie_category.impl
 import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
+import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryDbMapper
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
@@ -18,7 +19,9 @@ import javax.inject.Inject
 class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                                                  private val dbMapper: MovieCategoryDbMapper,
                                                  private val entityMapper: MovieCategoryEntityMapper,
-                                                 private val preferencesHelper: PreferencesHelper) : MovieCategoryCache {
+                                                 private val preferences: PreferencesHelper) : MovieCategoryCache {
+
+    private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
 
     private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
 
@@ -81,5 +84,19 @@ class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
         }
     }
 
+    override fun isCached(): Boolean {
+        return database.rawQuery(MovieCategoryQueries.MovieCategoryTable.SELECT_ALL, null).count > 0
+    }
+
+    override fun updateLastCacheTime() {
+        preferences.updateLastCacheTime(MovieCategoryQueries.MovieCategoryTable.TABLE_NAME)
+    }
+
+    override fun isExpired(): Boolean {
+        val currentTime = System.currentTimeMillis()
+        val lastUpdate = this.preferences.getLastCacheTime(MovieCategoryQueries.MovieCategoryTable.TABLE_NAME)
+
+        return currentTime - lastUpdate > CACHE_EXPIRATION_TIME
+    }
 
 }

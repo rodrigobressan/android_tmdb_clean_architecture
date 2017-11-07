@@ -22,4 +22,19 @@ interface MovieCategoryCache {
      * Get all the cached categories
      */
     fun getCategories() : Single<List<MovieCategoryEntity>>
+
+    /**
+     * Check if it's cached
+     */
+    fun isCached(): Boolean
+
+    /**
+     * Define the last time it was cached
+     */
+    fun updateLastCacheTime()
+
+    /**
+     * Check if the current cache is expired or not
+     */
+    fun isExpired(): Boolean
 }
