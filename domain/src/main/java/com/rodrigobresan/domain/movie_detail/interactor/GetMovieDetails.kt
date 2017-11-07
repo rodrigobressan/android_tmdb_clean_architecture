@@ -14,7 +14,11 @@ open class GetMovieDetails @Inject constructor(val movieDetailRepository: MovieD
     : SingleUseCase<MovieDetail, Long>(threadExecutor, postExecutionThread) {
 
     public override fun buildUseCaseObservable(movieId: Long?): Single<MovieDetail> {
-        return movieDetailRepository.getMovieDetails(movieId!!)
+        if (movieId != null) {
+            return movieDetailRepository.getMovieDetails(movieId)
+        }
+
+        throw IllegalArgumentException()
     }
 
 }

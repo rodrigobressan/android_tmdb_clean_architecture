@@ -1,4 +1,4 @@
-package com.rodrigobresan.domain.usecase
+package com.rodrigobresan.domain.movie.usecase
 
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
