@@ -19,6 +19,7 @@ import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.MovieDataRepository
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
 import com.rodrigobresan.data.category.sources.CategoryCache
+import com.rodrigobresan.data.connection.ConnectionStatus
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
 import com.rodrigobresan.domain.base.executor.PostExecutionThread
@@ -30,6 +31,7 @@ import com.rodrigobresan.remote.service.MovieServiceFactory
 import com.rodrigobresan.sampleboilerplateandroid.BuildConfig
 import com.rodrigobresan.sampleboilerplateandroid.UiThread
 import com.rodrigobresan.sampleboilerplateandroid.injection.scope.PerApplication
+import com.rodrigobresan.sampleboilerplateandroid.util.ConnectionUtils
 import dagger.Module
 import dagger.Provides
 
@@ -38,8 +40,14 @@ open class ApplicationModule {
 
     @Provides
     @PerApplication
-    fun proviedeContext(application: Application): Context {
+    fun provideContext(application: Application): Context {
         return application
+    }
+
+    @Provides
+    @PerApplication
+    fun provideConnectionStatus(application: Application): ConnectionStatus {
+        return ConnectionUtils(application)
     }
 
     @Provides
