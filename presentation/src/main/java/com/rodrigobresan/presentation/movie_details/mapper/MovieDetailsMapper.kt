@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 open class MovieDetailsMapper @Inject constructor() : PresentationMapper<MovieDetailView, MovieDetail> {
     override fun mapToView(type: MovieDetail): MovieDetailView {
-        return MovieDetailView(type.id, type.title, type.voteAverage, type.posterPath, type.backdropPath)
+        return MovieDetailView(type.id, type.title, type.voteAverage, type.posterPath,
+                type.backdropPath, type.overview, type.tagline)
     }
 }

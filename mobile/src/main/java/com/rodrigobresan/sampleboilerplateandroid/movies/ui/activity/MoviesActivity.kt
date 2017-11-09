@@ -34,10 +34,12 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
 
         setContentView(R.layout.activity_movies)
         AndroidInjection.inject(this)
+        setSupportActionBar(toolbar_movie)
     }
 
     override fun onMovieSelected(id: Long, imageView: ImageView) {
-        Toast.makeText(this, "Movie id: " + id, Toast.LENGTH_SHORT).show()
+        val intentMovieDetail = MovieDetailActivity.makeIntent(this, id)
+        startActivity(intentMovieDetail)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

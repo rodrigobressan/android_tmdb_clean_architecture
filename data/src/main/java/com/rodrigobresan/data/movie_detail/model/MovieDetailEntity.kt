@@ -1,7 +1,8 @@
 package com.rodrigobresan.data.movie_detail.model
 
 data class MovieDetailEntity(val id: Long, val title: String, val voteAverage: Double,
-                             val posterPath: String, val backdropPath: String) {
+                             val posterPath: String, val backdropPath: String, val overview: String,
+                             val tagline: String) {
     override fun equals(other: Any?): Boolean {
         if (this !== other) return false
         if (other.javaClass != javaClass) return false

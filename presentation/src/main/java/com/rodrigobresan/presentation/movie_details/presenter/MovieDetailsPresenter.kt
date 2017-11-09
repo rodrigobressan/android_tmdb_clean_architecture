@@ -10,7 +10,8 @@ import javax.inject.Inject
 /**
  * Presenter class for MovieDetails section
  */
-class MovieDetailsPresenter @Inject constructor(val movieDetailsView: MovieDetailsContract.View,
+class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrigobresan.data.connection.ConnectionStatus,
+                                                val movieDetailsView: MovieDetailsContract.View,
                                                 val getMovieDetails: GetMovieDetails,
                                                 val movieDetailsMapper: MovieDetailsMapper) : MovieDetailsContract.Presenter {
 
@@ -34,12 +35,28 @@ class MovieDetailsPresenter @Inject constructor(val movieDetailsView: MovieDetai
         override fun onError(e: Throwable) {
             movieDetailsView.hideProgress()
             movieDetailsView.showErrorState()
+
+            checkConnectionStatus(false)
         }
 
         override fun onSuccess(movieDetail: MovieDetail) {
             movieDetailsView.hideProgress()
             movieDetailsView.hideErrorState()
-            movieDetailsView.showMovieDetails(movieDetailsMapper.mapToView(movieDetail))
+
+            if (movieDetail != null) {
+                movieDetailsView.hideEmptyState()
+                movieDetailsView.showMovieDetails(movieDetailsMapper.mapToView(movieDetail))
+                checkConnectionStatus(true)
+            } else {
+                checkConnectionStatus(false)
+                movieDetailsView.showEmptyState()
+            }
+        }
+    }
+
+    private fun checkConnectionStatus(hasData: Boolean) {
+        if (connectionStatus.isOffline()) {
+            movieDetailsView.showNoConnection()
         }
     }
 

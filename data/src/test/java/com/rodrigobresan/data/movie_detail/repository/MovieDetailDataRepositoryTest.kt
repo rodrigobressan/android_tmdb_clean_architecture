@@ -139,7 +139,7 @@ class MovieDetailDataRepositoryTest {
     }
 
     private fun stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore: MovieDetailCacheDataStore) {
-        whenever(movieDataStoreFactory.retrieveDataStore())
+        whenever(movieDataStoreFactory.retrieveDataStore(any()))
                 .thenReturn(movieCacheDataStore)
     }
 

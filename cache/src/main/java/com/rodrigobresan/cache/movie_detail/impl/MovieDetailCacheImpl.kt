@@ -49,6 +49,7 @@ class MovieDetailCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                 var contentValuesMovie = movieDetailDbMapper.toContentValues(cachedMovie)
                 database.insertWithOnConflict(MovieDetailQueries.MovieDetailTable.TABLE_NAME, null,
                         contentValuesMovie, SQLiteDatabase.CONFLICT_REPLACE)
+                database.setTransactionSuccessful()
             } finally {
                 database.endTransaction()
             }
@@ -64,16 +65,19 @@ class MovieDetailCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
             cursor.moveToFirst()
 
-            var cachedMovie = movieDetailDbMapper.fromCursor(cursor)
-            var entityMovie = movieDetailEntityMapper.mapFromCached(cachedMovie)
+            var entityMovie: MovieDetailEntity? = null
+            if (cursor.count > 0) {
+                var cachedMovie = movieDetailDbMapper.fromCursor(cursor)
+                entityMovie = movieDetailEntityMapper.mapFromCached(cachedMovie)
+            }
 
             cursor.close()
             Single.just(entityMovie)
         }
     }
 
-    override fun isCached(): Boolean {
-        return database.rawQuery(MovieDetailQueries.MovieDetailTable.SELECT_ALL, null).count > 0
+    override fun isMovieCached(movieId: Long): Boolean {
+        return database.rawQuery(MovieDetailQueries.getQueryForMovieDetail(movieId), null).count > 0
     }
 
     override fun setLastCacheTime(lastCacheTime: Long) {

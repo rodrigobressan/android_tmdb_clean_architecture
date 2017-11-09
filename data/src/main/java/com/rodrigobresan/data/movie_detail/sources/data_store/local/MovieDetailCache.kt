@@ -12,7 +12,7 @@ interface MovieDetailCache {
 
     fun getMovieDetails(movieId: Long): Single<MovieDetailEntity>
 
-    fun isCached(): Boolean
+    fun isMovieCached(movieId: Long): Boolean
 
     fun setLastCacheTime(lastCacheTime: Long)
 

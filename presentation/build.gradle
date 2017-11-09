@@ -25,4 +25,5 @@ dependencies {
     testImplementation presentationTestDependencies.robolectric
 
     compile project(':domain')
+    compile project(path: ':data')
 }

@@ -17,7 +17,7 @@ open class MovieDataStoreFactory @Inject constructor(private val connectionStatu
     open fun retrieveDataStore(): MovieDataStore {
 
         // no connection
-        if (!connectionStatus.isConnected()) {
+        if (connectionStatus.isOffline()) {
             return retrieveCachedDataStore()
         }
 

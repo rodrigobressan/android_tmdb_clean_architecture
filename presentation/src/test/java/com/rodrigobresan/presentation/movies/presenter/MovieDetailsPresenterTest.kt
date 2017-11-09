@@ -1,6 +1,7 @@
 package com.rodrigobresan.presentation.movies.presenter
 
 import com.nhaarman.mockito_kotlin.*
+import com.rodrigobresan.data.connection.ConnectionStatus
 import com.rodrigobresan.domain.movie_detail.interactor.GetMovieDetails
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
 import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContract
@@ -12,6 +13,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.internal.matchers.Null
 
 /**
  * Class for testing MoviePresenter class
@@ -25,16 +27,19 @@ class MovieDetailsPresenterTest {
     private lateinit var movieDetailsMapper: MovieDetailsMapper
 
     private lateinit var captor: KArgumentCaptor<DisposableSingleObserver<MovieDetail>>
+    private lateinit var connectionStatus: ConnectionStatus
 
     @Before
     fun setUp() {
         captor = argumentCaptor<DisposableSingleObserver<MovieDetail>>()
 
+        connectionStatus = mock()
         movieDetailsView = mock()
         getMovieDetails = mock()
         movieDetailsMapper = mock()
 
-        movieDetailsPresenter = MovieDetailsPresenter(movieDetailsView, getMovieDetails, movieDetailsMapper)
+        movieDetailsPresenter = MovieDetailsPresenter(connectionStatus, movieDetailsView,
+                getMovieDetails, movieDetailsMapper)
     }
 
     @Test
@@ -64,5 +69,14 @@ class MovieDetailsPresenterTest {
         verify(getMovieDetails).execute(captor.capture(), eq(0))
         captor.firstValue.onError(RuntimeException())
         verify(movieDetailsView).showErrorState()
+    }
+
+    @Test
+    fun loadMovieDetailsShowEmptyStateWhenResponseIsNull() {
+        movieDetailsPresenter.loadMovieDetails(0)
+        val movieData :MovieDetail = null
+        verify(getMovieDetails).execute(captor.capture(), eq(0))
+        captor.firstValue.onSuccess(movieData)
+        verify(movieDetailsView.showEmptyState())
     }
 }

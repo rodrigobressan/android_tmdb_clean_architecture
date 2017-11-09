@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 open class MovieDetailsMapper @Inject constructor() : BaseMapper<MovieDetailViewModel, MovieDetailView> {
     override fun mapToViewModel(type: MovieDetailView): MovieDetailViewModel {
-        return MovieDetailViewModel(type.id, type.title, type.voteAverage, type.posterPath, type.backdropPath)
+        return MovieDetailViewModel(type.id, type.title, type.voteAverage, type.posterPath,
+                type.backdropPath, type.overview, type.tagline)
     }
 }

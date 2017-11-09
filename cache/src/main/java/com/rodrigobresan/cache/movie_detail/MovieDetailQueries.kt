@@ -8,6 +8,8 @@ object MovieDetailQueries {
         const val MOVIE_ID = "movie_id"
         const val TITLE = "title"
         const val RATING = "rating"
+        const val OVERVIEW = "overview"
+        const val TAGLINE = "tagline"
         const val PICTURE = "picture"
         const val BACKDROP_PICTURE = "backdrop_picture"
 
@@ -17,6 +19,8 @@ object MovieDetailQueries {
                         TITLE + " TEXT NOT NULL, " +
                         RATING + " REAL NOT NULL, " +
                         PICTURE + " TEXT, " +
+                        OVERVIEW + " TEXT, " +
+                        TAGLINE + " TEXT, " +
                         BACKDROP_PICTURE + " TEXT" +
                         ");"
 

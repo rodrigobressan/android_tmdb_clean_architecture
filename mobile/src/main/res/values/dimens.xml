@@ -5,4 +5,5 @@
     <dimen name="text_item_section">12sp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_smallest">2dp</dimen>
+    <dimen name="margin_quote">12dp</dimen>
 </resources>

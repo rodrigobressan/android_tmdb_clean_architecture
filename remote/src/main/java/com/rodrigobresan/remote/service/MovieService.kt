@@ -39,6 +39,6 @@ interface MovieService {
     /**
      * Get the details of a specified movie
      */
-    @GET("/movie/{movieId}")
+    @GET("movie/{movieId}")
     fun getMovieDetails(@Path("movieId") movieId: Long): Single<MovieDetailResponse>
 }

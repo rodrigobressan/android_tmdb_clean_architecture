@@ -20,7 +20,7 @@ class MovieDetailDataRepository @Inject constructor(private val factory: MovieDe
     }
 
     override fun getMovieDetails(movieId: Long): Single<MovieDetail> {
-        val dataStore = factory.retrieveDataStore()
+        val dataStore = factory.retrieveDataStore(movieId)
 
         return dataStore.getMovieDetails(movieId)
                 .flatMap {

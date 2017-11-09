@@ -38,7 +38,7 @@ class MovieDataStoreFactoryTest {
 
     @Test
     fun retrieveDataStoreWhenNoConnectionReturnsCachedDataStore() {
-        stubHasConnection(false)
+        stubIsOffline(true)
 
         val dataStore = movieDataStoreFactory.retrieveDataStore()
         assert(dataStore is MovieCacheDataStore)
@@ -47,7 +47,7 @@ class MovieDataStoreFactoryTest {
 
     @Test
     fun retrieveDataStoreWhenNotCachedReturnsRemoteDataStore() {
-        stubHasConnection(true)
+        stubIsOffline(false)
         stubMovieIsCached(false)
 
         val dataStore = movieDataStoreFactory.retrieveDataStore()
@@ -56,7 +56,7 @@ class MovieDataStoreFactoryTest {
 
     @Test
     fun retrieveDataStoreWhenCachedExpiredReturnsRemoteDataStore() {
-        stubHasConnection(true)
+        stubIsOffline(false)
         stubMovieIsCached(false)
         stubMovieIsExpired(true)
 
@@ -85,9 +85,9 @@ class MovieDataStoreFactoryTest {
         assert(movieDataStore is MovieCacheDataStore)
     }
 
-    private fun stubHasConnection(hasConnection: Boolean) {
-        whenever(connectionStatus.isConnected())
-                .thenReturn(hasConnection)
+    private fun stubIsOffline(isOffline: Boolean) {
+        whenever(connectionStatus.isOffline())
+                .thenReturn(isOffline)
     }
 
     private fun stubMovieIsCached(isCached: Boolean) {

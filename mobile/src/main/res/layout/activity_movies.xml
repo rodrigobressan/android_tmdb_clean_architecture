@@ -1,40 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coord_movie_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey">
+    android:background="@color/colorAccent"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_movies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:stateListAnimator="@null"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ct_movie_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleEnabled="false">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_movie"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="top"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
-            android:id="@+id/movie_section_popular"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            app:custom_component_title="@string/popular_movies" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
-            android:id="@+id/movie_section_top_rated"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:custom_component_title="@string/top_rated" />
+            <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
+                android:id="@+id/movie_section_popular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:custom_component_title="@string/popular_movies" />
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
-            android:id="@+id/movie_section_upcoming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:custom_component_title="@string/upcoming" />
+            <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
+                android:id="@+id/movie_section_top_rated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:custom_component_title="@string/top_rated" />
 
-        <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
-            android:id="@+id/movie_section_now_playing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:custom_component_title="@string/now_playing" />
+            <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
+                android:id="@+id/movie_section_upcoming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:custom_component_title="@string/upcoming" />
 
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+            <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
+                android:id="@+id/movie_section_now_playing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:custom_component_title="@string/now_playing" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

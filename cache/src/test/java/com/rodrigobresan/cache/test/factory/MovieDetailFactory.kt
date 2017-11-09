@@ -11,12 +11,14 @@ class MovieDetailFactory {
 
         fun makeMovieDetailCached(): MovieDetailCached {
             return MovieDetailCached(DataFactory.randomLong(), DataFactory.randomUuid(),
-                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid())
+                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid(),
+                    DataFactory.randomUuid(), DataFactory.randomUuid())
         }
 
         fun makeMovieDetailEntity(): MovieDetailEntity {
             return MovieDetailEntity(DataFactory.randomLong(), DataFactory.randomUuid(),
-                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid())
+                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid(),
+                    DataFactory.randomUuid(), DataFactory.randomUuid())
         }
     }
 }

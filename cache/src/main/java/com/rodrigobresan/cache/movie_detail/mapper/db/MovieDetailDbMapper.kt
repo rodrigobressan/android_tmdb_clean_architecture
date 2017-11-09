@@ -15,6 +15,8 @@ class MovieDetailDbMapper @Inject constructor() : ModelCacheMapper<MovieDetailCa
         contentValues.put(MovieDetailTable.PICTURE, model.posterPath)
         contentValues.put(MovieDetailTable.BACKDROP_PICTURE, model.backdropPath)
         contentValues.put(MovieDetailTable.RATING, model.voteAverage)
+        contentValues.put(MovieDetailTable.OVERVIEW, model.overview)
+        contentValues.put(MovieDetailTable.TAGLINE, model.tagline)
 
         return contentValues
     }
@@ -25,8 +27,10 @@ class MovieDetailDbMapper @Inject constructor() : ModelCacheMapper<MovieDetailCa
         val rating = cursor.getDouble(cursor.getColumnIndexOrThrow(MovieDetailTable.RATING))
         val picture = cursor.getString(cursor.getColumnIndexOrThrow(MovieDetailTable.PICTURE))
         val backdrop = cursor.getString(cursor.getColumnIndexOrThrow(MovieDetailTable.BACKDROP_PICTURE))
+        val overview = cursor.getString(cursor.getColumnIndexOrThrow(MovieDetailTable.OVERVIEW))
+        val tagline = cursor.getString(cursor.getColumnIndexOrThrow(MovieDetailTable.TAGLINE))
 
-        return MovieDetailCached(id, title, rating, picture, backdrop)
+        return MovieDetailCached(id, title, rating, picture, backdrop, overview, tagline)
     }
 
 }

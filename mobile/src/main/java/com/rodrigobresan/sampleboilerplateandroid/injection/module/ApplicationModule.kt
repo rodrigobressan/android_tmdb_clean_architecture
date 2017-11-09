@@ -13,6 +13,9 @@ import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryDbMapper
 import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
 import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
+import com.rodrigobresan.cache.movie_detail.impl.MovieDetailCacheImpl
+import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailDbMapper
+import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailEntityMapper
 import com.rodrigobresan.data.executor.JobExecutor
 import com.rodrigobresan.data.movie.mapper.MovieMapper
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
@@ -22,9 +25,16 @@ import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.connection.ConnectionStatus
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
+import com.rodrigobresan.data.movie_detail.mapper.MovieDetailMapper
+import com.rodrigobresan.data.movie_detail.sources.MovieDetailDataRepository
+import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataStoreFactory
+import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCache
+import com.rodrigobresan.data.movie_detail.sources.data_store.remote.MovieDetailRemote
 import com.rodrigobresan.domain.base.executor.PostExecutionThread
 import com.rodrigobresan.domain.base.executor.ThreadExecutor
+import com.rodrigobresan.domain.movie_detail.repository.MovieDetailRepository
 import com.rodrigobresan.domain.movies.repository.MovieRepository
+import com.rodrigobresan.remote.movie_detail.impl.MovieDetailRemoteImpl
 import com.rodrigobresan.remote.movies.impl.MovieRemoteImpl
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.service.MovieServiceFactory
@@ -65,6 +75,13 @@ open class ApplicationModule {
 
     @Provides
     @PerApplication
+    internal fun provideMovieDetailsRepository(movieDetailDataStoreFactory: MovieDetailDataStoreFactory,
+                                               movieDetailMapper: MovieDetailMapper): MovieDetailRepository {
+        return MovieDetailDataRepository(movieDetailDataStoreFactory, movieDetailMapper)
+    }
+
+    @Provides
+    @PerApplication
     internal fun provideMovieCategoryCache(dbOpenHelper: DbOpenHelper,
                                            dbMapper: MovieCategoryDbMapper,
                                            entityMapper: MovieCategoryEntityMapper,
@@ -92,9 +109,25 @@ open class ApplicationModule {
 
     @Provides
     @PerApplication
+    internal fun provideMovieDetailCache(dbOpenHelper: DbOpenHelper,
+                                         entityMapper: MovieDetailEntityMapper,
+                                         dbMapper: MovieDetailDbMapper,
+                                         preferences: PreferencesHelper): MovieDetailCache {
+        return MovieDetailCacheImpl(dbOpenHelper, entityMapper, dbMapper, preferences)
+    }
+
+    @Provides
+    @PerApplication
     internal fun provideMovieRemote(service: MovieService,
                                     entityMapper: com.rodrigobresan.remote.movies.mapper.MovieEntityMapper): MovieRemote {
         return MovieRemoteImpl(service, entityMapper)
+    }
+
+    @Provides
+    @PerApplication
+    internal fun provideMovieDetailRemote(service: MovieService,
+                                          entityMapper: com.rodrigobresan.remote.movie_detail.mapper.MovieDetailEntityMapper): MovieDetailRemote {
+        return MovieDetailRemoteImpl(service, entityMapper)
     }
 
     @Provides

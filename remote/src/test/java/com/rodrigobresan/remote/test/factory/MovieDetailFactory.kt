@@ -7,7 +7,8 @@ class MovieDetailFactory {
     companion object {
         fun makeMovieDetailResponse(): MovieDetailResponse {
             return MovieDetailResponse(DataFactory.randomLong(), DataFactory.randomUuid(),
-                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid())
+                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid(),
+                    DataFactory.randomUuid(), DataFactory.randomUuid())
         }
     }
 }
