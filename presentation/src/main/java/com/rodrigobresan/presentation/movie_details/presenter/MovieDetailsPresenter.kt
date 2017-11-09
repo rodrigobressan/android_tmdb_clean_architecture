@@ -31,32 +31,40 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
         getMovieDetails.execute(MovieDetailsSubscriber(), movieId)
     }
 
+    private fun hideAllViews() {
+        movieDetailsView.hideProgress()
+        movieDetailsView.hideErrorState()
+        movieDetailsView.hideEmptyState()
+    }
+
     inner class MovieDetailsSubscriber : DisposableSingleObserver<MovieDetail>() {
         override fun onError(e: Throwable) {
-            movieDetailsView.hideProgress()
-            movieDetailsView.showErrorState()
+            hideAllViews()
+
+            if (e is NoSuchElementException) {
+                movieDetailsView.showEmptyState()
+            } else {
+                movieDetailsView.showErrorState()
+            }
 
             checkConnectionStatus(false)
         }
 
         override fun onSuccess(movieDetail: MovieDetail) {
-            movieDetailsView.hideProgress()
-            movieDetailsView.hideErrorState()
+            hideAllViews()
 
-            if (movieDetail != null) {
-                movieDetailsView.hideEmptyState()
-                movieDetailsView.showMovieDetails(movieDetailsMapper.mapToView(movieDetail))
-                checkConnectionStatus(true)
-            } else {
-                checkConnectionStatus(false)
-                movieDetailsView.showEmptyState()
-            }
+            movieDetailsView.showMovieDetails(movieDetailsMapper.mapToView(movieDetail))
+            checkConnectionStatus(true)
         }
     }
 
     private fun checkConnectionStatus(hasData: Boolean) {
         if (connectionStatus.isOffline()) {
-            movieDetailsView.showNoConnection()
+            if (hasData) {
+                movieDetailsView.showOfflineModeCachedData()
+            } else {
+                movieDetailsView.showOfflineModeNoCachedData()
+            }
         }
     }
 

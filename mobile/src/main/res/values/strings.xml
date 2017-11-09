@@ -14,4 +14,6 @@
     <string name="movie_detail_section_overview">Overview</string>
     <string name="placeholder_movie_tagline">I don\'t feel I have to wipe everybody out, Tom. Just my enemies.</string>
     <string name="slash_ten_movie_rating">/10</string>
+    <string name="cd_movie_poster">Movie poster</string>
+    <string name="cd_no_connection">There is no connection</string>
 </resources>

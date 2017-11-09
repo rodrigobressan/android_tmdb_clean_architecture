@@ -72,11 +72,11 @@ class MovieDetailsPresenterTest {
     }
 
     @Test
-    fun loadMovieDetailsShowEmptyStateWhenResponseIsNull() {
+    fun loadMovieDetailsShowEmptyStateWhenResponseIsNotFound() {
         movieDetailsPresenter.loadMovieDetails(0)
-        val movieData :MovieDetail = null
+
         verify(getMovieDetails).execute(captor.capture(), eq(0))
-        captor.firstValue.onSuccess(movieData)
-        verify(movieDetailsView.showEmptyState())
+        captor.firstValue.onError(NoSuchElementException())
+        verify(movieDetailsView).showEmptyState()
     }
 }

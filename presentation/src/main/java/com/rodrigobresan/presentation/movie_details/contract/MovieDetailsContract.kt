@@ -39,14 +39,12 @@ interface MovieDetailsContract {
          */
         fun showMovieDetails(movieDetail : MovieDetailView)
 
-        /**
-         * Show a message to the user about being offline
-         */
-        fun showNoConnection()
-
         fun showEmptyState()
 
         fun hideEmptyState()
+
+        fun showOfflineModeNoCachedData()
+        fun showOfflineModeCachedData()
     }
 
     /**

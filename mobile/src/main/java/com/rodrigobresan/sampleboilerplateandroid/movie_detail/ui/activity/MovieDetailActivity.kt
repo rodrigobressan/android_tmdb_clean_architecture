@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.View
 import com.bumptech.glide.Glide
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
@@ -78,8 +79,24 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View {
     override fun hideErrorState() {
     }
 
-    override fun showNoConnection() {
-        Snackbar.make(findViewById(android.R.id.content), "No connection", Snackbar.LENGTH_LONG)
+    override fun showEmptyState() {
+        img_movie_detail_no_connection.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyState() {
+        img_movie_detail_no_connection.visibility = View.GONE
+    }
+
+    override fun showOfflineModeCachedData() {
+        showNoConnectionSnackbar("No connection, but luckily we have some saved data :-)")
+    }
+
+    override fun showOfflineModeNoCachedData() {
+        showNoConnectionSnackbar("No connection and no saved data :-(")
+    }
+
+    private fun showNoConnectionSnackbar(message: String) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", {
                     movieDetailPresenter.loadMovieDetails(movieId)
                 })
@@ -89,7 +106,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View {
 
     @SuppressLint("ResourceAsColor")
     override fun showMovieDetails(movieDetail: MovieDetailView) {
-
         Glide.with(this)
                 .load(movieDetail.posterPath)
                 .listener(GlidePalette.with(movieDetail.posterPath)

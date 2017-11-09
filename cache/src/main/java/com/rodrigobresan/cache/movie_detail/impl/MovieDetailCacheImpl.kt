@@ -65,14 +65,15 @@ class MovieDetailCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
             cursor.moveToFirst()
 
-            var entityMovie: MovieDetailEntity? = null
             if (cursor.count > 0) {
                 var cachedMovie = movieDetailDbMapper.fromCursor(cursor)
-                entityMovie = movieDetailEntityMapper.mapFromCached(cachedMovie)
+                var entityMovie = movieDetailEntityMapper.mapFromCached(cachedMovie)
+                cursor.close()
+                Single.just(entityMovie)
+            } else {
+                cursor.close()
+                Single.just(throw NoSuchElementException())
             }
-
-            cursor.close()
-            Single.just(entityMovie)
         }
     }
 
