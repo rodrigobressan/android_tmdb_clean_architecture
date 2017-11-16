@@ -50,11 +50,19 @@ class MovieDetailCacheDataStoreTest {
     }
 
     @Test
-    fun getMoviesCompletes() {
+    fun getMovieDetailsCompletes() {
         val movieDetail = MovieDetailFactory.makeMovieDetailEntity()
         whenever(movieCache.getMovieDetails(movieDetail.id))
                 .thenReturn(Single.just(movieDetail))
 
-        movieCache.getMovieDetails(movieDetail.id).test().assertComplete()
+        movieCacheDataStore.getMovieDetails(movieDetail.id).test().assertComplete()
+    }
+
+    @Test
+    fun clearMovieDetailsCompletes() {
+        whenever(movieCache.clearMovieDetails())
+                .thenReturn(Completable.complete())
+
+        movieCacheDataStore.clearMovieDetails().test().assertComplete()
     }
 }

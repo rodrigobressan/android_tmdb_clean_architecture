@@ -71,12 +71,44 @@ class MovieDetailsPresenterTest {
         verify(movieDetailsView).showErrorState()
     }
 
-    @Test
-    fun loadMovieDetailsShowEmptyStateWhenResponseIsNotFound() {
-        movieDetailsPresenter.loadMovieDetails(0)
+//    @Test
+//    fun loadMovieDetailsShowEmptyStateWhenResponseIsNotFound() {
+//        movieDetailsPresenter.loadMovieDetails(0)
+//
+//        verify(getMovieDetails).execute(captor.capture(), eq(0))
+//        captor.firstValue.onSuccess(null)
+//        verify(movieDetailsView).showEmptyState()
+//    }
 
+    @Test
+    fun showOfflineModeWithCachedDataWhenNoConnectionAndNoData() {
+
+        whenever(connectionStatus.isOffline())
+                .thenReturn(true)
+
+        movieDetailsPresenter.loadMovieDetails(0)
         verify(getMovieDetails).execute(captor.capture(), eq(0))
-        captor.firstValue.onError(NoSuchElementException())
-        verify(movieDetailsView).showEmptyState()
+        captor.firstValue.onError(Exception())
+
+
+        verify(movieDetailsView).showErrorState()
+        verify(movieDetailsView).showOfflineModeNoCachedData()
+    }
+
+
+    @Test
+    fun showOfflineModeWithCachedDataWhenNoConnectionAndWithData() {
+
+        whenever(connectionStatus.isOffline())
+                .thenReturn(true)
+
+        val movie = MovieDetailFactory.makeMovieDetail()
+        movieDetailsPresenter.loadMovieDetails(0)
+        verify(getMovieDetails).execute(captor.capture(), eq(0))
+        captor.firstValue.onSuccess(movie)
+
+        verify(movieDetailsView).showMovieDetails(movieDetailsMapper.mapToView(movie))
+
+        verify(movieDetailsView).showOfflineModeCachedData()
     }
 }

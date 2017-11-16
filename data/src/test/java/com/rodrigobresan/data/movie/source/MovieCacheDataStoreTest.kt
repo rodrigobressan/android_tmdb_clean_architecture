@@ -41,7 +41,7 @@ class MovieCacheDataStoreTest {
         whenever(movieCache.clearMovies())
                 .thenReturn(Completable.complete())
 
-        val testObserver = movieCache.clearMovies().test()
+        val testObserver = movieCacheDataStore.clearMovies().test()
         testObserver.assertComplete()
     }
 
@@ -68,6 +68,7 @@ class MovieCacheDataStoreTest {
         whenever(movieCache.getMovies(movieCategory))
                 .thenReturn(Single.just(movies))
 
-        movieCache.getMovies(movieCategory).test().assertComplete()
+        movieCacheDataStore.getMovies(movieCategory).test().assertComplete()
     }
+
 }

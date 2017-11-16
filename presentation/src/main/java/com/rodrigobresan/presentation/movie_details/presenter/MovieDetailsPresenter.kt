@@ -40,21 +40,20 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
     inner class MovieDetailsSubscriber : DisposableSingleObserver<MovieDetail>() {
         override fun onError(e: Throwable) {
             hideAllViews()
-
-            if (e is NoSuchElementException) {
-                movieDetailsView.showEmptyState()
-            } else {
-                movieDetailsView.showErrorState()
-            }
-
+            movieDetailsView.showErrorState()
             checkConnectionStatus(false)
         }
 
         override fun onSuccess(movieDetail: MovieDetail) {
             hideAllViews()
 
-            movieDetailsView.showMovieDetails(movieDetailsMapper.mapToView(movieDetail))
-            checkConnectionStatus(true)
+            if (movieDetail != null) {
+                movieDetailsView.showMovieDetails(movieDetailsMapper.mapToView(movieDetail))
+                checkConnectionStatus(true)
+            } else {
+                movieDetailsView.showEmptyState()
+                checkConnectionStatus(false)
+            }
         }
     }
 

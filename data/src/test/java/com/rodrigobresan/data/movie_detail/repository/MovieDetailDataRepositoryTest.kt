@@ -8,6 +8,8 @@ import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataSto
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCacheDataStore
 import com.rodrigobresan.data.movie_detail.sources.data_store.remote.MovieDetailRemoteDataStore
 import com.rodrigobresan.data.test.factory.MovieDetailFactory
+import com.rodrigobresan.data.test.factory.MovieFactory
+import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -126,6 +128,17 @@ class MovieDetailDataRepositoryTest {
 
         movieDataRepository.saveMovieDetail(movie).test()
         verify(movieRemoteDataStore, never()).saveMovieDetails(any())
+    }
+
+    @Test
+    fun getMovieDetailsUsingRemoteDataStore() {
+        whenever(movieDataStoreFactory.retrieveDataStore(0))
+                .thenReturn(movieRemoteDataStore)
+
+        whenever(movieRemoteDataStore.getMovieDetails(0))
+                .thenReturn(Single.just(MovieDetailFactory.makeMovieDetailEntity()))
+
+        movieDataRepository.getMovieDetails(0).test()
     }
 
     private fun stubMovieMapperMapFromEntity(movieEntity: MovieDetailEntity, movie: MovieDetail) {

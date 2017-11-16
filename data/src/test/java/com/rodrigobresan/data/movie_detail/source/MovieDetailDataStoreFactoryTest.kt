@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.data.connection.ConnectionStatus
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataStoreFactory
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCache
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCacheDataStore
@@ -54,6 +55,14 @@ class MovieDetailDataStoreFactoryTest {
 
         val dataStore = movieDataStoreFactory.retrieveDataStore(0)
         assert(dataStore is MovieDetailRemoteDataStore)
+    }
+
+    @Test
+    fun retrieveCachedDataStoreWhenOffline() {
+        stubIsOffline(true)
+
+        val dataStore = movieDataStoreFactory.retrieveDataStore(0)
+        assert(dataStore is MovieDetailCacheDataStore)
     }
 
     @Test

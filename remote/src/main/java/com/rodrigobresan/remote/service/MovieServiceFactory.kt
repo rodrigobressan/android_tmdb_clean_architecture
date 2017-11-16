@@ -22,32 +22,38 @@ object MovieServiceFactory {
 
     fun makeOkHttpClient(isDebug: Boolean): OkHttpClient {
         return OkHttpClient.Builder()
-                .addInterceptor(makeInterceptor(isDebug))
+                .addInterceptor(makeLoggingInterceptor(isDebug))
                 .addInterceptor(makeApiKeyInterceptor())
                 .build()
     }
 
     fun makeApiKeyInterceptor(): Interceptor {
-        return Interceptor({
+        val interceptor = Interceptor({
             var request = it.request()
-            val url = request.url().newBuilder().addQueryParameter("api_key", "4696a23366342ca5c5a52b1b8706e474").build()
+            val url = request.url().newBuilder().addQueryParameter(MovieServiceParams.FIELD_API_KEY, MovieServiceParams.FIELD_API_VALUE).build()
             request = request.newBuilder().url(url).build()
             it.proceed(request)
         })
+
+        return interceptor
     }
 
     fun makeMovieService(okHttpClient: OkHttpClient, gson: Gson): MovieService {
+        val retrofit = makeRetrofit(okHttpClient, gson)
+        return retrofit.create(MovieService::class.java)
+    }
+
+    fun makeRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
+                .baseUrl(MovieServiceParams.BASE_URL)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
-
-        return retrofit.create(MovieService::class.java)
+        return retrofit
     }
 
-    fun makeInterceptor(isDebug: Boolean): HttpLoggingInterceptor {
+    fun makeLoggingInterceptor(isDebug: Boolean): HttpLoggingInterceptor {
         val logging = HttpLoggingInterceptor()
 
         if (isDebug) {

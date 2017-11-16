@@ -5,6 +5,9 @@ import com.rodrigobresan.remote.EntityMapper
 import com.rodrigobresan.remote.movie_detail.model.MovieDetailResponse
 import javax.inject.Inject
 
+/**
+ * Class used to map movie detail entity between then remote and data layers
+ */
 open class MovieDetailEntityMapper @Inject constructor() : EntityMapper<MovieDetailResponse, MovieDetailEntity> {
 
     val moviePrefixImage = "https://image.tmdb.org/t/p/w300_and_h450_bestv2"

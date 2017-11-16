@@ -12,6 +12,7 @@ import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -150,6 +151,17 @@ class MovieDataRepositoryTest {
         verify(movieRemoteDataStore, never()).saveMovies(any(), any())
     }
 
+
+    @Test
+    fun getMoviesUsingRemoteDataStore() {
+        whenever(movieDataStoreFactory.retrieveDataStore())
+                .thenReturn(movieRemoteDataStore)
+
+        whenever(movieRemoteDataStore.getMovies(any()))
+                .thenReturn(Single.just(MovieFactory.makeMovieEntityList(2)))
+
+        movieDataRepository.getMovies(MovieCategory.TOP_RATED).test()
+    }
 
     private fun stubMovieMapperMapFromEntity(movieEntity: MovieEntity, movie: Movie) {
         whenever(movieMapper.mapFromEntity(movieEntity))

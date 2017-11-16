@@ -56,8 +56,51 @@ class MovieRemoteImplTest {
         testObserver.assertValue(movieEntities)
     }
 
+    // Upcoming
     private fun stubMoviesServiceGetPopularMovies(movieResponse: Single<MovieResponse>) {
         whenever(movieService.getPopularMovies())
+                .thenReturn(movieResponse)
+    }
+
+    @Test
+    fun getUpcomingMoviesReturnsData() {
+        val moviesResponse = MovieFactory.makeMovieResponse()
+        val movieEntities = mutableListOf<MovieEntity>()
+
+        stubMoviesServiceGetUpcomingMovies(Single.just(moviesResponse))
+
+        moviesResponse.results.forEach {
+            movieEntities.add(movieMapper.mapRemoteToEntity(it))
+        }
+
+        val testObserver = movieRemoteImpl.getUpcomingMovies().test()
+        testObserver.assertValue(movieEntities)
+    }
+
+    private fun stubMoviesServiceGetUpcomingMovies(movieResponse: Single<MovieResponse>) {
+        whenever(movieService.getUpcomingMovies())
+                .thenReturn(movieResponse)
+    }
+
+    // Now playing
+
+    @Test
+    fun getNowPlayingMoviesReturnsData() {
+        val moviesResponse = MovieFactory.makeMovieResponse()
+        val movieEntities = mutableListOf<MovieEntity>()
+
+        stubMoviesServiceGetNowPlayingMovies(Single.just(moviesResponse))
+
+        moviesResponse.results.forEach {
+            movieEntities.add(movieMapper.mapRemoteToEntity(it))
+        }
+
+        val testObserver = movieRemoteImpl.getNowPlayingMovies().test()
+        testObserver.assertValue(movieEntities)
+    }
+
+    private fun stubMoviesServiceGetNowPlayingMovies(movieResponse: Single<MovieResponse>) {
+        whenever(movieService.getNowPlayingMovies())
                 .thenReturn(movieResponse)
     }
 

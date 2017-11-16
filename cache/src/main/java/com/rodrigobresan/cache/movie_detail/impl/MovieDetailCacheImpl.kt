@@ -21,6 +21,9 @@ class MovieDetailCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
     private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
 
+    /**
+     * Return the current database. Used mostly for test purposes
+     */
     fun getDatabase(): SQLiteDatabase {
         return database
     }
@@ -72,7 +75,7 @@ class MovieDetailCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
                 Single.just(entityMovie)
             } else {
                 cursor.close()
-                Single.just(throw NoSuchElementException())
+                Single.just(null)
             }
         }
     }

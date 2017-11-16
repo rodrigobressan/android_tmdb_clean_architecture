@@ -4,8 +4,7 @@ data class MovieDetailEntity(val id: Long, val title: String, val voteAverage: D
                              val posterPath: String, val backdropPath: String, val overview: String,
                              val tagline: String) {
     override fun equals(other: Any?): Boolean {
-        if (this !== other) return false
-        if (other.javaClass != javaClass) return false
+        other as MovieDetailEntity
 
         if (id != other.id) return false
         if (title != other.title) return false
