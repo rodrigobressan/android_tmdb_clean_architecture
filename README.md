@@ -22,7 +22,7 @@ In case of any questions, feel free to open an issue.
 
 #### Demo
 
-![Project Screenshot](https://i.imgur.com/tCoK3aS.png "Project Preview")
+![Project Screenshot](https://media.giphy.com/media/l2QDTDhr4Apsw94yY/giphy.gif "Project Preview")
 
 #### Future improvements
 
