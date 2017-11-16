@@ -35,6 +35,8 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
         setContentView(R.layout.activity_movies)
         AndroidInjection.inject(this)
         setSupportActionBar(toolbar_movie)
+
+        moviePresenter.loadMovies()
     }
 
     override fun onMovieSelected(id: Long, imageView: ImageView) {
@@ -54,11 +56,6 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        moviePresenter.loadMovies()
     }
 
     override fun setPresenter(presenter: MoviesContract.Presenter) {

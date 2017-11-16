@@ -88,11 +88,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View {
     }
 
     override fun showOfflineModeCachedData() {
-        showNoConnectionSnackbar("No connection, but luckily we have some saved data :-)")
+        showNoConnectionSnackbar(getString(R.string.no_connection_cached))
     }
 
     override fun showOfflineModeNoCachedData() {
-        showNoConnectionSnackbar("No connection and no saved data :-(")
+        showNoConnectionSnackbar(getString(R.string.no_connection_not_cached))
     }
 
     private fun showNoConnectionSnackbar(message: String) {
@@ -162,7 +162,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View {
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
         })
-
     }
 
     private fun setUpViewPager(movieDetail: MovieDetailView) {
