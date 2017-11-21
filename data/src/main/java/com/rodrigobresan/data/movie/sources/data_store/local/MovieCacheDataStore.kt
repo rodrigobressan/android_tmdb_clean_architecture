@@ -6,7 +6,7 @@ import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStore
 import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.Category
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -19,37 +19,55 @@ open class MovieCacheDataStore @Inject constructor(
         private val movieCategoryCache: MovieCategoryCache,
         private val movieCache: MovieCache) : MovieDataStore {
 
+    override fun deleteMovieFromCategory(movieCategoryEntity: MovieCategoryEntity): Completable {
+        return movieCategoryCache.deleteMovieFromCategory(movieCategoryEntity)
+    }
+
+    override fun getMovie(movieId: Long): Single<MovieEntity> {
+        return movieCache.getMovie(movieId)
+    }
+
     override fun clearMovies(): Completable {
         return movieCache.clearMovies()
     }
 
-    override fun saveMovies(movieCategory: MovieCategory, movies: List<MovieEntity>): Completable {
-        return movieCache.saveMovies(movieCategory, movies)
+    override fun saveMovies(category: Category, movies: List<MovieEntity>): Completable {
+        return movieCache.saveMovies(category, movies)
                 .doOnComplete {
                     movieCache.updateLastCacheTime()
-                    saveCategory(movieCategory, movies)
+                    saveCategory(category, movies)
                 }
     }
 
-    private fun saveCategory(movieCategory: MovieCategory, movies: List<MovieEntity>) {
-        categoryCache.saveCategory(CategoryEntity(movieCategory.name, movieCategory.name))
+    private fun saveCategory(category: Category, movies: List<MovieEntity>) {
+        categoryCache.saveCategory(CategoryEntity(category.name, category.name))
                 .doOnComplete({
                     categoryCache.updateLastCacheTime()
                     movies.forEach {
-                        saveMovieCategory(it, movieCategory)
+                        saveMovieCategory(it, category)
                     }
 
                 }).subscribe()
     }
 
-    private fun saveMovieCategory(it: MovieEntity, movieCategory: MovieCategory) {
-        movieCategoryCache.saveMovieCategory(MovieCategoryEntity(it.id, movieCategory.name))
+    private fun saveMovieCategory(it: MovieEntity, category: Category) {
+        movieCategoryCache.saveMovieCategory(MovieCategoryEntity(it.id, category.name))
                 .doOnComplete({
                     movieCategoryCache.updateLastCacheTime()
                 }).subscribe()
     }
 
-    override fun getMovies(category: MovieCategory): Single<List<MovieEntity>> {
+    override fun getMovies(category: Category): Single<List<MovieEntity>> {
         return movieCache.getMovies(category)
+                .flatMap {
+                    it.mapIndexed { _, movieEntity ->
+                        {
+                            val currentMovieId = movieEntity.id
+                            movieEntity.isFavorite = movieCategoryCache.hasMovieInCategory(currentMovieId, Category.FAVORITE)
+                        }
+                    }
+
+                    Single.just(it)
+                }
     }
 }

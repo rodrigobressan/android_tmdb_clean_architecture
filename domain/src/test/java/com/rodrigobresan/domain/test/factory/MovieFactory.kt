@@ -9,7 +9,7 @@ class MovieFactory {
     companion object Factory {
         fun makeMovie() : Movie {
             return Movie(DataFactory.randomLong(), DataFactory.randomUuid(),
-                    DataFactory.randomDouble(), DataFactory.randomUuid())
+                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomBoolean())
         }
 
         fun makeMovieList(count : Int) : List<Movie> {

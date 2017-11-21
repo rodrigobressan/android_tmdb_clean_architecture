@@ -1,12 +1,10 @@
 package com.rodrigobresan.sampleboilerplateandroid.movies
 
-import android.support.test.espresso.Espresso.*
+import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import android.support.v7.widget.RecyclerView
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.domain.movies.model.Movie
@@ -16,7 +14,6 @@ import com.rodrigobresan.sampleboilerplateandroid.test.TestApplication
 import com.rodrigobresan.sampleboilerplateandroid.test.factory.movie.MovieFactory
 import com.rodrigobresan.sampleboilerplateandroid.test.util.RecyclerViewMatcher
 import io.reactivex.Single
-import kotlinx.android.synthetic.main.view_movie_section.view.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

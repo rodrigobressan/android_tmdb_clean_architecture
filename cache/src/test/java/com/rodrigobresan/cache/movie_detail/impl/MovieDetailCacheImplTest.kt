@@ -2,14 +2,11 @@ package com.rodrigobresan.cache.movie_detail.impl
 
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.cache.movie_detail.MovieDetailQueries
-import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailDbMapper
-import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailEntityMapper
+import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailCacheDbMapper
+import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailCacheMapper
 import com.rodrigobresan.cache.test.factory.MovieDetailFactory
-import com.rodrigobresan.cache.test.factory.MovieFactory
 import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,8 +23,8 @@ class MovieDetailCacheImplTest {
 
     private val context = RuntimeEnvironment.application
 
-    private var movieDetailEntityMapper = MovieDetailEntityMapper()
-    private var movieDetailDbMapper = MovieDetailDbMapper()
+    private var movieDetailEntityMapper = MovieDetailCacheMapper()
+    private var movieDetailDbMapper = MovieDetailCacheDbMapper()
     private var preferencesHelper = PreferencesHelper(context)
 
     private lateinit var movieDetailCacheImpl: MovieDetailCacheImpl

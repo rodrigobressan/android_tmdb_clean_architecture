@@ -1,8 +1,8 @@
 package com.rodrigobresan.presentation.movies.presenter
 
+import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.movies.interactor.GetMovies
 import com.rodrigobresan.domain.movies.model.Movie
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.mapper.MovieMapper
 import io.reactivex.observers.DisposableSingleObserver
@@ -20,7 +20,7 @@ class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
     /**
      * The movie list to be loaded
      */
-    val moviesToLoad = ArrayList<MovieCategory>(EnumSet.allOf(MovieCategory::class.java))
+    val moviesToLoad = ArrayList<Category>(EnumSet.allOf(Category::class.java))
 
     init {
         moviesView.setPresenter(this)
@@ -42,7 +42,7 @@ class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
         }
     }
 
-    inner class MoviesSubscriber(var category: MovieCategory) : DisposableSingleObserver<List<Movie>>() {
+    inner class MoviesSubscriber(var category: Category) : DisposableSingleObserver<List<Movie>>() {
         override fun onError(e: Throwable) {
             moviesView.hideMovies(category)
             moviesView.hideProgress(category)
@@ -55,7 +55,7 @@ class MoviesPresenter @Inject constructor(val moviesView: MoviesContract.View,
         }
     }
 
-    private fun handleGetMoviesSuccess(category: MovieCategory, movies: List<Movie>) {
+    private fun handleGetMoviesSuccess(category: Category, movies: List<Movie>) {
         moviesView.hideErrorState(category)
         moviesView.hideProgress(category)
 

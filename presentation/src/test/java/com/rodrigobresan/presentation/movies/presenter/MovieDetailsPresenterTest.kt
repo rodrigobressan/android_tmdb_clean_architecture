@@ -4,6 +4,8 @@ import com.nhaarman.mockito_kotlin.*
 import com.rodrigobresan.data.connection.ConnectionStatus
 import com.rodrigobresan.domain.movie_detail.interactor.GetMovieDetails
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
+import com.rodrigobresan.domain.movies.interactor.FavoriteMovie
+import com.rodrigobresan.domain.movies.interactor.UnfavoriteMovie
 import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContract
 import com.rodrigobresan.presentation.movie_details.mapper.MovieDetailsMapper
 import com.rodrigobresan.presentation.movie_details.presenter.MovieDetailsPresenter
@@ -13,7 +15,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.internal.matchers.Null
 
 /**
  * Class for testing MoviePresenter class
@@ -24,6 +25,8 @@ class MovieDetailsPresenterTest {
     private lateinit var movieDetailsPresenter: MovieDetailsPresenter
     private lateinit var movieDetailsView: MovieDetailsContract.View
     private lateinit var getMovieDetails: GetMovieDetails
+    private lateinit var favoriteMovie: FavoriteMovie
+    private lateinit var unfavoriteMovie: UnfavoriteMovie
     private lateinit var movieDetailsMapper: MovieDetailsMapper
 
     private lateinit var captor: KArgumentCaptor<DisposableSingleObserver<MovieDetail>>
@@ -37,9 +40,11 @@ class MovieDetailsPresenterTest {
         movieDetailsView = mock()
         getMovieDetails = mock()
         movieDetailsMapper = mock()
+        favoriteMovie = mock()
+        unfavoriteMovie = mock()
 
         movieDetailsPresenter = MovieDetailsPresenter(connectionStatus, movieDetailsView,
-                getMovieDetails, movieDetailsMapper)
+                getMovieDetails, favoriteMovie, unfavoriteMovie, movieDetailsMapper)
     }
 
     @Test

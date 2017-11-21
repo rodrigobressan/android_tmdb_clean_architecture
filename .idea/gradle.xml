@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/mobile" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/remote" />
+            <option value="$PROJECT_DIR$/tv" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

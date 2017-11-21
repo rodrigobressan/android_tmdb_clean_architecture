@@ -16,8 +16,16 @@ class MoviesAdapter @Inject constructor(private val clickListener: MovieClickLis
 
     var listItems: List<MovieViewModel> = arrayListOf()
 
+    init {
+        setHasStableIds(true)
+    }
+
     interface MovieClickListener {
         fun onMovieSelected(id: Long, imageView: ImageView)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return listItems[position].id
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +44,10 @@ class MoviesAdapter @Inject constructor(private val clickListener: MovieClickLis
     }
 
     override fun getItemCount(): Int {
+        if (listItems == null) {
+            return 0
+        }
+
         return listItems.size
     }
 

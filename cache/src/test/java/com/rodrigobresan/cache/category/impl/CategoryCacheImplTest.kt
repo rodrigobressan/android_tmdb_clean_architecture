@@ -4,7 +4,7 @@ import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
-import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
+import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.test.factory.CategoryFactory
@@ -24,7 +24,7 @@ class CategoryCacheImplTest {
 
     private val context = RuntimeEnvironment.application
 
-    private var categoryEntityMapper = CategoryEntityMapper()
+    private var categoryEntityMapper = CategoryCacheMapper()
     private var categoryDbMapper = CategoryDbMapper()
     private var preferencesHelper = PreferencesHelper(context)
 

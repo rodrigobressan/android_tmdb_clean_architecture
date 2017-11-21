@@ -23,7 +23,7 @@ class MovieFactory {
 
         fun makeMovie(): Movie {
             return Movie(DataFactory.randomLong(), DataFactory.randomUuid(),
-                    DataFactory.randomDouble(), DataFactory.randomUuid())
+                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomBoolean())
         }
 
         fun makeMovieEntityList(count: Int): List<MovieEntity> {

@@ -3,9 +3,9 @@ package com.rodrigobresan.data.movie.source
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.data.connection.ConnectionStatus
+import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
-import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
 import org.junit.Before
 import org.junit.Test

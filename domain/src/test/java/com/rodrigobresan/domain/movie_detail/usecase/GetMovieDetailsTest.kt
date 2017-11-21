@@ -6,13 +6,10 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.domain.base.executor.PostExecutionThread
 import com.rodrigobresan.domain.base.executor.ThreadExecutor
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import com.rodrigobresan.domain.movie_detail.interactor.GetMovieDetails
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
 import com.rodrigobresan.domain.movie_detail.repository.MovieDetailRepository
-import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.domain.test.factory.MovieDetailFactory
-import com.rodrigobresan.domain.test.factory.MovieFactory
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test

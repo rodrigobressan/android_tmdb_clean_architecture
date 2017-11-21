@@ -74,6 +74,19 @@
                 android:layout_height="wrap_content"
                 app:custom_component_title="@string/now_playing" />
 
+
+            <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
+                android:id="@+id/movie_section_now_favorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:custom_component_title="@string/favorite" />
+
+            <com.rodrigobresan.sampleboilerplateandroid.movies.ui.view.MovieSectionView
+                android:id="@+id/movie_section_seen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:custom_component_title="@string/seen" />
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

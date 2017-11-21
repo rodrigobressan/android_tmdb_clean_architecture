@@ -3,7 +3,7 @@ package com.rodrigobresan.remote.movies.impl
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.data.movie.model.MovieEntity
-import com.rodrigobresan.remote.movies.mapper.MovieEntityMapper
+import com.rodrigobresan.remote.movies.mapper.MovieRemoteMapper
 import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.test.factory.MovieFactory
@@ -20,7 +20,7 @@ import org.junit.runners.JUnit4
 class MovieRemoteImplTest {
 
     private lateinit var movieService: MovieService
-    private lateinit var movieMapper: MovieEntityMapper
+    private lateinit var movieMapper: MovieRemoteMapper
 
     private lateinit var movieRemoteImpl: MovieRemoteImpl
 

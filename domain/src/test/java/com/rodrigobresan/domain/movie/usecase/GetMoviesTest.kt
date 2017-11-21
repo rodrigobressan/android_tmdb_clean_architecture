@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.domain.base.executor.PostExecutionThread
 import com.rodrigobresan.domain.base.executor.ThreadExecutor
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.movies.interactor.GetMovies
 import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.domain.movies.repository.MovieRepository
@@ -37,7 +37,7 @@ class GetMoviesTest {
 
     @Test
     fun buildCaseObservableCallsMoviesRepository() {
-        getMovies.buildUseCaseObservable(MovieCategory.POPULAR)
+        getMovies.buildUseCaseObservable(Category.POPULAR)
         verify(movieRepository).getMovies(any())
     }
 
@@ -45,7 +45,7 @@ class GetMoviesTest {
     fun buildUseCaseObservableCompletes() {
         stubMovieRepositoryGetMovies(Single.just(MovieFactory.makeMovieList(2)))
 
-        val testObservable = getMovies.buildUseCaseObservable(MovieCategory.POPULAR).test()
+        val testObservable = getMovies.buildUseCaseObservable(Category.POPULAR).test()
         testObservable.assertComplete()
     }
 
@@ -54,7 +54,7 @@ class GetMoviesTest {
         val movies = MovieFactory.makeMovieList(2)
         stubMovieRepositoryGetMovies(Single.just(movies))
 
-        val testObserver = getMovies.buildUseCaseObservable(MovieCategory.POPULAR).test()
+        val testObserver = getMovies.buildUseCaseObservable(Category.POPULAR).test()
         testObserver.assertResult(movies)
     }
 

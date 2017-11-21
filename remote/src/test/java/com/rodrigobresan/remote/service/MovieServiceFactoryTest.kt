@@ -1,15 +1,8 @@
 package com.rodrigobresan.remote.service
 
 import com.google.gson.FieldNamingPolicy
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.remote.test.factory.MovieFactory
-import okhttp3.Connection
-import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
-import okhttp3.Request
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.hamcrest.CoreMatchers
 import org.junit.Assert
@@ -17,8 +10,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.test.assertEquals
 
 @RunWith(JUnit4::class)

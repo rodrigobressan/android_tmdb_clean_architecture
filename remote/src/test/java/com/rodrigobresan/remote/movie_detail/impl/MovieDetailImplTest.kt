@@ -3,12 +3,10 @@ package com.rodrigobresan.remote.movie_detail.impl
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.remote.movie_detail.mapper.MovieDetailEntityMapper
+import com.rodrigobresan.remote.movie_detail.mapper.MovieDetailRemoteMapper
 import com.rodrigobresan.remote.movie_detail.model.MovieDetailResponse
-import com.rodrigobresan.remote.movies.impl.MovieRemoteImpl
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.test.factory.MovieDetailFactory
-import com.rodrigobresan.remote.test.factory.MovieFactory
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -19,7 +17,7 @@ import org.junit.runners.JUnit4
 class MovieDetailImplTest {
 
     private lateinit var movieService: MovieService
-    private lateinit var movieDetailMapper: MovieDetailEntityMapper
+    private lateinit var movieDetailMapper: MovieDetailRemoteMapper
 
     private lateinit var movieDetailRemoteImpl: MovieDetailRemoteImpl
 

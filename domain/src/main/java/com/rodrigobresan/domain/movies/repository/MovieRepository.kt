@@ -1,7 +1,7 @@
 package com.rodrigobresan.domain.movies.repository
 
+import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.movies.model.Movie
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -11,6 +11,8 @@ import io.reactivex.Single
  */
 interface MovieRepository {
     fun clearMovies(): Completable
-    fun saveMovies(movieCategory: MovieCategory, movies: List<Movie>): Completable
-    fun getMovies(movieCategory: MovieCategory): Single<List<Movie>>
+    fun saveMovies(category: Category, movies: List<Movie>): Completable
+    fun deleteMovie(category: Category, movie: Movie): Completable
+    fun getMovies(category: Category): Single<List<Movie>>
+    fun getMovie(movieId: Long): Single<Movie>
 }

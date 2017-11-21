@@ -1,1 +1,1 @@
-include ':mobile', ':remote', ':data', ':domain', ':cache', ':presentation', ':base'
+include ':mobile', ':remote', ':data', ':domain', ':cache', ':presentation', ':base', ':tv'

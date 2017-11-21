@@ -2,13 +2,10 @@ package com.rodrigobresan.data.movie.source
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
-import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
+import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCache
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCacheDataStore
 import com.rodrigobresan.data.test.factory.MovieDetailFactory
-import com.rodrigobresan.data.test.factory.MovieFactory
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before
@@ -24,11 +21,13 @@ class MovieDetailCacheDataStoreTest {
 
     private lateinit var movieCacheDataStore: MovieDetailCacheDataStore
     private lateinit var movieCache: MovieDetailCache
+    private lateinit var movieCategoryCache: MovieCategoryCache
 
     @Before
     fun setUp() {
+        movieCategoryCache = mock()
         movieCache = mock()
-        movieCacheDataStore = MovieDetailCacheDataStore(movieCache)
+        movieCacheDataStore = MovieDetailCacheDataStore(movieCache, movieCategoryCache)
     }
 
     @Test

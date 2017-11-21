@@ -55,5 +55,15 @@ interface MovieDetailsContract {
          * Method to fetch movie details
          */
         fun loadMovieDetails(movieId: Long)
+
+        /**
+         * Save movie as favorite
+         */
+        fun favoriteMovie(movieId: Long)
+
+        /**
+         * Unfavorite
+         */
+        fun unfavoriteMovie(movieId: Long)
     }
 }

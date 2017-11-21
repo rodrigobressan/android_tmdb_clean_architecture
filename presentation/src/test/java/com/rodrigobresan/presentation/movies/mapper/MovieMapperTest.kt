@@ -1,7 +1,7 @@
 package com.rodrigobresan.presentation.movies.mapper
 
 import com.rodrigobresan.presentation.movies.factory.MovieFactory
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

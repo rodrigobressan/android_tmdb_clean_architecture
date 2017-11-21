@@ -4,7 +4,7 @@ import com.rodrigobresan.cache.category.CategoryQueries.CategoryTable
 import com.rodrigobresan.cache.movie.MovieQueries.MovieTable
 
 /**
- * Object containing the queries for the MovieCategory table
+ * Object containing the queries for the Category table
  */
 object MovieCategoryQueries {
     object MovieCategoryTable {
@@ -23,6 +23,12 @@ object MovieCategoryQueries {
                         ");"
 
         const val SELECT_ALL = "SELECT * FROM " + TABLE_NAME
+    }
+
+    fun getQueryForMovie(movieId: Long, categoryId: String): String {
+        return "SELECT * FROM " + MovieCategoryTable.TABLE_NAME +
+                " WHERE " + MovieCategoryTable.MOVIE_ID + " = " + movieId +
+                " AND " + MovieCategoryTable.CATEGORY_ID + " = '" + categoryId + "'"
     }
 
 }

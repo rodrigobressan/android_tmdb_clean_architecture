@@ -14,13 +14,15 @@ object MovieQueries {
         const val TITLE = "title"
         const val RATING = "rating"
         const val PICTURE = "picture"
+        const val FAVORITE = "favorite"
 
         const val CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         MOVIE_ID + " INTEGER PRIMARY KEY NOT NULL," +
                         TITLE + " TEXT NOT NULL, " +
                         RATING + " REAL NOT NULL," +
-                        PICTURE + " TEXT " +
+                        PICTURE + " TEXT, " +
+                        FAVORITE + " INT NOT NULL default 0" +
                         ");"
 
         const val SELECT_ALL = "SELECT * FROM " + TABLE_NAME
@@ -40,5 +42,10 @@ object MovieQueries {
                 " WHERE " +
                 MovieCategoryTable.TABLE_NAME + "." + MovieCategoryTable.CATEGORY_ID +
                 " = '" + movieCategory + "'"
+    }
+
+    fun getQueryForMovie(movieId: Long): String {
+        return "SELECT * FROM " + MovieTable.TABLE_NAME +
+                " WHERE " + MovieTable.MOVIE_ID + " = " + movieId
     }
 }

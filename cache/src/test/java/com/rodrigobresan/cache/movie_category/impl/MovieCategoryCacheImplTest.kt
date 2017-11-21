@@ -7,12 +7,12 @@ import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie.MovieQueries
-import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryDbMapper
-import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
+import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryCacheDbMapper
+import com.rodrigobresan.cache.movie.mapper.db.MovieCacheDbMapper
 import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
-import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
+import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryCacheMapper
 import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
 import com.rodrigobresan.cache.test.factory.CategoryFactory
 import com.rodrigobresan.cache.test.factory.MovieCategoryFactory
@@ -33,12 +33,12 @@ class MovieCategoryCacheImplTest {
 
     private val context = RuntimeEnvironment.application
 
-    private var movieCategoryEntityMapper = MovieCategoryEntityMapper()
-    private var movieCategoryDbMapper = MovieCategoryDbMapper()
+    private var movieCategoryEntityMapper = MovieCategoryCacheMapper()
+    private var movieCategoryDbMapper = MovieCategoryCacheDbMapper()
     private var preferencesHelper = PreferencesHelper(context)
 
 
-    private var movieDbMapper: MovieDbMapper = MovieDbMapper()
+    private var movieCacheDbMapper: MovieCacheDbMapper = MovieCacheDbMapper()
     private var categoryDbMapper: CategoryDbMapper = CategoryDbMapper()
 
     private var movieCategoryCacheImpl: MovieCategoryCacheImpl =
@@ -71,14 +71,14 @@ class MovieCategoryCacheImplTest {
         // TODO check issue with foreign keys
         //  insertMovieCategory(movieCategoryCached)
 
-        val testObservable = movieCategoryCacheImpl.getCategories().test()
+        val testObservable = movieCategoryCacheImpl.getMovieCategories().test()
         // testObservable.assertValue(mutableListOf(movieCategoryEntity))
     }
 
     private fun insertRequiredForeignFields(movie: MovieCached, category: CategoryCached) {
         val database = movieCategoryCacheImpl.getDatabase()
 
-        database.insert(MovieQueries.MovieTable.TABLE_NAME, null, movieDbMapper.toContentValues(movie))
+        database.insert(MovieQueries.MovieTable.TABLE_NAME, null, movieCacheDbMapper.toContentValues(movie))
         database.insert(CategoryQueries.CategoryTable.TABLE_NAME, null, categoryDbMapper.toContentValues(category))
     }
 

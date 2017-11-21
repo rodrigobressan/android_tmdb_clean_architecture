@@ -1,13 +1,11 @@
 package com.rodrigobresan.sampleboilerplateandroid.movies.ui.activity
 
-import android.app.ActivityOptions
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.Toast
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.model.MovieView
 import com.rodrigobresan.sampleboilerplateandroid.R
@@ -26,6 +24,8 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
     @Inject lateinit var topRatedMoviesAdapter: MoviesAdapter
     @Inject lateinit var upcomingMoviesAdapter: MoviesAdapter
     @Inject lateinit var nowPlayingMoviesAdapter: MoviesAdapter
+    @Inject lateinit var favoriteMoviesAdapter: MoviesAdapter
+    @Inject lateinit var seenMoviesAdapter: MoviesAdapter
 
     @Inject lateinit var movieMapper: MovieMapper
 
@@ -35,13 +35,16 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
         setContentView(R.layout.activity_movies)
         AndroidInjection.inject(this)
         setSupportActionBar(toolbar_movie)
-
-        moviePresenter.loadMovies()
     }
 
     override fun onMovieSelected(id: Long, imageView: ImageView) {
         val intentMovieDetail = MovieDetailActivity.makeIntent(this, id)
         startActivity(intentMovieDetail)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        moviePresenter.loadMovies()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -62,54 +65,58 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
         this.moviePresenter = presenter
     }
 
-    override fun hideProgress(category: MovieCategory) {
+    override fun hideProgress(category: Category) {
         getMovieSectionView(category).hideProgress()
     }
 
-    override fun showProgress(category: MovieCategory) {
+    override fun showProgress(category: Category) {
         getMovieSectionView(category).showProgress()
     }
 
-    override fun showErrorState(category: MovieCategory) {
+    override fun showErrorState(category: Category) {
         getMovieSectionView(category).showErrorState()
     }
 
-    override fun hideErrorState(category: MovieCategory) {
+    override fun hideErrorState(category: Category) {
         getMovieSectionView(category).hideErrorState()
     }
 
-    override fun showEmptyState(category: MovieCategory) {
+    override fun showEmptyState(category: Category) {
         getMovieSectionView(category).showEmptyState()
     }
 
-    override fun hideEmptyState(category: MovieCategory) {
+    override fun hideEmptyState(category: Category) {
         getMovieSectionView(category).hideEmptyState()
     }
 
-    override fun showMovies(category: MovieCategory, movies: List<MovieView>) {
+    override fun showMovies(category: Category, movies: List<MovieView>) {
         getMovieSectionView(category).showMovies(getMovieAdapter(category),
                 movies.map { movieMapper.mapToViewModel(it) })
     }
 
-    override fun hideMovies(category: MovieCategory) {
+    override fun hideMovies(category: Category) {
         getMovieSectionView(category).hideMovies()
     }
 
-    fun getMovieSectionView(movieCategory: MovieCategory): MovieSectionView {
-        when (movieCategory) {
-            MovieCategory.TOP_RATED -> return movie_section_top_rated
-            MovieCategory.NOW_PLAYING -> return movie_section_now_playing
-            MovieCategory.UPCOMING -> return movie_section_upcoming
-            MovieCategory.POPULAR -> return movie_section_popular
+    fun getMovieSectionView(category: Category): MovieSectionView {
+        when (category) {
+            Category.TOP_RATED -> return movie_section_top_rated
+            Category.NOW_PLAYING -> return movie_section_now_playing
+            Category.UPCOMING -> return movie_section_upcoming
+            Category.POPULAR -> return movie_section_popular
+            Category.FAVORITE -> return movie_section_now_favorites
+            Category.SEEN -> return movie_section_seen
         }
     }
 
-    fun getMovieAdapter(movieCategory: MovieCategory): MoviesAdapter {
-        when (movieCategory) {
-            MovieCategory.TOP_RATED -> return topRatedMoviesAdapter
-            MovieCategory.NOW_PLAYING -> return nowPlayingMoviesAdapter
-            MovieCategory.UPCOMING -> return upcomingMoviesAdapter
-            MovieCategory.POPULAR -> return popularMoviesAdapter
+    fun getMovieAdapter(category: Category): MoviesAdapter {
+        when (category) {
+            Category.TOP_RATED -> return topRatedMoviesAdapter
+            Category.NOW_PLAYING -> return nowPlayingMoviesAdapter
+            Category.UPCOMING -> return upcomingMoviesAdapter
+            Category.POPULAR -> return popularMoviesAdapter
+            Category.FAVORITE -> return favoriteMoviesAdapter
+            Category.SEEN -> return seenMoviesAdapter
         }
     }
 

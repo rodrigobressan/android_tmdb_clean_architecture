@@ -5,26 +5,26 @@ import android.content.Context
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
-import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
+import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.mapper.MovieEntityMapper
+import com.rodrigobresan.cache.mapper.MovieCacheMapper
 import com.rodrigobresan.cache.movie.impl.MovieCacheImpl
-import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryDbMapper
-import com.rodrigobresan.cache.movie.mapper.db.MovieDbMapper
+import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryCacheDbMapper
+import com.rodrigobresan.cache.movie.mapper.db.MovieCacheDbMapper
 import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
-import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryEntityMapper
+import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryCacheMapper
 import com.rodrigobresan.cache.movie_detail.impl.MovieDetailCacheImpl
-import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailDbMapper
-import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailEntityMapper
-import com.rodrigobresan.data.executor.JobExecutor
-import com.rodrigobresan.data.movie.mapper.MovieMapper
-import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
-import com.rodrigobresan.data.movie.sources.MovieDataRepository
-import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
+import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailCacheDbMapper
+import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailCacheMapper
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.connection.ConnectionStatus
-import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
+import com.rodrigobresan.data.executor.JobExecutor
+import com.rodrigobresan.data.movie.mapper.MovieMapper
+import com.rodrigobresan.data.movie.sources.MovieDataRepository
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
+import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
+import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.movie_detail.mapper.MovieDetailMapper
 import com.rodrigobresan.data.movie_detail.sources.MovieDetailDataRepository
 import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataStoreFactory
@@ -83,51 +83,51 @@ open class ApplicationModule {
     @Provides
     @PerApplication
     internal fun provideMovieCategoryCache(dbOpenHelper: DbOpenHelper,
-                                           dbMapper: MovieCategoryDbMapper,
-                                           entityMapper: MovieCategoryEntityMapper,
+                                           cacheDbMapper: MovieCategoryCacheDbMapper,
+                                           cacheMapper: MovieCategoryCacheMapper,
                                            preferencesHelper: PreferencesHelper): MovieCategoryCache {
-        return MovieCategoryCacheImpl(dbOpenHelper, dbMapper, entityMapper, preferencesHelper)
+        return MovieCategoryCacheImpl(dbOpenHelper, cacheDbMapper, cacheMapper, preferencesHelper)
     }
 
     @Provides
     @PerApplication
     internal fun provideCategoryCache(dbOpenHelper: DbOpenHelper,
-                                      categoryEntityMapper: CategoryEntityMapper,
+                                      categoryCacheMapper: CategoryCacheMapper,
                                       categoryDbMapper: CategoryDbMapper,
                                       preferences: PreferencesHelper): CategoryCache {
-        return CategoryCacheImpl(dbOpenHelper, categoryEntityMapper, categoryDbMapper, preferences)
+        return CategoryCacheImpl(dbOpenHelper, categoryCacheMapper, categoryDbMapper, preferences)
     }
 
     @Provides
     @PerApplication
     internal fun provideMovieCache(dbOpenHelper: DbOpenHelper,
-                                   movieEntityMapper: MovieEntityMapper,
-                                   movieDbMapper: MovieDbMapper,
+                                   movieCacheMapper: MovieCacheMapper,
+                                   movieCacheDbMapper: MovieCacheDbMapper,
                                    preferences: PreferencesHelper): MovieCache {
-        return MovieCacheImpl(dbOpenHelper, movieEntityMapper, movieDbMapper, preferences)
+        return MovieCacheImpl(dbOpenHelper, movieCacheMapper, movieCacheDbMapper, preferences)
     }
 
     @Provides
     @PerApplication
     internal fun provideMovieDetailCache(dbOpenHelper: DbOpenHelper,
-                                         entityMapper: MovieDetailEntityMapper,
-                                         dbMapper: MovieDetailDbMapper,
+                                         cacheMapper: MovieDetailCacheMapper,
+                                         cacheDbMapper: MovieDetailCacheDbMapper,
                                          preferences: PreferencesHelper): MovieDetailCache {
-        return MovieDetailCacheImpl(dbOpenHelper, entityMapper, dbMapper, preferences)
+        return MovieDetailCacheImpl(dbOpenHelper, cacheMapper, cacheDbMapper, preferences)
     }
 
     @Provides
     @PerApplication
     internal fun provideMovieRemote(service: MovieService,
-                                    entityMapper: com.rodrigobresan.remote.movies.mapper.MovieEntityMapper): MovieRemote {
-        return MovieRemoteImpl(service, entityMapper)
+                                    remoteMapper: com.rodrigobresan.remote.movies.mapper.MovieRemoteMapper): MovieRemote {
+        return MovieRemoteImpl(service, remoteMapper)
     }
 
     @Provides
     @PerApplication
     internal fun provideMovieDetailRemote(service: MovieService,
-                                          entityMapper: com.rodrigobresan.remote.movie_detail.mapper.MovieDetailEntityMapper): MovieDetailRemote {
-        return MovieDetailRemoteImpl(service, entityMapper)
+                                          remoteMapper: com.rodrigobresan.remote.movie_detail.mapper.MovieDetailRemoteMapper): MovieDetailRemote {
+        return MovieDetailRemoteImpl(service, remoteMapper)
     }
 
     @Provides

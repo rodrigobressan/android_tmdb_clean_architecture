@@ -1,10 +1,9 @@
 package com.rodrigobresan.sampleboilerplateandroid.util
 
 import android.content.Context
+import android.net.ConnectivityManager
 import com.rodrigobresan.data.connection.ConnectionStatus
 import javax.inject.Inject
-import android.net.NetworkInfo
-import android.net.ConnectivityManager
 
 
 class ConnectionUtils @Inject constructor(private val context: Context) : ConnectionStatus {

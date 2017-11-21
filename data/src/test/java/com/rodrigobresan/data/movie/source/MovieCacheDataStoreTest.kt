@@ -8,7 +8,7 @@ import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
 import com.rodrigobresan.data.test.factory.MovieFactory
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.Category
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before
@@ -47,7 +47,7 @@ class MovieCacheDataStoreTest {
 
     @Test
     fun saveMoviesCompletes() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         val movieEntityList = MovieFactory.makeMovieEntityList(2)
         whenever(movieCache.saveMovies(movieCategory, movieEntityList))
                 .thenReturn(Completable.complete())
@@ -63,7 +63,7 @@ class MovieCacheDataStoreTest {
 
     @Test
     fun getMoviesCompletes() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         val movies = MovieFactory.makeMovieEntityList(2)
         whenever(movieCache.getMovies(movieCategory))
                 .thenReturn(Single.just(movies))

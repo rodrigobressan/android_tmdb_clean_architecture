@@ -1,11 +1,10 @@
 package com.rodrigobresan.data.movie.source
 
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.Category
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,30 +29,30 @@ class MovieRemoteDataStoreTest {
 
     @Test(expected = UnsupportedOperationException::class)
     fun saveMoviesShouldThrowUnsupportedOperationException() {
-        movieRemoteDataStore.saveMovies(MovieCategory.POPULAR, arrayListOf())
+        movieRemoteDataStore.saveMovies(Category.POPULAR, arrayListOf())
     }
 
     @Test
     fun getMoviesShouldCallRemoteWithPopularMovies() {
-        movieRemoteDataStore.getMovies(MovieCategory.POPULAR)
+        movieRemoteDataStore.getMovies(Category.POPULAR)
         verify(movieRemote).getPopularMovies()
     }
 
     @Test
     fun getMoviesShouldCallRemoteWithNowPlayingMovies() {
-        movieRemoteDataStore.getMovies(MovieCategory.NOW_PLAYING)
+        movieRemoteDataStore.getMovies(Category.NOW_PLAYING)
         verify(movieRemote).getNowPlayingMovies()
     }
 
     @Test
     fun getMoviesShouldCallRemoteWithUpcomingMovies() {
-        movieRemoteDataStore.getMovies(MovieCategory.UPCOMING)
+        movieRemoteDataStore.getMovies(Category.UPCOMING)
         verify(movieRemote).getUpcomingMovies()
     }
 
     @Test
     fun getMoviesShouldCallRemoteWithTopRatedMovies() {
-        movieRemoteDataStore.getMovies(MovieCategory.TOP_RATED)
+        movieRemoteDataStore.getMovies(Category.TOP_RATED)
         verify(movieRemote).getTopRatedMovies()
     }
 }

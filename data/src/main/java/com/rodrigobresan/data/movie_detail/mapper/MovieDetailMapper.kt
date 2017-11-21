@@ -8,12 +8,15 @@ import javax.inject.Inject
 open class MovieDetailMapper @Inject constructor() : DataMapper<MovieDetailEntity, MovieDetail> {
     override fun mapFromEntity(entity: MovieDetailEntity): MovieDetail {
         return MovieDetail(entity.id, entity.title, entity.voteAverage, entity.posterPath,
-                entity.backdropPath, entity.overview, entity.tagline)
+                entity.backdropPath, entity.overview, entity.tagline, entity.isFavorite)
     }
 
     override fun mapToEntity(model: MovieDetail): MovieDetailEntity {
-        return MovieDetailEntity(model.id, model.title, model.voteAverage, model.posterPath,
+        val movieDetailEntity = MovieDetailEntity(model.id, model.title, model.voteAverage, model.posterPath,
                 model.backdropPath, model.overview, model.tagline)
+
+        movieDetailEntity.isFavorite = model.isFavorite
+        return movieDetailEntity
     }
 
 }

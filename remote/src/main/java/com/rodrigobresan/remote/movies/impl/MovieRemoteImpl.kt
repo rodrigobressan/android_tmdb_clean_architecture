@@ -2,7 +2,7 @@ package com.rodrigobresan.remote.movies.impl
 
 import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
-import com.rodrigobresan.remote.movies.mapper.MovieEntityMapper
+import com.rodrigobresan.remote.movies.mapper.MovieRemoteMapper
 import com.rodrigobresan.remote.movies.model.movies.MovieResponse
 import com.rodrigobresan.remote.service.MovieService
 import io.reactivex.Single
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * the data and pass it back to the data layer
  */
 class MovieRemoteImpl @Inject constructor(private val service: MovieService,
-                                          private val movieEntityMapper: MovieEntityMapper)
+                                          private val movieRemoteMapper: MovieRemoteMapper)
     : MovieRemote {
 
     override fun getNowPlayingMovies(): Single<List<MovieEntity>> {
@@ -36,7 +36,7 @@ class MovieRemoteImpl @Inject constructor(private val service: MovieService,
         return movieResponse.map {
             it.results.map {
                 item ->
-                movieEntityMapper.mapRemoteToEntity(item)
+                movieRemoteMapper.mapRemoteToEntity(item)
             }
         }
     }

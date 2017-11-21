@@ -4,15 +4,14 @@ import com.nhaarman.mockito_kotlin.*
 import com.rodrigobresan.data.movie.mapper.MovieMapper
 import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.movie.sources.MovieDataRepository
-import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
+import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
 import com.rodrigobresan.data.test.factory.MovieFactory
+import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.movies.model.Movie
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
 import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -75,7 +74,7 @@ class MovieDataRepositoryTest {
     // related to save
     @Test
     fun saveMoviesCompletes() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         val movieList = MovieFactory.makeMovieList(2)
         stubMovieCacheSaveMovies(Completable.complete())
 
@@ -86,7 +85,7 @@ class MovieDataRepositoryTest {
     @Test
     fun saveMovieCallsCacheDataStore() {
 
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         stubMovieCacheSaveMovies(Completable.complete())
 
         val movies = MovieFactory.makeMovieList(2)
@@ -96,7 +95,7 @@ class MovieDataRepositoryTest {
 
     @Test
     fun saveMovieNeverCallRemoteDataStore() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         stubMovieCacheSaveMovies(Completable.complete())
 
         movieDataRepository.saveMovies(movieCategory, MovieFactory.makeMovieList(2)).test()
@@ -106,7 +105,7 @@ class MovieDataRepositoryTest {
     // related to get
     @Test
     fun getMoviesCompletes() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
         stubMovieCacheDataStoreGetMovies(movieCategory, Single.just(MovieFactory.makeMovieEntityList(2)))
 
@@ -116,7 +115,7 @@ class MovieDataRepositoryTest {
 
     @Test
     fun getMoviesReturnsData() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
         val movies = MovieFactory.makeMovieList(2)
         val moviesEntities = MovieFactory.makeMovieEntityList(2)
@@ -133,7 +132,7 @@ class MovieDataRepositoryTest {
 
     @Test
     fun getMoviesSavesMoviesWhenFromCacheDataStore() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
         stubMovieCacheSaveMovies(Completable.complete())
 
@@ -143,7 +142,7 @@ class MovieDataRepositoryTest {
 
     @Test
     fun getMoviesNeverSavedMoviesWhenRemoteDataStore() {
-        val movieCategory = MovieCategory.POPULAR
+        val movieCategory = Category.POPULAR
         stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
         stubMovieCacheSaveMovies(Completable.complete())
 
@@ -160,7 +159,7 @@ class MovieDataRepositoryTest {
         whenever(movieRemoteDataStore.getMovies(any()))
                 .thenReturn(Single.just(MovieFactory.makeMovieEntityList(2)))
 
-        movieDataRepository.getMovies(MovieCategory.TOP_RATED).test()
+        movieDataRepository.getMovies(Category.TOP_RATED).test()
     }
 
     private fun stubMovieMapperMapFromEntity(movieEntity: MovieEntity, movie: Movie) {
@@ -168,8 +167,8 @@ class MovieDataRepositoryTest {
                 .thenReturn(movie)
     }
 
-    private fun stubMovieCacheDataStoreGetMovies(movieCategory: MovieCategory, singleMovies: Single<List<MovieEntity>>?) {
-        whenever(movieCacheDataStore.getMovies(movieCategory))
+    private fun stubMovieCacheDataStoreGetMovies(category: Category, singleMovies: Single<List<MovieEntity>>?) {
+        whenever(movieCacheDataStore.getMovies(category))
                 .thenReturn(singleMovies)
     }
 

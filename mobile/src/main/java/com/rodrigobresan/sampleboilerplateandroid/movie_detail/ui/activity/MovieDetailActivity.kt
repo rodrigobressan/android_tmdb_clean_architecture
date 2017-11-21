@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
@@ -27,7 +28,7 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import javax.inject.Inject
 
-class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, MovieOverviewFragment.OnMovieFavoriteListener {
 
     @Inject lateinit var movieDetailPresenter: MovieDetailsContract.Presenter
     @Inject lateinit var movieDetailMapper: MovieDetailMapper
@@ -65,6 +66,14 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View {
 
     override fun setPresenter(presenter: MovieDetailsContract.Presenter) {
         this.movieDetailPresenter = presenter
+    }
+
+    override fun favoriteMovie() {
+        this.movieDetailPresenter.favoriteMovie(movieId)
+    }
+
+    override fun unfavoriteMovie() {
+        movieDetailPresenter.unfavoriteMovie(movieId)
     }
 
     override fun showProgress() {

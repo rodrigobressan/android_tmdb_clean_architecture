@@ -4,9 +4,8 @@ import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
-import com.rodrigobresan.cache.category.mapper.entity.CategoryEntityMapper
+import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.MovieQueries
 import com.rodrigobresan.data.category.model.CategoryEntity
 import com.rodrigobresan.data.category.sources.CategoryCache
 import io.reactivex.Completable
@@ -17,7 +16,7 @@ import javax.inject.Inject
  * Implementation of the CategoryCache
  */
 class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
-                                            private val categoryEntityMapper: CategoryEntityMapper,
+                                            private val categoryCacheMapper: CategoryCacheMapper,
                                             private val categoryDbMapper: CategoryDbMapper,
                                             private val preferences: PreferencesHelper) : CategoryCache {
 
@@ -64,7 +63,7 @@ class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
     private fun insertCategory(categoryEntity: CategoryEntity) {
         database.insert(CategoryQueries.CategoryTable.TABLE_NAME, null,
-                categoryDbMapper.toContentValues(categoryEntityMapper.mapToCached(categoryEntity)))
+                categoryDbMapper.toContentValues(categoryCacheMapper.mapToCached(categoryEntity)))
     }
 
     override fun getCategories(): Single<List<CategoryEntity>> {
@@ -74,7 +73,7 @@ class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
             while (updatesCursor.moveToNext()) {
                 val cachedQuery = categoryDbMapper.fromCursor(updatesCursor)
-                categories.add(categoryEntityMapper.mapFromCached(cachedQuery))
+                categories.add(categoryCacheMapper.mapFromCached(cachedQuery))
             }
 
             updatesCursor.close()

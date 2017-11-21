@@ -1,7 +1,7 @@
 package com.rodrigobresan.presentation.movies.presenter
 
 import com.nhaarman.mockito_kotlin.*
-import com.rodrigobresan.domain.movie_category.model.MovieCategory
+import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.movies.interactor.GetMovies
 import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
@@ -26,7 +26,7 @@ class MoviePresenterTest {
 
     private lateinit var captor: KArgumentCaptor<DisposableSingleObserver<List<Movie>>>
 
-    private val category: MovieCategory = MovieCategory.POPULAR
+    private val category: Category = Category.POPULAR
 
     @Before
     fun setUp() {
