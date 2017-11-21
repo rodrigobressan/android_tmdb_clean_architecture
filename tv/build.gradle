@@ -35,6 +35,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+    }
+
 }
 
 

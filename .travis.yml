@@ -58,12 +58,12 @@ before_install:
 #  - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew build jacocoTestReport
-  - ./gradlew :remote:test
-  - ./gradlew :cache:test
-  - ./gradlew :data:test
-  - ./gradlew :domain:test
-  - ./gradlew :presentation:test
+  - ./gradlew test jacocoTestReport
+#  - ./gradlew :remote:test
+#  - ./gradlew :cache:test
+#  - ./gradlew :data:test
+#  - ./gradlew :domain:test
+#  - ./gradlew :presentation:test
 
   #- ./gradlew build connectedAndroidTest --stacktrace
 

@@ -12,8 +12,9 @@ configurations.all {
 
 jacocoTestReport {
     reports {
-        xml.enabled false
-        csv.enabled false
+        xml.enabled true
+        csv.enabled true
+        html.enabled true
         html.destination "${buildDir}/jacocoHtml"
     }
 }
