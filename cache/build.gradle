@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 

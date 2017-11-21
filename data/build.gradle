@@ -1,7 +1,17 @@
 apply plugin: 'kotlin'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.enabled true
+        html.destination "${buildDir}/jacocoHtml"
+    }
+}
 
 dependencies {
     def dataDependencies = rootProject.ext.dataDependencies
