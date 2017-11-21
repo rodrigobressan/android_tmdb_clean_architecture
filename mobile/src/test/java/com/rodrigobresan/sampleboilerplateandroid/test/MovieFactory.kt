@@ -8,7 +8,7 @@ class MovieFactory {
     companion object Factory {
         fun makeMovieView(): MovieView {
             return MovieView(DataFactory.randomLong(), DataFactory.randomUuid(),
-                    DataFactory.randomDouble(), DataFactory.randomUuid())
+                    DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomBoolean())
         }
     }
 }
