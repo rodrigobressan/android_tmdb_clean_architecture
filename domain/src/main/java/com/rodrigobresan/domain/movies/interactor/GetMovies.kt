@@ -6,7 +6,6 @@ import com.rodrigobresan.domain.interactor.SingleUseCase
 import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.domain.movies.repository.MovieRepository
-import com.sun.javaws.exceptions.InvalidArgumentException
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -24,7 +23,7 @@ open class GetMovies @Inject constructor(val movieRepository: MovieRepository,
             return movieRepository.getMovies(params)
         }
 
-        throw InvalidArgumentException(arrayOf())
+        throw IllegalArgumentException()
     }
 
 }

@@ -11,6 +11,7 @@ import com.rodrigobresan.domain.movies.interactor.GetMovies
 import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.domain.movies.repository.MovieRepository
 import com.rodrigobresan.domain.test.factory.MovieFactory
+import com.sun.javaws.exceptions.InvalidArgumentException
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -39,6 +40,11 @@ class GetMoviesTest {
     fun buildCaseObservableCallsMoviesRepository() {
         getMovies.buildUseCaseObservable(Category.POPULAR)
         verify(movieRepository).getMovies(any())
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun buildUseCaseObservableThrowsException() {
+        getMovies.buildUseCaseObservable(null)
     }
 
     @Test
