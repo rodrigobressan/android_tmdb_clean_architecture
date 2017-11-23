@@ -10,6 +10,8 @@ import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContrac
 import com.rodrigobresan.presentation.movie_details.mapper.MovieDetailsMapper
 import com.rodrigobresan.presentation.movie_details.presenter.MovieDetailsPresenter
 import com.rodrigobresan.presentation.movies.factory.MovieDetailFactory
+import io.reactivex.Completable
+import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Before
 import org.junit.Test
@@ -29,12 +31,15 @@ class MovieDetailsPresenterTest {
     private lateinit var unfavoriteMovie: UnfavoriteMovie
     private lateinit var movieDetailsMapper: MovieDetailsMapper
 
-    private lateinit var captor: KArgumentCaptor<DisposableSingleObserver<MovieDetail>>
+    private lateinit var captorMovieDetail: KArgumentCaptor<DisposableSingleObserver<MovieDetail>>
+    private lateinit var captorFavoriteMovie: KArgumentCaptor<DisposableCompletableObserver>
+
     private lateinit var connectionStatus: ConnectionStatus
 
     @Before
     fun setUp() {
-        captor = argumentCaptor<DisposableSingleObserver<MovieDetail>>()
+        captorMovieDetail = argumentCaptor<DisposableSingleObserver<MovieDetail>>()
+        captorFavoriteMovie = argumentCaptor<DisposableCompletableObserver>()
 
         connectionStatus = mock()
         movieDetailsView = mock()
@@ -47,12 +52,23 @@ class MovieDetailsPresenterTest {
                 getMovieDetails, favoriteMovie, unfavoriteMovie, movieDetailsMapper)
     }
 
+//    @Test
+//    fun favoriteMovieCallsFavoriteUseCase() {
+//        val movieId = 0L
+//        whenever(favoriteMovie.execute(movieId))
+//                .thenReturn(Completable.complete())
+//
+//        movieDetailsPresenter.favoriteMovie(movieId)
+//
+//        verify(favoriteMovie).execute(eq(movieId))
+//    }
+
     @Test
     fun loadMovieDetailsHideErrorState() {
         movieDetailsPresenter.loadMovieDetails(0)
 
-        verify(getMovieDetails).execute(captor.capture(), eq(0))
-        captor.firstValue.onSuccess(MovieDetailFactory.makeMovieDetail())
+        verify(getMovieDetails).execute(captorMovieDetail.capture(), eq(0))
+        captorMovieDetail.firstValue.onSuccess(MovieDetailFactory.makeMovieDetail())
         verify(movieDetailsView).hideErrorState()
     }
 
@@ -61,8 +77,8 @@ class MovieDetailsPresenterTest {
         val movie = MovieDetailFactory.makeMovieDetail()
         movieDetailsPresenter.loadMovieDetails(0)
 
-        verify(getMovieDetails).execute(captor.capture(), eq(0))
-        captor.firstValue.onSuccess(movie)
+        verify(getMovieDetails).execute(captorMovieDetail.capture(), eq(0))
+        captorMovieDetail.firstValue.onSuccess(movie)
 
         verify(movieDetailsView).showMovieDetails(movieDetailsMapper.mapToView(movie))
     }
@@ -71,8 +87,8 @@ class MovieDetailsPresenterTest {
     fun loadMovieDetailsShowErrorState() {
         movieDetailsPresenter.loadMovieDetails(0)
 
-        verify(getMovieDetails).execute(captor.capture(), eq(0))
-        captor.firstValue.onError(RuntimeException())
+        verify(getMovieDetails).execute(captorMovieDetail.capture(), eq(0))
+        captorMovieDetail.firstValue.onError(RuntimeException())
         verify(movieDetailsView).showErrorState()
     }
 
@@ -80,8 +96,8 @@ class MovieDetailsPresenterTest {
 //    fun loadMovieDetailsShowEmptyStateWhenResponseIsNotFound() {
 //        movieDetailsPresenter.loadMovieDetails(0)
 //
-//        verify(getMovieDetails).execute(captor.capture(), eq(0))
-//        captor.firstValue.onSuccess(null)
+//        verify(getMovieDetails).execute(captorMovieDetail.capture(), eq(0))
+//        captorMovieDetail.firstValue.onSuccess(null)
 //        verify(movieDetailsView).showEmptyState()
 //    }
 
@@ -92,8 +108,8 @@ class MovieDetailsPresenterTest {
                 .thenReturn(true)
 
         movieDetailsPresenter.loadMovieDetails(0)
-        verify(getMovieDetails).execute(captor.capture(), eq(0))
-        captor.firstValue.onError(Exception())
+        verify(getMovieDetails).execute(captorMovieDetail.capture(), eq(0))
+        captorMovieDetail.firstValue.onError(Exception())
 
 
         verify(movieDetailsView).showErrorState()
@@ -109,8 +125,8 @@ class MovieDetailsPresenterTest {
 
         val movie = MovieDetailFactory.makeMovieDetail()
         movieDetailsPresenter.loadMovieDetails(0)
-        verify(getMovieDetails).execute(captor.capture(), eq(0))
-        captor.firstValue.onSuccess(movie)
+        verify(getMovieDetails).execute(captorMovieDetail.capture(), eq(0))
+        captorMovieDetail.firstValue.onSuccess(movie)
 
         verify(movieDetailsView).showMovieDetails(movieDetailsMapper.mapToView(movie))
 

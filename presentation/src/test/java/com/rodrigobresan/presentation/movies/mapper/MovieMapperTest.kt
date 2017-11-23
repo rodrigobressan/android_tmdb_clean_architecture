@@ -26,6 +26,7 @@ class MovieMapperTest {
         assertEquals(movie.title, movieView.title)
         assertEquals(movie.posterPath, movieView.posterPath)
         assertEquals(movie.rating, movieView.rating, 0.1)
+        assertEquals(movie.isFavorite, movieView.isFavorite)
     }
 
 }

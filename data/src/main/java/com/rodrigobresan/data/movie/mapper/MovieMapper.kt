@@ -8,12 +8,14 @@ import javax.inject.Inject
 /**
  * Mapper for movie entity from data to domain layer
  */
-open class MovieMapper @Inject constructor(): DataMapper<MovieEntity, Movie> {
+open class MovieMapper @Inject constructor() : DataMapper<MovieEntity, Movie> {
     override fun mapFromEntity(entity: MovieEntity): Movie {
         return Movie(entity.id, entity.title, entity.rating, entity.posterPath, entity.isFavorite)
     }
 
     override fun mapToEntity(model: Movie): MovieEntity {
-        return MovieEntity(model.id, model.title, model.rating, model.posterPath)
+        var movieEntity = MovieEntity(model.id, model.title, model.rating, model.posterPath)
+        movieEntity.isFavorite = model.isFavorite
+        return movieEntity
     }
 }

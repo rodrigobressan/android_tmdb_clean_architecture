@@ -7,6 +7,7 @@ import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
+import com.rodrigobresan.data.test.factory.MovieCategoryFactory
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.movie_category.model.Category
 import io.reactivex.Completable
@@ -71,4 +72,25 @@ class MovieCacheDataStoreTest {
         movieCacheDataStore.getMovies(movieCategory).test().assertComplete()
     }
 
+    @Test
+    fun deleteMoviesCompletes() {
+        val movieCategoryEntity = MovieCategoryFactory.makeMovieCategoryEntity()
+
+        whenever(movieCategoryCache.deleteMovieFromCategory(movieCategoryEntity))
+                .thenReturn(Completable.complete())
+
+        movieCacheDataStore.deleteMovieFromCategory(movieCategoryEntity).test().assertComplete()
+    }
+
+    @Test
+    fun getMovieCompletes() {
+        val movie = MovieFactory.makeMovieEntity()
+        whenever(movieCache.getMovie(movie.id))
+                .thenReturn(Single.just(movie))
+
+        whenever(movieCategoryCache.hasMovieInCategory(movie.id, Category.FAVORITE))
+                .thenReturn(true)
+
+        movieCacheDataStore.getMovie(movie.id).test().assertComplete()
+    }
 }
