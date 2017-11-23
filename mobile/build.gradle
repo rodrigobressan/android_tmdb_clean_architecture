@@ -71,6 +71,9 @@ dependencies {
     implementation project(':remote')
 
     implementation mobileUiDependencies.javaxAnnotation
+    implementation 'com.google.firebase:firebase-auth:11.2.0'
+    implementation 'com.google.android.gms:play-services-auth:11.2.0'
+
     implementation 'com.github.florent37:glidepalette:2.1.1'
 
     implementation mobileUiDependencies.kotlin
