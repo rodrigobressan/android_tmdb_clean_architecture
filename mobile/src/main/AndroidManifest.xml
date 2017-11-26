@@ -18,13 +18,15 @@
             android:theme="@style/AppTheme.Movies">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".movie_detail.ui.activity.MovieDetailActivity"
             android:theme="@style/AppTheme.MovieDetail">
+
+        </activity>
+        <activity android:name=".intro.IntroActivity">
 
         </activity>
 

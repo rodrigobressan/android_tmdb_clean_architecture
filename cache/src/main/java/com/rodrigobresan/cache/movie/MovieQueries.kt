@@ -14,15 +14,13 @@ object MovieQueries {
         const val TITLE = "title"
         const val RATING = "rating"
         const val PICTURE = "picture"
-        const val FAVORITE = "favorite"
 
         const val CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         MOVIE_ID + " INTEGER PRIMARY KEY NOT NULL," +
                         TITLE + " TEXT NOT NULL, " +
                         RATING + " REAL NOT NULL," +
-                        PICTURE + " TEXT, " +
-                        FAVORITE + " INT NOT NULL default 0" +
+                        PICTURE + " TEXT " +
                         ");"
 
         const val SELECT_ALL = "SELECT * FROM " + TABLE_NAME

@@ -12,14 +12,13 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class MovieDetailCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
-                                               private val movieDetailCacheMapper: MovieDetailCacheMapper,
+class MovieDetailCacheImpl @Inject constructor(private val movieDetailCacheMapper: MovieDetailCacheMapper,
                                                private val movieDetailCacheDbMapper: MovieDetailCacheDbMapper,
                                                private val preferencesHelper: PreferencesHelper) : MovieDetailCache {
 
     private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
 
-    private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
+    private var database: SQLiteDatabase = getDatabase()
 
     /**
      * Return the current database. Used mostly for test purposes

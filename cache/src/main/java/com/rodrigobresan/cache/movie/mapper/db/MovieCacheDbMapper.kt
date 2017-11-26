@@ -28,6 +28,8 @@ class MovieCacheDbMapper @Inject constructor() : ModelCacheMapper<MovieCached> {
         val rating = cursor.getDouble(cursor.getColumnIndexOrThrow(MovieTable.RATING))
         val picture = cursor.getString(cursor.getColumnIndexOrThrow(MovieTable.PICTURE))
 
-        return MovieCached(id, title, rating, picture)
+        var movie = MovieCached(title, rating, picture)
+        movie.id = id
+        return movie
     }
 }

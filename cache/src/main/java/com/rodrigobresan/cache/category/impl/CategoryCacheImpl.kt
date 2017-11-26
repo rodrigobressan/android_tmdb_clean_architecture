@@ -3,6 +3,7 @@ package com.rodrigobresan.cache.category.impl
 import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
+import com.rodrigobresan.cache.category.dao.CategoryDao
 import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.db.DbOpenHelper
@@ -15,32 +16,31 @@ import javax.inject.Inject
 /**
  * Implementation of the CategoryCache
  */
-class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
-                                            private val categoryCacheMapper: CategoryCacheMapper,
-                                            private val categoryDbMapper: CategoryDbMapper,
-                                            private val preferences: PreferencesHelper) : CategoryCache {
+class CategoryCacheImpl @Inject constructor(
+        private val categoryDao: CategoryDao,
+        private val categoryCacheMapper: CategoryCacheMapper,
+        private val preferences: PreferencesHelper) : CategoryCache {
 
     private val CACHE_EXPIRATION_TIME = (0.5 * 10 * 1000)
 
-    private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
-
-    /**
-     * Returns the database instance. Mostly used for testing
-     */
-    fun getDatabase(): SQLiteDatabase {
-        return database
-    }
+//
+//    /**
+//     * Returns the database instance. Mostly used for testing
+//     */
+//    fun getDatabase(): SQLiteDatabase {
+//        return database
+//    }
 
     override fun clearCategories(): Completable {
         return Completable.defer {
-            database.beginTransaction()
-
-            try {
-                database.delete(CategoryQueries.CategoryTable.TABLE_NAME, null, null)
-                database.setTransactionSuccessful()
-            } finally {
-                database.endTransaction()
-            }
+            //            database.beginTransaction()
+//
+//            try {
+//                database.delete(CategoryQueries.CategoryTable.TABLE_NAME, null, null)
+//                database.setTransactionSuccessful()
+//            } finally {
+//                database.endTransaction()
+//            }
 
             Completable.complete()
         }
@@ -48,42 +48,25 @@ class CategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
 
     override fun saveCategory(category: CategoryEntity): Completable {
         return Completable.defer {
-            database.beginTransaction()
-
-            try {
-                insertCategory(category)
-                database.setTransactionSuccessful()
-            } finally {
-                database.endTransaction()
-            }
-
+            categoryDao.insert(categoryCacheMapper.mapToCached(category))
             Completable.complete()
         }
     }
-
-    private fun insertCategory(categoryEntity: CategoryEntity) {
-        database.insert(CategoryQueries.CategoryTable.TABLE_NAME, null,
-                categoryDbMapper.toContentValues(categoryCacheMapper.mapToCached(categoryEntity)))
-    }
+//
+//    private fun insertCategory(categoryEntity: CategoryEntity) {
+//        database.insertWithOnConflict(CategoryQueries.CategoryTable.TABLE_NAME, null,
+//                categoryDbMapper.toContentValues(categoryCacheMapper.mapToCached(categoryEntity)), SQLiteDatabase.CONFLICT_REPLACE)
+//    }
 
     override fun getCategories(): Single<List<CategoryEntity>> {
         return Single.defer<List<CategoryEntity>> {
-            val updatesCursor = database.rawQuery(CategoryQueries.CategoryTable.SELECT_ALL, null)
-            val categories = mutableListOf<CategoryEntity>()
-
-            while (updatesCursor.moveToNext()) {
-                val cachedQuery = categoryDbMapper.fromCursor(updatesCursor)
-                categories.add(categoryCacheMapper.mapFromCached(cachedQuery))
-            }
-
-            updatesCursor.close()
-
-            Single.just(categories)
+            val categoryList = categoryDao.getAll()
+            Single.just(categoryList.map { categoryCacheMapper.mapFromCached(it) })
         }
     }
 
     override fun isCached(): Boolean {
-        return database.rawQuery(CategoryQueries.CategoryTable.SELECT_ALL, null).count > 0
+        return categoryDao.getAll().size > 0
     }
 
     override fun updateLastCacheTime() {

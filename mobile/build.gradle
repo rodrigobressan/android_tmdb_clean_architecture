@@ -71,8 +71,13 @@ dependencies {
     implementation project(':remote')
 
     implementation mobileUiDependencies.javaxAnnotation
-    implementation 'com.google.firebase:firebase-auth:11.2.0'
-    implementation 'com.google.android.gms:play-services-auth:11.2.0'
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    kapt "android.arch.persistence.room:compiler:1.0.0"
+
+    compile 'com.google.firebase:firebase-core:11.6.0'
+    compile 'com.google.firebase:firebase-auth:11.6.0'
+    compile 'com.google.android.gms:play-services-auth:11.6.0'
+
 
     implementation 'com.github.florent37:glidepalette:2.1.1'
 
@@ -128,3 +133,4 @@ dependencies {
     kaptAndroidTest mobileUiDependencies.daggerCompiler
 }
 
+apply plugin: 'com.google.gms.google-services'

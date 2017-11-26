@@ -24,6 +24,10 @@ class MovieCategoryCacheDbMapper @Inject constructor() : ModelCacheMapper<MovieC
         val movieId = cursor.getLong(cursor.getColumnIndexOrThrow(MovieCategoryQueries.MovieCategoryTable.MOVIE_ID))
         val categoryId = cursor.getString(cursor.getColumnIndexOrThrow(MovieCategoryQueries.MovieCategoryTable.CATEGORY_ID))
 
-        return MovieCategoryCached(movieId, categoryId)
+        val movieCategoryCached = MovieCategoryCached("desc")
+        movieCategoryCached.movieId = movieId
+        movieCategoryCached.categoryId = categoryId
+
+        return movieCategoryCached
     }
 }

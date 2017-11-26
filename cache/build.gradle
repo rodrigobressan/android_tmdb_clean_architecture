@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -41,7 +42,6 @@ android {
         disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
     }
 
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -51,6 +51,13 @@ dependencies {
     compileOnly cacheDependencies.javaxAnnotation
 
     implementation project(':data')
+
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    kapt "android.arch.persistence.room:compiler:1.0.0"
+//
+//    compile "android.arch.lifecycle:runtime:1.0.0"
+//    compile "android.arch.lifecycle:extensions:1.0.0"
+//    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
 
     implementation cacheDependencies.kotlin
     implementation cacheDependencies.javaxInject

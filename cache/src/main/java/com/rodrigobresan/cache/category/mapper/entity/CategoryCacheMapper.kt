@@ -11,11 +11,15 @@ import javax.inject.Inject
 open class CategoryCacheMapper @Inject constructor() : EntityMapper<CategoryCached, CategoryEntity> {
 
     override fun mapFromCached(cached: CategoryCached): CategoryEntity {
-        return CategoryEntity(cached.id, cached.name)
+        val category = CategoryEntity(cached.id, cached.name)
+        return category
     }
 
     override fun mapToCached(entity: CategoryEntity): CategoryCached {
-        return CategoryCached(entity.id, entity.name)
+        val category = CategoryCached(entity.name)
+        category.id = entity.id
+
+        return category
     }
 
 }

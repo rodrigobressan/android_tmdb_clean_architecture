@@ -29,6 +29,6 @@ dependencies {
     testImplementation dataTestDependencies.kotlinJUnit
     testImplementation dataTestDependencies.mockito
     testImplementation dataTestDependencies.assertj
-    compile 'com.android.support:support-annotations:26.0.1'
+    compile 'com.android.support:support-annotations:26.1.0'
     compile project(path: ':base')
 }

@@ -23,6 +23,8 @@ class CategoryDbMapper @Inject constructor() : ModelCacheMapper<CategoryCached> 
     override fun fromCursor(cursor: Cursor): CategoryCached {
         val id = cursor.getString(cursor.getColumnIndexOrThrow(CategoryQueries.CategoryTable.CATEGORY_ID))
         val name = cursor.getString(cursor.getColumnIndexOrThrow(CategoryQueries.CategoryTable.CATEGORY_NAME))
-        return CategoryCached(id, name)
+        val category = CategoryCached(name)
+        category.id = id
+        return category
     }
 }

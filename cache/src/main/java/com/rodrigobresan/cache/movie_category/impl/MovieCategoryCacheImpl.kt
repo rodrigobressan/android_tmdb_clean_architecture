@@ -5,6 +5,7 @@ import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryCacheDbMapper
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
+import com.rodrigobresan.cache.movie_category.dao.MovieCategoryDao
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryCacheMapper
 import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
@@ -16,79 +17,44 @@ import javax.inject.Inject
 /**
  * Movie Category Cache contract implementation
  */
-class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
-                                                 private val cacheDbMapper: MovieCategoryCacheDbMapper,
-                                                 private val cacheMapper: MovieCategoryCacheMapper,
-                                                 private val preferences: PreferencesHelper) : MovieCategoryCache {
+class MovieCategoryCacheImpl @Inject constructor(
+        private val movieCategoryDao: MovieCategoryDao,
+        private val cacheMapper: MovieCategoryCacheMapper,
+        private val preferences: PreferencesHelper) : MovieCategoryCache {
 
     private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
 
-    private var database: SQLiteDatabase = dbOpenHelper.writableDatabase
-
-    /**
-     * Returns the database instance. Mostly used for testing
-     */
-    fun getDatabase(): SQLiteDatabase {
-        return database
-    }
+////    private var database: SQLiteDatabase = getDatabase() //dbOpenHelper.writableDatabase
+////
+////    /**
+//     * Returns the database instance. Mostly used for testing
+//     */
+//    fun getDatabase(): SQLiteDatabase {
+//        return database
+//    }
 
     override fun hasMovieInCategory(movieId: Long, category: Category): Boolean {
-        val query = MovieCategoryQueries.getQueryForMovie(movieId, category.name)
-
-        val cursor = database.rawQuery(query, null)
-        cursor.moveToFirst()
-        cursor.close()
-
-        return cursor.count > 0
+        val movieCategoryList = movieCategoryDao.getMovieInCategory(movieId, category.name)
+        return movieCategoryList.size > 0
     }
 
     override fun getMovieCategories(): Single<List<MovieCategoryEntity>> {
         return Single.defer<List<MovieCategoryEntity>> {
 
-            val query = MovieCategoryQueries.MovieCategoryTable.SELECT_ALL
-
-            val updatesCursor = database.rawQuery(query, null)
-            val movieCategories = mutableListOf<MovieCategoryEntity>()
-
-            while (updatesCursor.moveToNext()) {
-                val cachedMovieCategory = cacheDbMapper.fromCursor(updatesCursor)
-                movieCategories.add(cacheMapper.mapFromCached(cachedMovieCategory))
-            }
-
-            updatesCursor.close()
-            Single.just(movieCategories)
+            val movieCategories = movieCategoryDao.getMovieCategories()
+            Single.just(movieCategories.map { cacheMapper.mapFromCached(it) })
         }
     }
 
     override fun deleteMovieFromCategory(movieCategoryEntity: MovieCategoryEntity): Completable {
         return Completable.defer {
-            database.beginTransaction()
-
-            try {
-                database.delete(MovieCategoryQueries.MovieCategoryTable.TABLE_NAME,
-                        MovieCategoryQueries.MovieCategoryTable.CATEGORY_ID + "=? AND " +
-                                MovieCategoryQueries.MovieCategoryTable.MOVIE_ID + "=? ",
-                        arrayOf(movieCategoryEntity.categoryId, movieCategoryEntity.movieId.toString()))
-                database.setTransactionSuccessful()
-            } finally {
-                database.endTransaction()
-            }
-
+            movieCategoryDao.delete(cacheMapper.mapToCached(movieCategoryEntity))
             Completable.complete()
         }
     }
 
     override fun clearMovieCategories(): Completable {
         return Completable.defer {
-            database.beginTransaction()
-
-            try {
-                database.delete(MovieCategoryQueries.MovieCategoryTable.TABLE_NAME, null, null)
-                database.setTransactionSuccessful()
-            } finally {
-                database.endTransaction()
-            }
-
             Completable.complete()
         }
     }
@@ -96,24 +62,13 @@ class MovieCategoryCacheImpl @Inject constructor(dbOpenHelper: DbOpenHelper,
     override fun saveMovieCategory(movieCategoryEntity: MovieCategoryEntity): Completable {
 
         return Completable.defer {
-            database.beginTransaction()
-
-            try {
-                val cachedMovieCategory = cacheMapper.mapToCached(movieCategoryEntity)
-                val valuesMovieCategory = cacheDbMapper.toContentValues(cachedMovieCategory)
-
-                database.insert(MovieCategoryQueries.MovieCategoryTable.TABLE_NAME, null, valuesMovieCategory)
-                database.setTransactionSuccessful()
-            } finally {
-                database.endTransaction()
-            }
-
+            movieCategoryDao.insert(cacheMapper.mapToCached(movieCategoryEntity))
             Completable.complete()
         }
     }
 
     override fun isCached(): Boolean {
-        return database.rawQuery(MovieCategoryQueries.MovieCategoryTable.SELECT_ALL, null).count > 0
+        return movieCategoryDao.getMovieCategories().size > 0
     }
 
     override fun updateLastCacheTime() {

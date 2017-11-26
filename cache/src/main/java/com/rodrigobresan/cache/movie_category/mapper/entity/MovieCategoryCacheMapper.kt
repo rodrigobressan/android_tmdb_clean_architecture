@@ -15,7 +15,10 @@ open class MovieCategoryCacheMapper @Inject constructor() : EntityMapper<MovieCa
     }
 
     override fun mapToCached(entity: MovieCategoryEntity): MovieCategoryCached {
-        return MovieCategoryCached(entity.movieId, entity.categoryId)
+        val movieCategoryCached = MovieCategoryCached()
+        movieCategoryCached.movieId = entity.movieId
+        movieCategoryCached.categoryId = entity.categoryId
+        return movieCategoryCached
     }
 
 }
