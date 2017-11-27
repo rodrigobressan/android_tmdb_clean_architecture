@@ -2,6 +2,7 @@ package com.rodrigobresan.remote.service
 
 import com.rodrigobresan.remote.movie_detail.model.MovieDetailResponse
 import com.rodrigobresan.remote.movies.model.movies.MovieResponse
+import com.rodrigobresan.remote.review.Review
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -41,4 +42,7 @@ interface MovieService {
      */
     @GET("movie/{movieId}")
     fun getMovieDetails(@Path("movieId") movieId: Long): Single<MovieDetailResponse>
+
+    @GET("movie/{movieId}/reviews")
+    fun getMovieReviews(@Path("movieId") movieId: Long) : Single<List<Review>>
 }

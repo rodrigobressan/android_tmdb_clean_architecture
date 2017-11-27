@@ -8,7 +8,6 @@ import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataSto
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCacheDataStore
 import com.rodrigobresan.data.movie_detail.sources.data_store.remote.MovieDetailRemoteDataStore
 import com.rodrigobresan.data.test.factory.MovieDetailFactory
-import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -20,10 +20,6 @@ class MoviesAdapter @Inject constructor(private val clickListener: MovieClickLis
         setHasStableIds(true)
     }
 
-    interface MovieClickListener {
-        fun onMovieSelected(id: Long, imageView: ImageView)
-    }
-
     override fun getItemId(position: Int): Long {
         return listItems[position].id
     }
@@ -63,5 +59,10 @@ class MoviesAdapter @Inject constructor(private val clickListener: MovieClickLis
             }
         }
     }
+
+    interface MovieClickListener {
+        fun onMovieSelected(id: Long, imageView: ImageView)
+    }
+
 
 }

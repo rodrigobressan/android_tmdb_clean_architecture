@@ -5,7 +5,6 @@ import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.mapper.MovieCacheMapper
 import com.rodrigobresan.cache.movie.MovieQueries
-import com.rodrigobresan.cache.movie.mapper.db.MovieCacheDbMapper
 import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.test.factory.MovieFactory
 import com.rodrigobresan.data.category.sources.CategoryCache

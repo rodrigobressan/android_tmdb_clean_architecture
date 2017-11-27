@@ -3,7 +3,6 @@ package com.rodrigobresan.cache.movie.impl
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
-import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.db.DbOpenHelper

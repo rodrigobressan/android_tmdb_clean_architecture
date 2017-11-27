@@ -1,19 +1,18 @@
 package com.rodrigobresan.cache.movie_category.dao
 
 import android.arch.persistence.room.*
-import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
 
 @Dao
 interface MovieCategoryDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(movieCategory: MovieCategoryCached)
 
-    @Query("SELECT MovieCategory.movieId, MovieCategory.categoryId, MovieCategory.description" +
+    @Query("SELECT MovieCategory.movieId, MovieCategory.categoryId " +
             " FROM MovieCategory " +
             " WHERE MovieCategory.movieId = :arg0 " +
-            " AND MovieCategory.categoryId LIKE :arg1")
+            " AND MovieCategory.categoryId = :arg1")
     fun getMovieInCategory(movieId: Long, name: String): List<MovieCategoryCached>
 
     @Query("SELECT * FROM MovieCategory")

@@ -1,9 +1,7 @@
 package com.rodrigobresan.data.test.factory
 
 import com.rodrigobresan.base.DataFactory
-import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
-import com.rodrigobresan.domain.movies.model.Movie
 
 /**
  * Created by rodrigobresan on 05/10/17.

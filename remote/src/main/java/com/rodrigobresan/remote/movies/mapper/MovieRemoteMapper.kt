@@ -10,7 +10,7 @@ import javax.inject.Inject
  */
 open class MovieRemoteMapper @Inject constructor() : EntityMapper<MovieItem, MovieEntity> {
 
-    val moviePrefixImage = "https://image.tmdb.org/t/p/original"
+    val moviePrefixImage = "https://image.tmdb.org/t/p/w342"
     override fun mapRemoteToEntity(type: MovieItem): MovieEntity {
         return MovieEntity(type.id, type.title, type.voteAverage, moviePrefixImage + type.posterPath)
     }

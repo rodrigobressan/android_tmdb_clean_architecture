@@ -1,35 +1,27 @@
 package com.rodrigobresan.cache.movie_category.model
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.ForeignKey.CASCADE
-import android.arch.persistence.room.PrimaryKey
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.movie.model.MovieCached
 
 /**
  * Data class for stored Category
  */
-@Entity(tableName = "MovieCategory",
+@Entity(primaryKeys = arrayOf("movieId", "categoryId"),
+        tableName = "MovieCategory",
         foreignKeys = arrayOf(
-                ForeignKey(onDelete = CASCADE,
+                ForeignKey(
                         entity = MovieCached::class,
                         parentColumns = arrayOf("id"),
                         childColumns = arrayOf("movieId")
                 ),
-                ForeignKey(onDelete = CASCADE,
-                        entity = CategoryCached::class,
+                ForeignKey(entity = CategoryCached::class,
                         parentColumns = arrayOf("id"),
                         childColumns = arrayOf("categoryId"))
-        ),
-        primaryKeys = arrayOf("movieId", "categoryId"))
-data class MovieCategoryCached(var description: String) {
-
-    constructor() : this("description")
-
-//    @field:PrimaryKey
-    var movieId: Long = 0
-
-//    @field:PrimaryKey
-    var categoryId: String = ""
+        ))
+data class MovieCategoryCached(@ColumnInfo(name = "movieId") var movieId: Long = 0,
+                               @ColumnInfo(name = "categoryId") var categoryId: String = "") {
 }

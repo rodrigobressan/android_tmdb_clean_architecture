@@ -30,7 +30,10 @@ object MovieServiceFactory {
     fun makeApiKeyInterceptor(): Interceptor {
         val interceptor = Interceptor({
             var request = it.request()
-            val url = request.url().newBuilder().addQueryParameter(MovieServiceParams.FIELD_API_KEY, MovieServiceParams.FIELD_API_VALUE).build()
+            val url = request.url().newBuilder().addQueryParameter(MovieServiceParams.FIELD_API_KEY,
+                    MovieServiceParams.FIELD_API_VALUE)
+                    .build()
+
             request = request.newBuilder().url(url).build()
             it.proceed(request)
         })

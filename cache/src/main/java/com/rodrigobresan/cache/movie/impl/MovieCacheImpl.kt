@@ -4,7 +4,6 @@ import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.mapper.MovieCacheMapper
 import com.rodrigobresan.cache.movie.MovieQueries.MovieTable
 import com.rodrigobresan.cache.movie.dao.MovieDao
-import com.rodrigobresan.cache.movie.mapper.db.MovieCacheDbMapper
 import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.domain.movie_category.model.Category

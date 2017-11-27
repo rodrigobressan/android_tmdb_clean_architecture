@@ -3,12 +3,9 @@ package com.rodrigobresan.cache.movie.impl
 import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
-import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie.MovieQueries
-import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryCacheDbMapper
-import com.rodrigobresan.cache.movie.mapper.db.MovieCacheDbMapper
 import com.rodrigobresan.cache.movie.model.MovieCached
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
@@ -24,6 +21,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+
 /**
  * Class for testing MovieCategoryCacheImpl class
  */

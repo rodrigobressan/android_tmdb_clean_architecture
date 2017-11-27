@@ -1,12 +1,9 @@
 package com.rodrigobresan.cache.category.impl
 
-import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.dao.CategoryDao
-import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
-import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.data.category.model.CategoryEntity
 import com.rodrigobresan.data.category.sources.CategoryCache
 import io.reactivex.Completable

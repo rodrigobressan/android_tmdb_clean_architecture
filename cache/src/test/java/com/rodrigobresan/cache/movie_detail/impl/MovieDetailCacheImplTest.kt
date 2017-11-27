@@ -3,7 +3,6 @@ package com.rodrigobresan.cache.movie_detail.impl
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie_detail.MovieDetailQueries
-import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailCacheDbMapper
 import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailCacheMapper
 import com.rodrigobresan.cache.test.factory.MovieDetailFactory
 import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity

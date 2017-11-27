@@ -1,10 +1,8 @@
 package com.rodrigobresan.cache.movie_detail.impl
 
-import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
-import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie_detail.MovieDetailQueries
-import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailCacheDbMapper
+import com.rodrigobresan.cache.movie_detail.dao.MovieDetailsDao
 import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailCacheMapper
 import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCache
@@ -12,75 +10,35 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class MovieDetailCacheImpl @Inject constructor(private val movieDetailCacheMapper: MovieDetailCacheMapper,
-                                               private val movieDetailCacheDbMapper: MovieDetailCacheDbMapper,
-                                               private val preferencesHelper: PreferencesHelper) : MovieDetailCache {
+class MovieDetailCacheImpl @Inject constructor(
+        private val movieDetailsDao: MovieDetailsDao,
+        private val movieDetailCacheMapper: MovieDetailCacheMapper,
+        private val preferencesHelper: PreferencesHelper) : MovieDetailCache {
 
     private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
 
-    private var database: SQLiteDatabase = getDatabase()
-
-    /**
-     * Return the current database. Used mostly for test purposes
-     */
-    fun getDatabase(): SQLiteDatabase {
-        return database
-    }
-
     override fun clearMovieDetails(): Completable {
         return Completable.defer {
-            database.beginTransaction()
-
-            try {
-                database.delete(MovieDetailQueries.MovieDetailTable.TABLE_NAME, null, null)
-                database.setTransactionSuccessful()
-            } finally {
-                database.endTransaction()
-            }
-
             Completable.complete()
         }
     }
 
     override fun saveMovieDetails(movie: MovieDetailEntity): Completable {
         return Completable.defer {
-            database.beginTransaction()
-
-            try {
-                var cachedMovie = movieDetailCacheMapper.mapToCached(movie)
-                var contentValuesMovie = movieDetailCacheDbMapper.toContentValues(cachedMovie)
-                database.insertWithOnConflict(MovieDetailQueries.MovieDetailTable.TABLE_NAME, null,
-                        contentValuesMovie, SQLiteDatabase.CONFLICT_REPLACE)
-                database.setTransactionSuccessful()
-            } finally {
-                database.endTransaction()
-            }
-
+            movieDetailsDao.insertMovie(movieDetailCacheMapper.mapToCached(movie))
             Completable.complete()
         }
     }
 
     override fun getMovieDetails(movieId: Long): Single<MovieDetailEntity> {
         return Single.defer {
-            val query = MovieDetailQueries.getQueryForMovieDetail(movieId)
-            val cursor = database.rawQuery(query, null)
-
-            cursor.moveToFirst()
-
-            if (cursor.count > 0) {
-                var cachedMovie = movieDetailCacheDbMapper.fromCursor(cursor)
-                var entityMovie = movieDetailCacheMapper.mapFromCached(cachedMovie)
-                cursor.close()
-                Single.just(entityMovie)
-            } else {
-                cursor.close()
-                Single.just(null)
-            }
+            val movieCached = movieDetailsDao.getMovieDetails(movieId)
+            Single.just(movieDetailCacheMapper.mapFromCached(movieCached))
         }
     }
 
     override fun isMovieCached(movieId: Long): Boolean {
-        return database.rawQuery(MovieDetailQueries.getQueryForMovieDetail(movieId), null).count > 0
+        return movieDetailsDao.getMovieDetails(movieId) != null
     }
 
     override fun setLastCacheTime(lastCacheTime: Long) {

@@ -1,6 +1,6 @@
 package com.rodrigobresan.cache.movie_detail.mapper.entity
 
-import com.rodrigobresan.cache.movie_detail.model.MovieDetailCached
+import com.rodrigobresan.cache.movie_detail.model.MovieDetailsCached
 import com.rodrigobresan.cache.test.factory.MovieDetailFactory
 import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity
 import org.junit.Before
@@ -38,7 +38,7 @@ class MovieDetailCacheMapperTest {
         assertMovieDataEquality(movieEntity, movieCached)
     }
 
-    private fun assertMovieDataEquality(movieEntity: MovieDetailEntity, movieCached: MovieDetailCached) {
+    private fun assertMovieDataEquality(movieEntity: MovieDetailEntity, movieCached: MovieDetailsCached) {
         assertEquals(movieEntity.id, movieCached.id)
         assertEquals(movieEntity.title, movieCached.title)
         assertEquals(movieEntity.voteAverage, movieCached.voteAverage)

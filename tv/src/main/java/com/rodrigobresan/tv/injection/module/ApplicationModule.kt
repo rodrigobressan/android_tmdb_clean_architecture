@@ -6,20 +6,16 @@ import android.content.Context
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.dao.CategoryDao
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
-import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.db.DbConstants
-import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.mapper.MovieCacheMapper
 import com.rodrigobresan.cache.movie.dao.MovieDao
 import com.rodrigobresan.cache.movie.impl.MovieCacheImpl
-import com.rodrigobresan.cache.movie.mapper.db.MovieCacheDbMapper
-import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryCacheDbMapper
 import com.rodrigobresan.cache.movie_category.dao.MovieCategoryDao
 import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryCacheMapper
+import com.rodrigobresan.cache.movie_detail.dao.MovieDetailsDao
 import com.rodrigobresan.cache.movie_detail.impl.MovieDetailCacheImpl
-import com.rodrigobresan.cache.movie_detail.mapper.db.MovieDetailCacheDbMapper
 import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailCacheMapper
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.connection.ConnectionStatus
@@ -69,6 +65,11 @@ open class ApplicationModule {
     @Provides
     fun provideMovieDao(database: AppDatabase): MovieDao {
         return database.movieDao()
+    }
+
+    @Provides
+    fun provideMovieDetailsDao(database: AppDatabase): MovieDetailsDao {
+        return database.movieDetailsDao()
     }
 
     @Provides
@@ -134,10 +135,10 @@ open class ApplicationModule {
 
     @Provides
     @PerApplication
-    internal fun provideMovieDetailCache(cacheMapper: MovieDetailCacheMapper,
-                                         cacheDbMapper: MovieDetailCacheDbMapper,
+    internal fun provideMovieDetailCache(movieDetailsDao: MovieDetailsDao,
+                                         cacheMapper: MovieDetailCacheMapper,
                                          preferences: PreferencesHelper): MovieDetailCache {
-        return MovieDetailCacheImpl(cacheMapper, cacheDbMapper, preferences)
+        return MovieDetailCacheImpl(movieDetailsDao, cacheMapper, preferences)
     }
 
     @Provides

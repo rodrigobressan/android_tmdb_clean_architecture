@@ -1,9 +1,6 @@
 package com.rodrigobresan.cache.movie_category.impl
 
-import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.PreferencesHelper
-import com.rodrigobresan.cache.db.DbOpenHelper
-import com.rodrigobresan.cache.movie.mapper.db.MovieCategoryCacheDbMapper
 import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.dao.MovieCategoryDao
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryCacheMapper

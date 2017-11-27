@@ -3,7 +3,6 @@ package com.rodrigobresan.cache.movie.mapper.db
 import android.database.Cursor
 import com.rodrigobresan.cache.BuildConfig
 import com.rodrigobresan.cache.category.CategoryQueries
-import com.rodrigobresan.cache.category.mapper.db.CategoryDbMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.test.DefaultConfig

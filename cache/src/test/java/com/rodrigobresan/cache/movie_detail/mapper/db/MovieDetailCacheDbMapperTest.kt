@@ -4,7 +4,7 @@ import android.database.Cursor
 import com.rodrigobresan.cache.BuildConfig
 import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie_detail.MovieDetailQueries
-import com.rodrigobresan.cache.movie_detail.model.MovieDetailCached
+import com.rodrigobresan.cache.movie_detail.model.MovieDetailsCached
 import com.rodrigobresan.cache.test.DefaultConfig
 import com.rodrigobresan.cache.test.factory.MovieDetailFactory
 import org.junit.Before
@@ -47,7 +47,7 @@ class MovieDetailCacheDbMapperTest {
         return cursor
     }
 
-    private fun insertCachedMovieDetail(cachedMovie: MovieDetailCached) {
+    private fun insertCachedMovieDetail(cachedMovie: MovieDetailsCached) {
         database.insertOrThrow(MovieDetailQueries.MovieDetailTable.TABLE_NAME, null,
                 movieCacheDbMapper.toContentValues(cachedMovie))
     }
