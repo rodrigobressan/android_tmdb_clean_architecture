@@ -16,7 +16,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
-import com.rodrigobresan.data.movie_detail.mapper.MovieDetailMapper
+import com.rodrigobresan.domain.review.model.Review
 import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContract
 import com.rodrigobresan.presentation.movie_details.model.MovieDetailView
 import com.rodrigobresan.sampleboilerplateandroid.R
@@ -27,10 +27,10 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import javax.inject.Inject
 
-class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, MovieOverviewFragment.OnMovieFavoriteListener {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View,
+        MovieOverviewFragment.MovieOverviewListener {
 
     @Inject lateinit var movieDetailPresenter: MovieDetailsContract.Presenter
-    @Inject lateinit var movieDetailMapper: MovieDetailMapper
 
     var movieId: Long = 0
 
@@ -49,6 +49,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, Movi
         setContentView(R.layout.activity_movie_detail)
         AndroidInjection.inject(this)
 
+        setUpViewPager()
         retrieveReceivedMovieId()
         setUpToolbar()
         setUpTabLayout()
@@ -60,7 +61,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, Movi
 
     override fun onStart() {
         super.onStart()
-        movieDetailPresenter.loadMovieDetails(movieId)
     }
 
     override fun setPresenter(presenter: MovieDetailsContract.Presenter) {
@@ -105,7 +105,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, Movi
 
     private fun showNoConnectionSnackbar(message: String) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
-                .setAction("Retry", {
+                .setAction(getString(R.string.action_retry), {
                     movieDetailPresenter.loadMovieDetails(movieId)
                 })
                 .setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -126,7 +126,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, Movi
                 )
                 .into(img_movie_details_header)
 
-        setUpViewPager(movieDetail)
+        overviewFragment.setMovieDetails(movieDetail)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -138,6 +138,14 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, Movi
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun loaded() {
+        movieDetailPresenter.loadMovieDetails(movieId)
+    }
+
+    override fun loadReviews(review: List<Review>) {
+        reviewsFragment.loadReviews(review)
     }
 
     @SuppressLint("RestrictedApi")
@@ -172,10 +180,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View, Movi
         })
     }
 
-    private fun setUpViewPager(movieDetail: MovieDetailView) {
+    var overviewFragment = MovieOverviewFragment()
+    var reviewsFragment = MovieReviewsFragment()
+
+    private fun setUpViewPager() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(MovieOverviewFragment.newInstance(movieDetail), getString(R.string.movie_detail_section_overview))
-        adapter.addFragment(MovieReviewsFragment(), getString(R.string.movie_detail_section_reviews))
+        adapter.addFragment(overviewFragment, getString(R.string.movie_detail_section_overview))
+        adapter.addFragment(reviewsFragment, getString(R.string.movie_detail_section_reviews))
 
         vp_movie_details.adapter = adapter
     }

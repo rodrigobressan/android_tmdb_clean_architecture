@@ -3,7 +3,6 @@ package com.rodrigobresan.cache.movie_category.model
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.ForeignKey.CASCADE
 import com.rodrigobresan.cache.category.model.CategoryCached
 import com.rodrigobresan.cache.movie.model.MovieCached
 

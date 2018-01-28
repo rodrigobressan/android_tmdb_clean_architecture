@@ -4,11 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_movie_reviews"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_small"
-        android:gravity="center"
-        android:text="@string/text_movie_review_surprise" />
-
+        android:layout_height="wrap_content" />
 </LinearLayout>

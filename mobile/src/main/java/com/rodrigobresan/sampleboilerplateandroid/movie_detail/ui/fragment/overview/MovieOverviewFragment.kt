@@ -13,33 +13,21 @@ import kotlinx.android.synthetic.main.fragment_movie_overview.*
 
 class MovieOverviewFragment : Fragment() {
 
-    companion object Factory {
-        val EXTRA_MOVIE = "extra_movie"
-        fun newInstance(movieDetailView: MovieDetailView): MovieOverviewFragment {
-            val bundle = Bundle()
-            bundle.putSerializable(EXTRA_MOVIE, movieDetailView)
+    private var listener: MovieOverviewListener? = null
 
-            val fragment = MovieOverviewFragment()
-            fragment.arguments = bundle
-
-            return fragment
-        }
-    }
-
-    private var favoriteListener: OnMovieFavoriteListener? = null
-
-    interface OnMovieFavoriteListener {
+    interface MovieOverviewListener {
         fun favoriteMovie()
         fun unfavoriteMovie()
+        fun loaded()
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        if (context is OnMovieFavoriteListener) {
-            this.favoriteListener = context
+        if (context is MovieOverviewListener) {
+            this.listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnMovieFavoriteListener")
+            throw RuntimeException(context.toString() + " must implement MovieOverviewListener")
         }
     }
 
@@ -52,8 +40,11 @@ class MovieOverviewFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        listener?.loaded()
+    }
 
-        movieDetail = arguments.getSerializable(EXTRA_MOVIE) as MovieDetailView
+    fun setMovieDetails(movieDetail: MovieDetailView) {
+        this.movieDetail = movieDetail
         txt_movie_overview.text = movieDetail.overview
         txt_movie_tagline.text = movieDetail.tagline
         txt_movie_rating.text = movieDetail.voteAverage.toString()
@@ -74,11 +65,11 @@ class MovieOverviewFragment : Fragment() {
         if (movieDetail.isFavorite) {
             img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.grey))
             movieDetail.isFavorite = false
-            favoriteListener?.unfavoriteMovie()
+            listener?.unfavoriteMovie()
         } else {
             img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary))
             movieDetail.isFavorite = true
-            favoriteListener?.favoriteMovie()
+            listener?.favoriteMovie()
         }
     }
 }

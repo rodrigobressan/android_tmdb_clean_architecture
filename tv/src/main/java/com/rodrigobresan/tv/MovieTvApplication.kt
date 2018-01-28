@@ -3,7 +3,6 @@ package com.rodrigobresan.tv
 import android.app.Application
 import android.app.Fragment
 import com.facebook.stetho.Stetho
-import com.rodrigobresan.tv.injection.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasFragmentInjector

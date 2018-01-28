@@ -11,6 +11,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
+import com.sun.deploy.jardiff.JarDiffConstants.VERSION_HEADER
+import okhttp3.Request
+import okhttp3.mockwebserver.RecordedRequest
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+
 
 @RunWith(JUnit4::class)
 class MovieServiceFactoryTest {
@@ -58,6 +64,21 @@ class MovieServiceFactoryTest {
                 gson)
 
         assertEquals(retrofit.baseUrl().url().toString(), MovieServiceParams.BASE_URL)
+    }
+
+    @Test
+    fun makeMovieServiceApiKeyInterceptor() {
+        val mockWebServer = MockWebServer()
+        mockWebServer.start()
+        mockWebServer.enqueue(MockResponse())
+
+        val okHttpClient = MovieServiceFactory.makeOkHttpClient(true)
+        okHttpClient.newCall(Request.Builder().url(mockWebServer.url("/")).build()).execute()
+
+        val request = mockWebServer.takeRequest()
+        assertEquals(MovieServiceParams.FIELD_API_VALUE, request.requestUrl.queryParameter(MovieServiceParams.FIELD_API_KEY))
+
+        mockWebServer.shutdown()
     }
 
     @Test

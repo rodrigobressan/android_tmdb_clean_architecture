@@ -4,6 +4,8 @@ import com.rodrigobresan.domain.movie_detail.interactor.GetMovieDetails
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
 import com.rodrigobresan.domain.movies.interactor.FavoriteMovie
 import com.rodrigobresan.domain.movies.interactor.UnfavoriteMovie
+import com.rodrigobresan.domain.review.interactor.GetReviews
+import com.rodrigobresan.domain.review.model.Review
 import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContract
 import com.rodrigobresan.presentation.movie_details.mapper.MovieDetailsMapper
 import io.reactivex.observers.DisposableSingleObserver
@@ -17,6 +19,7 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
                                                 val getMovieDetails: GetMovieDetails,
                                                 val favoriteMoviesUseCase: FavoriteMovie,
                                                 val unfavoriteMovie: UnfavoriteMovie,
+                                                val getReviews: GetReviews,
                                                 val movieDetailsMapper: MovieDetailsMapper) : MovieDetailsContract.Presenter {
 
     init {
@@ -47,12 +50,22 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
     override fun loadMovieDetails(movieId: Long) {
         movieDetailsView.showProgress()
         getMovieDetails.execute(MovieDetailsSubscriber(), movieId)
+        getReviews.execute(MovieReviewsSubscriber(), movieId)
     }
 
     private fun hideAllViews() {
         movieDetailsView.hideProgress()
         movieDetailsView.hideErrorState()
         movieDetailsView.hideEmptyState()
+    }
+
+    inner class MovieReviewsSubscriber : DisposableSingleObserver<List<Review>>() {
+        override fun onError(e: Throwable) {
+        }
+
+        override fun onSuccess(review: List<Review>) {
+            movieDetailsView.loadReviews(review)
+        }
     }
 
     inner class MovieDetailsSubscriber : DisposableSingleObserver<MovieDetail>() {

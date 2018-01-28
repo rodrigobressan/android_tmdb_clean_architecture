@@ -33,6 +33,6 @@ dependencies {
     testImplementation remoteTestDependencies.kotlinJUnit
     testImplementation remoteTestDependencies.mockito
     testImplementation remoteTestDependencies.assertj
-
+    testImplementation remoteTestDependencies.mockWebServer
     compile project(':data')
 }

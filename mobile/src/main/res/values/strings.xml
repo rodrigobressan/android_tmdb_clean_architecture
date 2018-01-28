@@ -18,4 +18,5 @@
     <string name="cd_no_connection">There is no connection</string>
     <string name="no_connection_cached">No connection, but luckily we have some saved data :-)</string>
     <string name="no_connection_not_cached">No connection and no saved data :-(</string>
+    <string name="action_retry">Retry</string>
 </resources>

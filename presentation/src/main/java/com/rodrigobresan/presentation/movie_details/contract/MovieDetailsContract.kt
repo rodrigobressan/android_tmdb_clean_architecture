@@ -1,5 +1,6 @@
 package com.rodrigobresan.presentation.movie_details.contract
 
+import com.rodrigobresan.domain.review.model.Review
 import com.rodrigobresan.presentation.base.BasePresenter
 import com.rodrigobresan.presentation.base.BaseView
 import com.rodrigobresan.presentation.movie_details.model.MovieDetailView
@@ -37,7 +38,7 @@ interface MovieDetailsContract {
         /**
          * Load the movie into the screen
          */
-        fun showMovieDetails(movieDetail : MovieDetailView)
+        fun showMovieDetails(movieDetail: MovieDetailView)
 
         fun showEmptyState()
 
@@ -45,6 +46,8 @@ interface MovieDetailsContract {
 
         fun showOfflineModeNoCachedData()
         fun showOfflineModeCachedData()
+
+        fun loadReviews(review: List<Review>)
     }
 
     /**

@@ -42,6 +42,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.rodrigobresan.domain.review.model.Review;
 import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContract;
 import com.rodrigobresan.presentation.movie_details.model.MovieDetailView;
 import com.rodrigobresan.tv.R;
@@ -49,6 +50,8 @@ import com.rodrigobresan.tv.movie_details.mapper.MovieDetailsMapper;
 import com.rodrigobresan.tv.movie_details.model.MovieDetailViewModel;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -211,6 +214,11 @@ public class MovieDetailsFragment extends DetailsFragment implements MovieDetail
 
     @Override
     public void setPresenter(@NotNull MovieDetailsContract.Presenter presenter) {
+
+    }
+
+    @Override
+    public void loadReviews(@NotNull List<Review> review) {
 
     }
 

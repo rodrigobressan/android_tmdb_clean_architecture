@@ -46,6 +46,7 @@ ext {
     androidSupportRulesVersion = '1.0.0'
     dexmakerMockitoversion = '2.2.0'
     runnerVersion = '0.5'
+    mockWebServerVersion = '3.9.1'
 
     baseDependencies = [
             javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
@@ -171,7 +172,8 @@ ext {
             assertj      : "org.assertj:assertj-core:${assertJVersion}",
             mockito      : "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}",
             supportRunner: "com.android.support.test:runner:${androidSupportRunnerVersion}",
-            supportRules : "com.android.support.test:rules:${androidSupportRulesVersion}"
+            supportRules : "com.android.support.test:rules:${androidSupportRulesVersion}",
+            mockWebServer: "com.squareup.okhttp3:mockwebserver:${mockWebServerVersion}"
     ]
 
     mobileUiDependencies = [

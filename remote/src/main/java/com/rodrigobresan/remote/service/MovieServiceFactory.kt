@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -28,17 +29,15 @@ object MovieServiceFactory {
     }
 
     fun makeApiKeyInterceptor(): Interceptor {
-        val interceptor = Interceptor({
-            var request = it.request()
-            val url = request.url().newBuilder().addQueryParameter(MovieServiceParams.FIELD_API_KEY,
-                    MovieServiceParams.FIELD_API_VALUE)
-                    .build()
+        return Interceptor {
+            var request = it?.request()
+            val url = request?.url()?.newBuilder()
+                    ?.addQueryParameter(MovieServiceParams.FIELD_API_KEY, MovieServiceParams.FIELD_API_VALUE)
+                    ?.build()
 
-            request = request.newBuilder().url(url).build()
-            it.proceed(request)
-        })
-
-        return interceptor
+            request = request?.newBuilder()?.url(url)?.build()
+            it?.proceed(request)
+        }
     }
 
     fun makeMovieService(okHttpClient: OkHttpClient, gson: Gson): MovieService {
