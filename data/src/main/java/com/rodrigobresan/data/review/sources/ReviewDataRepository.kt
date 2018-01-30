@@ -10,7 +10,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 /**
- * MovieRepository implementation
+ * ReviewDataRepository implementation
  */
 class ReviewDataRepository @Inject constructor(private val factory: ReviewDataStoreFactory,
                                                private val reviewMapper: ReviewMapper) : ReviewRepository {
