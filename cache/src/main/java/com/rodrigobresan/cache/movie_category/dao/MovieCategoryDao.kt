@@ -11,8 +11,8 @@ interface MovieCategoryDao {
 
     @Query("SELECT MovieCategory.movieId, MovieCategory.categoryId " +
             " FROM MovieCategory " +
-            " WHERE MovieCategory.movieId = :arg0 " +
-            " AND MovieCategory.categoryId = :arg1")
+            " WHERE MovieCategory.movieId = :movieId " +
+            " AND MovieCategory.categoryId = :name")
     fun getMovieInCategory(movieId: Long, name: String): List<MovieCategoryCached>
 
     @Query("SELECT * FROM MovieCategory")

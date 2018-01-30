@@ -1,11 +1,14 @@
 package com.rodrigobresan.cache.movie.impl
 
+import android.arch.persistence.room.Database
+import android.arch.persistence.room.Room
+import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.CategoryQueries
+import com.rodrigobresan.cache.category.dao.CategoryDao
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
 import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.category.model.CategoryCached
-import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.test.factory.CategoryFactory
 import org.junit.Before
 import org.junit.Test
@@ -13,6 +16,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+import kotlin.test.assertEquals
 
 /**
  * Class for testing CategoryCacheImpl class
@@ -21,23 +25,23 @@ import org.robolectric.annotation.Config
 @Config(sdk = intArrayOf(21))
 class CategoryCacheImplTest {
 
-    private val context = RuntimeEnvironment.application
+    private var database = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.application,
+            AppDatabase::class.java).allowMainThreadQueries().build()
 
     private var categoryEntityMapper = CategoryCacheMapper()
-    private var categoryDbMapper = CategoryDbMapper()
-    private var preferencesHelper = PreferencesHelper(context)
+    private var preferencesHelper = PreferencesHelper(RuntimeEnvironment.application)
 
     private lateinit var categoryCacheImpl: CategoryCacheImpl
 
     @Before
     fun setUp() {
-        categoryCacheImpl = CategoryCacheImpl(DbOpenHelper(context),
-                categoryEntityMapper, categoryDbMapper, preferencesHelper)
+        categoryCacheImpl = CategoryCacheImpl(database.categoryDao(),
+                categoryEntityMapper, preferencesHelper)
         clearPreviousDataFromDatabase()
     }
 
     private fun clearPreviousDataFromDatabase() {
-        categoryCacheImpl.getDatabase().rawQuery("DELETE FROM " + CategoryQueries.CategoryTable.TABLE_NAME, null)
+        // TODO
     }
 
     @Test
@@ -56,22 +60,25 @@ class CategoryCacheImplTest {
 
         insertCategories(categoriesEntity.map { categoryEntityMapper.mapToCached(it) })
 
-        val testObservable = categoryCacheImpl.getCategories().test()
-        testObservable.assertValue(categoriesEntity)
+        checkNumRowsInCategoriesTable(categoriesEntity.size)
+    }
+
+    private fun checkNumRowsInCategoriesTable(expectedRows: Int) {
+        val numberOfRows = database.categoryDao().getAll().size
+        assertEquals(expectedRows, numberOfRows)
+    }
+
+    private fun insertCategories(categories: List<CategoryCached>) {
+        categories.forEach {
+            categoryCacheImpl.saveCategory(categoryEntityMapper.mapFromCached(it)).test()
+        }
     }
 
     @Test
     fun saveCategoriesCompletes() {
-        categoryCacheImpl.saveCategory(CategoryFactory.makeCategoryEntity()).test()
+        categoryCacheImpl.saveCategory(CategoryFactory.makeCategoryEntity())
+                .test()
                 .assertComplete()
     }
 
-    private fun insertCategories(categories: List<CategoryCached>) {
-        val database = categoryCacheImpl.getDatabase()
-
-        categories.forEach {
-            database.insertOrThrow(CategoryQueries.CategoryTable.TABLE_NAME, null,
-                    categoryDbMapper.toContentValues(it))
-        }
-    }
 }

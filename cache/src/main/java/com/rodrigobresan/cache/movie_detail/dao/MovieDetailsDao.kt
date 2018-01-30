@@ -11,7 +11,7 @@ interface MovieDetailsDao {
     @Insert
     fun insertMovie(mapToCached: MovieDetailsCached)
 
-    @Query("SELECT * FROM MovieDetails WHERE id = :arg0")
+    @Query("SELECT * FROM MovieDetails WHERE id = :movieId")
     fun getMovieDetails(movieId: Long) : MovieDetailsCached
 
 }

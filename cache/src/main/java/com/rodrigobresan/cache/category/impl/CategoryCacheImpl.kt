@@ -20,25 +20,9 @@ class CategoryCacheImpl @Inject constructor(
 
     private val CACHE_EXPIRATION_TIME = (0.5 * 10 * 1000)
 
-//
-//    /**
-//     * Returns the database instance. Mostly used for testing
-//     */
-//    fun getDatabase(): SQLiteDatabase {
-//        return database
-//    }
-
     override fun clearCategories(): Completable {
         return Completable.defer {
-            //            database.beginTransaction()
-//
-//            try {
-//                database.delete(CategoryQueries.CategoryTable.TABLE_NAME, null, null)
-//                database.setTransactionSuccessful()
-//            } finally {
-//                database.endTransaction()
-//            }
-
+            // TODO write clear categories
             Completable.complete()
         }
     }
@@ -49,11 +33,6 @@ class CategoryCacheImpl @Inject constructor(
             Completable.complete()
         }
     }
-//
-//    private fun insertCategory(categoryEntity: CategoryEntity) {
-//        database.insertWithOnConflict(CategoryQueries.CategoryTable.TABLE_NAME, null,
-//                categoryDbMapper.toContentValues(categoryCacheMapper.mapToCached(categoryEntity)), SQLiteDatabase.CONFLICT_REPLACE)
-//    }
 
     override fun getCategories(): Single<List<CategoryEntity>> {
         return Single.defer<List<CategoryEntity>> {

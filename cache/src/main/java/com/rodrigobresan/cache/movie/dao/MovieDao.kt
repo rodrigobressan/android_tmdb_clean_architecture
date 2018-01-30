@@ -15,13 +15,13 @@ interface MovieDao {
     @Query("select Movie.id, Movie.title, Movie.rating, Movie.picture from Movie " +
             "INNER JOIN MovieCategory ON " +
             "MovieCategory.movieId = Movie.id " +
-            "WHERE MovieCategory.categoryId LIKE :arg0")
+            "WHERE MovieCategory.categoryId LIKE :categoryName")
     fun getAllMovies(categoryName: String): List<MovieCached>
 
 
     @Query("select * from Movie")
     fun getAllMovies(): List<MovieCached>
 
-    @Query("select * from Movie where id = :arg0")
+    @Query("select * from Movie where id = :id")
     fun getMovieById(id: Long): MovieCached
 }

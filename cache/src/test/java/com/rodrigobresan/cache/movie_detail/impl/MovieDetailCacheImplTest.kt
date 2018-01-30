@@ -1,7 +1,8 @@
 package com.rodrigobresan.cache.movie_detail.impl
 
+import android.arch.persistence.room.Room
+import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.cache.PreferencesHelper
-import com.rodrigobresan.cache.db.DbOpenHelper
 import com.rodrigobresan.cache.movie_detail.MovieDetailQueries
 import com.rodrigobresan.cache.movie_detail.mapper.entity.MovieDetailCacheMapper
 import com.rodrigobresan.cache.test.factory.MovieDetailFactory
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+import kotlin.test.assertEquals
 
 /**
  * Class for testing MovieCacheImpl class
@@ -22,21 +24,21 @@ class MovieDetailCacheImplTest {
 
     private val context = RuntimeEnvironment.application
 
+    private var database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).allowMainThreadQueries().build()
     private var movieDetailEntityMapper = MovieDetailCacheMapper()
-    private var movieDetailDbMapper = MovieDetailCacheDbMapper()
     private var preferencesHelper = PreferencesHelper(context)
 
     private lateinit var movieDetailCacheImpl: MovieDetailCacheImpl
 
     @Before
     fun setUp() {
-        movieDetailCacheImpl = MovieDetailCacheImpl(DbOpenHelper(context),
-                movieDetailEntityMapper, movieDetailDbMapper, preferencesHelper)
+        movieDetailCacheImpl = MovieDetailCacheImpl(database.movieDetailsDao(),
+                movieDetailEntityMapper, preferencesHelper)
         clearPreviousDataFromDatabase()
     }
 
     private fun clearPreviousDataFromDatabase() {
-        movieDetailCacheImpl.getDatabase().rawQuery("DELETE FROM " + MovieDetailQueries.MovieDetailTable.TABLE_NAME, null)
+        // TODO
     }
 
     @Test
@@ -45,30 +47,22 @@ class MovieDetailCacheImplTest {
     }
 
     @Test
-    fun saveMoviesSavesData() {
+    fun saveMovieDetailsSavesData() {
         val movieDetail = MovieDetailFactory.makeMovieDetailEntity()
 
-        insertMovies(movieDetail)
+        insertMovieDetails(movieDetail)
 
-        val testObserver = movieDetailCacheImpl.getMovieDetails(movieDetail.id).test()
-        /** TODO check why this little fucker fails when executed
-        with other tests, but it works when it runs alone
-         */
-
-       // testObserver.assertValue(movieDetail)
+        var movie = database.movieDetailsDao().getMovieDetails(movieDetail.id)
+        assertEquals(movieDetail.tagline, movie.tagline)
     }
 
     @Test
-    fun saveMoviesCompletes() {
+    fun saveMovieDetailsCompletes() {
         val movie = MovieDetailFactory.makeMovieDetailEntity()
         movieDetailCacheImpl.saveMovieDetails(movie).test().assertComplete()
     }
 
-    private fun insertMovies(movieDetail: MovieDetailEntity) {
-        val database = movieDetailCacheImpl.getDatabase()
-
-        database.insertOrThrow(MovieDetailQueries.MovieDetailTable.TABLE_NAME,
-                null,
-                movieDetailDbMapper.toContentValues(movieDetailEntityMapper.mapToCached(movieDetail)))
+    private fun insertMovieDetails(movieDetail: MovieDetailEntity) {
+        movieDetailCacheImpl.saveMovieDetails(movieDetail).test()
     }
 }

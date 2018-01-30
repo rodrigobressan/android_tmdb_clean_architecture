@@ -21,15 +21,6 @@ class MovieCategoryCacheImpl @Inject constructor(
 
     private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
 
-////    private var database: SQLiteDatabase = getDatabase() //dbOpenHelper.writableDatabase
-////
-////    /**
-//     * Returns the database instance. Mostly used for testing
-//     */
-//    fun getDatabase(): SQLiteDatabase {
-//        return database
-//    }
-
     override fun hasMovieInCategory(movieId: Long, category: Category): Boolean {
         val movieCategoryList = movieCategoryDao.getMovieInCategory(movieId, category.name)
         return movieCategoryList.size > 0
@@ -52,6 +43,7 @@ class MovieCategoryCacheImpl @Inject constructor(
 
     override fun clearMovieCategories(): Completable {
         return Completable.defer {
+            // TODO write clear movie categories
             Completable.complete()
         }
     }

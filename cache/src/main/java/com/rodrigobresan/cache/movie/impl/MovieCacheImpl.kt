@@ -23,6 +23,7 @@ class MovieCacheImpl @Inject constructor(
 
     override fun clearMovies(): Completable {
         return Completable.defer {
+            // TODO clear movies
             Completable.complete()
         }
     }

@@ -3,6 +3,7 @@ package com.rodrigobresan.tv.injection.module
 import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.dao.CategoryDao
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
@@ -50,7 +51,6 @@ import com.rodrigobresan.remote.movies.mapper.ReviewRemoteMapper
 import com.rodrigobresan.remote.review.impl.ReviewRemoteImpl
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.service.MovieServiceFactory
-import com.rodrigobresan.tv.AppDatabase
 import com.rodrigobresan.tv.BuildConfig
 import com.rodrigobresan.tv.UiThread
 import com.rodrigobresan.tv.injection.scope.PerApplication

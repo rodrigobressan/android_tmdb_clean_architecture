@@ -21,7 +21,7 @@ class CategoryFactory {
         }
 
         fun makeCategoryCached(): CategoryCached {
-            return CategoryCached(DataFactory.randomUuid(), DataFactory.randomUuid())
+            return CategoryCached(DataFactory.randomUuid())
         }
     }
 }

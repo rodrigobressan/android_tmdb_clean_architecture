@@ -11,8 +11,10 @@ import javax.inject.Inject
 class ReviewCacheImpl @Inject constructor(
         private val reviewDao: ReviewDao,
         private val reviewCacheMapper: ReviewCacheMapper) : ReviewCache {
+
     override fun clearReviews(): Completable {
         return Completable.defer {
+            // TODO write clear reviews
             Completable.complete()
         }
     }

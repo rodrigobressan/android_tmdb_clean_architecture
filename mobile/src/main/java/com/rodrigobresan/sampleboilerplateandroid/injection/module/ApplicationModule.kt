@@ -50,7 +50,7 @@ import com.rodrigobresan.remote.movies.mapper.ReviewRemoteMapper
 import com.rodrigobresan.remote.review.impl.ReviewRemoteImpl
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.service.MovieServiceFactory
-import com.rodrigobresan.sampleboilerplateandroid.AppDatabase
+import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.sampleboilerplateandroid.BuildConfig
 import com.rodrigobresan.sampleboilerplateandroid.UiThread
 import com.rodrigobresan.sampleboilerplateandroid.injection.scope.PerApplication

@@ -12,6 +12,6 @@ interface ReviewDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(review: ReviewCached)
 
-    @Query("SELECT * FROM Review where Review.movieId = :arg0 ")
+    @Query("SELECT * FROM Review where Review.movieId = :movieId ")
     fun getAllReviews(movieId: Long): List<ReviewCached>
 }

@@ -19,6 +19,7 @@ class MovieDetailCacheImpl @Inject constructor(
 
     override fun clearMovieDetails(): Completable {
         return Completable.defer {
+            // TODO write clear movie details table
             Completable.complete()
         }
     }

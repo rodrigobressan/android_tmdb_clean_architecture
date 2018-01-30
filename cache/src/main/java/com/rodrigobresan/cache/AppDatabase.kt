@@ -1,4 +1,4 @@
-package com.rodrigobresan.tv
+package com.rodrigobresan.cache
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
@@ -13,8 +13,13 @@ import com.rodrigobresan.cache.movie_detail.model.MovieDetailsCached
 import com.rodrigobresan.cache.review.dao.ReviewDao
 import com.rodrigobresan.cache.review.model.ReviewCached
 
-@Database(entities = arrayOf(MovieCached::class, CategoryCached::class, MovieCategoryCached::class,
-        MovieDetailsCached::class, ReviewCached::class),
+@Database(entities =
+arrayOf(
+        MovieCached::class,
+        CategoryCached::class,
+        MovieCategoryCached::class,
+        MovieDetailsCached::class,
+        ReviewCached::class),
         version = 1,
         exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

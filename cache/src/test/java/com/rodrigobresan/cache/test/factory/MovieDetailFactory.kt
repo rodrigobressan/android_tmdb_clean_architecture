@@ -9,7 +9,7 @@ class MovieDetailFactory {
     companion object Factory {
 
         fun makeMovieDetailCached(): MovieDetailsCached {
-            return MovieDetailsCached(DataFactory.randomLong(), DataFactory.randomUuid(),
+            return MovieDetailsCached(DataFactory.randomUuid(),
                     DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid(),
                     DataFactory.randomUuid(), DataFactory.randomUuid())
         }
