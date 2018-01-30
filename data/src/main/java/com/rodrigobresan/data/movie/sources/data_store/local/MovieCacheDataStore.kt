@@ -1,5 +1,6 @@
 package com.rodrigobresan.data.movie.sources.data_store.local
 
+import android.support.annotation.VisibleForTesting
 import com.rodrigobresan.data.category.model.CategoryEntity
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie.model.MovieEntity
@@ -59,15 +60,19 @@ open class MovieCacheDataStore @Inject constructor(
 
     override fun getMovies(category: Category): Single<List<MovieEntity>> {
         return movieCache.getMovies(category)
-                .flatMap {
-                    it.mapIndexed { _, movieEntity ->
-                        {
-                            val currentMovieId = movieEntity.id
-                            movieEntity.isFavorite = movieCategoryCache.hasMovieInCategory(currentMovieId, Category.FAVORITE)
-                        }
-                    }
+                .flatMap(checkIsFavorite())
+    }
 
-                    Single.just(it)
+    private fun checkIsFavorite(): (List<MovieEntity>) -> Single<List<MovieEntity>> {
+        return {
+            it.mapIndexed { _, movieEntity ->
+                {
+                    val currentMovieId = movieEntity.id
+                    movieEntity.isFavorite = movieCategoryCache.hasMovieInCategory(currentMovieId, Category.FAVORITE)
                 }
+            }
+
+            Single.just(it)
+        }
     }
 }

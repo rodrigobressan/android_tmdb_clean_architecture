@@ -34,7 +34,7 @@ open class MovieRemoteDataStore @Inject constructor(private val movieRemote: Mov
             Category.UPCOMING -> return movieRemote.getUpcomingMovies()
 
             else -> {
-                return Single.just(arrayListOf())
+                return Single.just(emptyList())
             }
         }
     }

@@ -36,6 +36,7 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
     override fun favoriteMovie(movieId: Long) {
         favoriteMoviesUseCase.execute(movieId)
                 .subscribe({
+                    // TODO user feedback
                     System.out.println("DONE")
                 })
     }
@@ -43,7 +44,7 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
     override fun unfavoriteMovie(movieId: Long) {
         unfavoriteMovie.execute(movieId)
                 .subscribe({
-                    System.out.println("DONE")
+                    // TODO user feedback
                 })
     }
 

@@ -7,6 +7,7 @@ import com.rodrigobresan.data.movie.sources.MovieDataRepository
 import com.rodrigobresan.data.movie.sources.data_store.MovieDataStoreFactory
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
+import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.movies.model.Movie
@@ -130,6 +131,35 @@ class MovieDataRepositoryTest {
         testObserver.assertValue(movies)
     }
 
+
+    @Test
+    fun getMovieCompletes() {
+        val movie = MovieFactory.makeMovieEntity()
+        stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
+        stubMovieCacheDataStoreGetMovie(movie.id, Single.just(movie))
+
+        movieDataRepository.getMovie(movie.id).test().assertComplete()
+    }
+
+    @Test
+    fun getMovieReturnsData() {
+        val movie = MovieFactory.makeMovieEntity()
+
+        stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore)
+        stubMovieCacheDataStoreGetMovie(movie.id, Single.just(movie))
+
+        movieDataRepository.getMovie(movie.id).test().assertValue(movieMapper.mapFromEntity(movie))
+    }
+
+    @Test
+    fun deleteMovieCallsDeleteOnCacheDataStore() {
+        val category = Category.POPULAR
+        val movie = MovieFactory.makeMovie()
+        stubMovieDataStoreFactoryRetrieveCacheDataStore()
+        movieDataRepository.deleteMovie(category, movie)
+
+        verify(movieCacheDataStore).deleteMovieFromCategory(MovieCategoryEntity(movie.id, category.name))
+    }
     @Test
     fun getMoviesSavesMoviesWhenFromCacheDataStore() {
         val movieCategory = Category.POPULAR
@@ -165,6 +195,12 @@ class MovieDataRepositoryTest {
     private fun stubMovieMapperMapFromEntity(movieEntity: MovieEntity, movie: Movie) {
         whenever(movieMapper.mapFromEntity(movieEntity))
                 .thenReturn(movie)
+    }
+
+
+    private fun stubMovieCacheDataStoreGetMovie(movieId: Long, singleMovie: Single<MovieEntity>?) {
+        whenever(movieCacheDataStore.getMovie(movieId))
+                .thenReturn(singleMovie)
     }
 
     private fun stubMovieCacheDataStoreGetMovies(category: Category, singleMovies: Single<List<MovieEntity>>?) {

@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemote
 import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
+import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import com.rodrigobresan.domain.movie_category.model.Category
 import org.junit.Before
 import org.junit.Test
@@ -25,6 +26,16 @@ class MovieRemoteDataStoreTest {
     @Test(expected = UnsupportedOperationException::class)
     fun clearMoviesShouldThrowUnsupportedOperationException() {
         movieRemoteDataStore.clearMovies()
+    }
+
+    @Test(expected = UnsupportedOperationException::class)
+    fun deleteMovieFromCategoryShouldThrowUnsupportedOperationException() {
+        movieRemoteDataStore.deleteMovieFromCategory(MovieCategoryEntity(0, Category.POPULAR.name))
+    }
+
+    @Test(expected = UnsupportedOperationException::class)
+    fun getMovieShouldThrowUnsupportedOperationException() {
+        movieRemoteDataStore.getMovie(0)
     }
 
     @Test(expected = UnsupportedOperationException::class)
@@ -54,5 +65,15 @@ class MovieRemoteDataStoreTest {
     fun getMoviesShouldCallRemoteWithTopRatedMovies() {
         movieRemoteDataStore.getMovies(Category.TOP_RATED)
         verify(movieRemote).getTopRatedMovies()
+    }
+
+    @Test
+    fun getMoviesShouldReturnEmptyWithFavorite() {
+        movieRemoteDataStore.getMovies(Category.FAVORITE).test().assertValue(emptyList())
+    }
+
+    @Test
+    fun getMoviesShouldReturnEmptyWithSeen() {
+        movieRemoteDataStore.getMovies(Category.SEEN).test().assertValue(emptyList())
     }
 }

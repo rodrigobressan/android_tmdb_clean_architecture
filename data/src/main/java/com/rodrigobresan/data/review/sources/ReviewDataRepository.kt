@@ -18,7 +18,6 @@ class ReviewDataRepository @Inject constructor(private val factory: ReviewDataSt
         return factory.retrieveCachedDataStore().clearReviews()
     }
 
-
     override fun saveReviews(movieId: Long, reviews: List<Review>): Completable {
         val reviewEntities = reviews.map { reviewMapper.mapToEntity(it) }
         return factory.retrieveCachedDataStore().saveReviews(movieId, reviewEntities)
