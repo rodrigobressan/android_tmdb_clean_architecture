@@ -8,6 +8,19 @@ class MovieDetailFactory {
 
     companion object Factory {
 
+        fun makeMovieDetailCachedList(count: Int): List<MovieDetailsCached> {
+            val listMovieDetails = arrayListOf<MovieDetailsCached>()
+
+            (1..count).forEach {
+                val movie = makeMovieDetailCached()
+                movie.id = it.toLong()
+
+                listMovieDetails.add(movie)
+            }
+
+            return listMovieDetails
+        }
+
         fun makeMovieDetailCached(): MovieDetailsCached {
             return MovieDetailsCached(DataFactory.randomUuid(),
                     DataFactory.randomDouble(), DataFactory.randomUuid(), DataFactory.randomUuid(),
