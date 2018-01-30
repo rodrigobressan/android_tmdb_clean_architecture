@@ -158,11 +158,6 @@ class MovieDetailDataRepositoryTest {
         whenever(movieCacheDataStore.saveMovieDetails(movieMapper.mapToEntity(movie)))
                 .thenReturn(complete)
     }
-//
-//    private fun stubMovieCacheSaveMovies(complete: Completable) {
-//        whenever(movieCacheDataStore.saveMovieDetails(any()))
-//                .thenReturn(complete)
-//    }
 
     private fun stubMovieCacheClearMovies(complete: Completable?) {
         whenever(movieCacheDataStore.clearMovieDetails())
