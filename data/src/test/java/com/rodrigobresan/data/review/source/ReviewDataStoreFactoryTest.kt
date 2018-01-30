@@ -1,4 +1,4 @@
-package com.rodrigobresan.data.movie.source
+package com.rodrigobresan.data.review.source
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
