@@ -190,4 +190,9 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View,
 
         vp_movie_details.adapter = adapter
     }
+
+    override fun onDestroy() {
+        movieDetailPresenter.stop()
+        super.onDestroy()
+    }
 }

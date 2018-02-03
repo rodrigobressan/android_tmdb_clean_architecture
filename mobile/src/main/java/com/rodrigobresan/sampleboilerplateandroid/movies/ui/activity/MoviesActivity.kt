@@ -120,4 +120,9 @@ class MoviesActivity : AppCompatActivity(), MoviesContract.View, MoviesAdapter.M
         }
     }
 
+    override fun onDestroy() {
+        moviePresenter.stop()
+        super.onDestroy()
+    }
+
 }

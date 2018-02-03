@@ -51,9 +51,9 @@ class MovieOverviewFragment : Fragment() {
         txt_movie_detail_title.text = movieDetail.title
 
         if (movieDetail.isFavorite) {
-            img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary))
+            showMovieAsFavorite()
         } else {
-            img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.grey))
+            showMovieAsNotFavorite()
         }
 
         img_movie_star.setOnClickListener({
@@ -61,15 +61,35 @@ class MovieOverviewFragment : Fragment() {
         })
     }
 
+    fun showMovieAsFavorite() {
+        img_movie_star.animate()
+                .scaleY(1.5f)
+                .scaleX(1.5f)
+                .setDuration(150)
+                .start()
+        img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary))
+    }
+
+    fun showMovieAsNotFavorite() {
+        img_movie_star.animate()
+                .scaleY(1f)
+                .scaleX(1f)
+                .setDuration(150)
+                .start()
+        img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.grey))
+    }
+
     fun handleFavoriteClick() {
         if (movieDetail.isFavorite) {
-            img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.grey))
-            movieDetail.isFavorite = false
-            listener?.unfavoriteMovie()
-        } else {
-            img_movie_star.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary))
+            showMovieAsNotFavorite()
+
             movieDetail.isFavorite = true
             listener?.favoriteMovie()
+        } else {
+            showMovieAsFavorite()
+
+            movieDetail.isFavorite = false
+            listener?.unfavoriteMovie()
         }
     }
 }

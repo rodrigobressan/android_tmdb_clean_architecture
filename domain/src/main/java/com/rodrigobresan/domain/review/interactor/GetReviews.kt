@@ -13,7 +13,7 @@ open class GetReviews @Inject constructor(val reviewRepository: ReviewRepository
                                           postExecutionThread: PostExecutionThread)
     : SingleUseCase<List<Review>, Long>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCaseObservable(params: Long?): Single<List<Review>> {
+    public override fun buildUseCaseObservable(params: Long?): Single<List<Review>> {
         if (params != null) {
             return reviewRepository.getReviews(params)
         }

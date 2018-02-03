@@ -6,10 +6,12 @@ import com.rodrigobresan.domain.movie_detail.interactor.GetMovieDetails
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
 import com.rodrigobresan.domain.movies.interactor.FavoriteMovie
 import com.rodrigobresan.domain.movies.interactor.UnfavoriteMovie
+import com.rodrigobresan.domain.review.interactor.GetReviews
 import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContract
 import com.rodrigobresan.presentation.movie_details.mapper.MovieDetailsMapper
 import com.rodrigobresan.presentation.movie_details.presenter.MovieDetailsPresenter
 import com.rodrigobresan.presentation.movies.factory.MovieDetailFactory
+import io.reactivex.Completable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Before
@@ -28,6 +30,7 @@ class MovieDetailsPresenterTest {
     private lateinit var getMovieDetails: GetMovieDetails
     private lateinit var favoriteMovie: FavoriteMovie
     private lateinit var unfavoriteMovie: UnfavoriteMovie
+    private lateinit var getReviews: GetReviews
     private lateinit var movieDetailsMapper: MovieDetailsMapper
 
     private lateinit var captorMovieDetail: KArgumentCaptor<DisposableSingleObserver<MovieDetail>>
@@ -43,24 +46,14 @@ class MovieDetailsPresenterTest {
         connectionStatus = mock()
         movieDetailsView = mock()
         getMovieDetails = mock()
+        getReviews = mock()
         movieDetailsMapper = mock()
         favoriteMovie = mock()
         unfavoriteMovie = mock()
 
         movieDetailsPresenter = MovieDetailsPresenter(connectionStatus, movieDetailsView,
-                getMovieDetails, favoriteMovie, unfavoriteMovie, movieDetailsMapper)
+                getMovieDetails, favoriteMovie, unfavoriteMovie, getReviews, movieDetailsMapper)
     }
-
-//    @Test
-//    fun favoriteMovieCallsFavoriteUseCase() {
-//        val movieId = 0L
-//        whenever(favoriteMovie.execute(movieId))
-//                .thenReturn(Completable.complete())
-//
-//        movieDetailsPresenter.favoriteMovie(movieId)
-//
-//        verify(favoriteMovie).execute(eq(movieId))
-//    }
 
     @Test
     fun loadMovieDetailsHideErrorState() {
