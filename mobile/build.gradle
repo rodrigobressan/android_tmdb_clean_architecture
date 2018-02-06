@@ -5,6 +5,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco-android'
 
 android {
+    flavorDimensions "default"
+
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
@@ -15,6 +17,14 @@ android {
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         multiDexEnabled = true
         testInstrumentationRunner "com.rodrigobresan.sampleboilerplateandroid.test.TestRunner"
+    }
+
+    productFlavors {
+        demo {
+            applicationIdSuffix = ".demo"
+        }
+        pro {
+        }
     }
 
     buildTypes {
