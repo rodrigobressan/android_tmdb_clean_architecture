@@ -136,17 +136,15 @@ open class ApplicationModule {
     @PerApplication
     internal fun provideMovieCategoryCache(
             movieCategoryDao: MovieCategoryDao,
-            cacheMapper: MovieCategoryCacheMapper,
-            preferencesHelper: PreferencesHelper): MovieCategoryCache {
-        return MovieCategoryCacheImpl(movieCategoryDao, cacheMapper, preferencesHelper)
+            cacheMapper: MovieCategoryCacheMapper): MovieCategoryCache {
+        return MovieCategoryCacheImpl(movieCategoryDao, cacheMapper)
     }
 
     @Provides
     @PerApplication
     internal fun provideCategoryCache(categoryDao: CategoryDao,
-                                      categoryCacheMapper: CategoryCacheMapper,
-                                      preferences: PreferencesHelper): CategoryCache {
-        return CategoryCacheImpl(categoryDao, categoryCacheMapper, preferences)
+                                      categoryCacheMapper: CategoryCacheMapper): CategoryCache {
+        return CategoryCacheImpl(categoryDao, categoryCacheMapper)
     }
 
     @Provides

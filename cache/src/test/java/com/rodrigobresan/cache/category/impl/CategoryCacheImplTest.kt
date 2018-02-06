@@ -36,7 +36,7 @@ class CategoryCacheImplTest {
     @Before
     fun setUp() {
         categoryCacheImpl = CategoryCacheImpl(database.categoryDao(),
-                categoryEntityMapper, preferencesHelper)
+                categoryEntityMapper)
         clearPreviousDataFromDatabase()
     }
 
@@ -79,6 +79,11 @@ class CategoryCacheImplTest {
         categoryCacheImpl.saveCategory(CategoryFactory.makeCategoryEntity())
                 .test()
                 .assertComplete()
+    }
+
+    @Test
+    fun getCategoriesCompletes() {
+        categoryCacheImpl.getCategories().test().assertComplete()
     }
 
 }

@@ -39,7 +39,7 @@ class MovieCategoryCacheImplTest {
 
     private var movieCategoryCacheMapper: MovieCategoryCacheMapper = MovieCategoryCacheMapper()
     private var movieCategoryCacheImpl: MovieCategoryCacheImpl =
-            MovieCategoryCacheImpl(database.movieCategoryDao(), movieCategoryCacheMapper, preferencesHelper)
+            MovieCategoryCacheImpl(database.movieCategoryDao(), movieCategoryCacheMapper)
 
     @Before
     fun setUp() {

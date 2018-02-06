@@ -15,10 +15,7 @@ import javax.inject.Inject
  */
 class CategoryCacheImpl @Inject constructor(
         private val categoryDao: CategoryDao,
-        private val categoryCacheMapper: CategoryCacheMapper,
-        private val preferences: PreferencesHelper) : CategoryCache {
-
-    private val CACHE_EXPIRATION_TIME = (0.5 * 10 * 1000)
+        private val categoryCacheMapper: CategoryCacheMapper) : CategoryCache {
 
     override fun clearCategories(): Completable {
         return Completable.defer {
@@ -40,20 +37,4 @@ class CategoryCacheImpl @Inject constructor(
             Single.just(categoryList.map { categoryCacheMapper.mapFromCached(it) })
         }
     }
-
-    override fun isCached(): Boolean {
-        return categoryDao.getAll().size > 0
-    }
-
-    override fun updateLastCacheTime() {
-        preferences.updateLastCacheTime(CategoryQueries.CategoryTable.TABLE_NAME)
-    }
-
-    override fun isExpired(): Boolean {
-        val currentTime = System.currentTimeMillis()
-        val lastUpdate = this.preferences.getLastCacheTime(CategoryQueries.CategoryTable.TABLE_NAME)
-
-        return currentTime - lastUpdate > CACHE_EXPIRATION_TIME
-    }
-
 }

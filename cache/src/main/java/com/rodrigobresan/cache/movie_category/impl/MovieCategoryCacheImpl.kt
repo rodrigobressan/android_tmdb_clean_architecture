@@ -16,10 +16,8 @@ import javax.inject.Inject
  */
 class MovieCategoryCacheImpl @Inject constructor(
         private val movieCategoryDao: MovieCategoryDao,
-        private val cacheMapper: MovieCategoryCacheMapper,
-        private val preferences: PreferencesHelper) : MovieCategoryCache {
+        private val cacheMapper: MovieCategoryCacheMapper) : MovieCategoryCache {
 
-    private val CACHE_EXPIRATION_TIME = (60 * 10 * 1000)
 
     override fun hasMovieInCategory(movieId: Long, category: Category): Boolean {
         val movieCategoryList = movieCategoryDao.getMovieInCategory(movieId, category.name)
@@ -55,20 +53,4 @@ class MovieCategoryCacheImpl @Inject constructor(
             Completable.complete()
         }
     }
-
-    override fun isCached(): Boolean {
-        return movieCategoryDao.getMovieCategories().size > 0
-    }
-
-    override fun updateLastCacheTime() {
-        preferences.updateLastCacheTime(MovieCategoryQueries.MovieCategoryTable.TABLE_NAME)
-    }
-
-    override fun isExpired(): Boolean {
-        val currentTime = System.currentTimeMillis()
-        val lastUpdate = this.preferences.getLastCacheTime(MovieCategoryQueries.MovieCategoryTable.TABLE_NAME)
-
-        return currentTime - lastUpdate > CACHE_EXPIRATION_TIME
-    }
-
 }

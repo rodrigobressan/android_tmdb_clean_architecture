@@ -22,19 +22,4 @@ interface CategoryCache {
      * Get the list of the categories in the cache
      */
     fun getCategories(): Single<List<CategoryEntity>>?
-
-    /**
-     * Check if it's cached
-     */
-    fun isCached(): Boolean
-
-    /**
-     * Define the last time it was cached
-     */
-    fun updateLastCacheTime()
-
-    /**
-     * Check if the cache was expired
-     */
-    fun isExpired(): Boolean
 }

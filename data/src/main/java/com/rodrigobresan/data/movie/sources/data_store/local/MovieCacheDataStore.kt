@@ -43,7 +43,6 @@ open class MovieCacheDataStore @Inject constructor(
     private fun saveCategory(category: Category, movies: List<MovieEntity>) {
         categoryCache.saveCategory(CategoryEntity(category.name, category.name))
                 .doOnComplete({
-                    categoryCache.updateLastCacheTime()
                     movies.forEach {
                         saveMovieCategory(it, category)
                     }
@@ -52,10 +51,7 @@ open class MovieCacheDataStore @Inject constructor(
     }
 
     private fun saveMovieCategory(it: MovieEntity, category: Category) {
-        movieCategoryCache.saveMovieCategory(MovieCategoryEntity(it.id, category.name))
-                .doOnComplete({
-                    movieCategoryCache.updateLastCacheTime()
-                }).subscribe()
+        movieCategoryCache.saveMovieCategory(MovieCategoryEntity(it.id, category.name)).subscribe()
     }
 
     override fun getMovies(category: Category): Single<List<MovieEntity>> {

@@ -16,7 +16,7 @@ abstract class SingleUseCase<T, in Params> constructor(
         private val postExecutionThread: PostExecutionThread) {
 
 
-    private val disposables = CompositeDisposable()
+    val disposables = CompositeDisposable()
 
     protected abstract fun buildUseCaseObservable(params: Params? = null): Single<T>
 

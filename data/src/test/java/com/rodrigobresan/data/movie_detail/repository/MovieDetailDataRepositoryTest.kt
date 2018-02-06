@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.*
 import com.rodrigobresan.data.movie_detail.mapper.MovieDetailMapper
 import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity
 import com.rodrigobresan.data.movie_detail.sources.MovieDetailDataRepository
+import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataStore
 import com.rodrigobresan.data.movie_detail.sources.data_store.MovieDetailDataStoreFactory
 import com.rodrigobresan.data.movie_detail.sources.data_store.local.MovieDetailCacheDataStore
 import com.rodrigobresan.data.movie_detail.sources.data_store.remote.MovieDetailRemoteDataStore
@@ -64,7 +65,6 @@ class MovieDetailDataRepositoryTest {
         testObserver.assertComplete()
     }
 
-
     @Test
     fun saveMovieCallsCacheDataStore() {
         val movie = MovieDetailFactory.makeMovieDetail()
@@ -92,6 +92,21 @@ class MovieDetailDataRepositoryTest {
 
         val testObserver = movieDataRepository.getMovieDetails(movie.id).test()
         testObserver.assertComplete()
+    }
+
+    @Test
+    fun getMoviesCompletesAndCallSaveLocalWhenIsRemote() {
+        val movie = MovieDetailFactory.makeMovieDetailEntity()
+
+        whenever(movieDataStoreFactory.retrieveCachedDataStore().saveMovieDetails(any()))
+                .thenReturn(Completable.complete())
+
+        stubMovieDataStoreFactoryRetrieveDataStore(movieRemoteDataStore)
+        stubMovieRemoteDataStoreGetMovieDetails(Single.just(movie))
+
+        movieDataRepository.getMovieDetails(movie.id).test()
+
+        verify(movieCacheDataStore).saveMovieDetails(any())
     }
 
     @Test
@@ -149,9 +164,14 @@ class MovieDetailDataRepositoryTest {
                 .thenReturn(singleMovieDetails)
     }
 
-    private fun stubMovieDataStoreFactoryRetrieveDataStore(movieCacheDataStore: MovieDetailCacheDataStore) {
+    private fun stubMovieRemoteDataStoreGetMovieDetails(singleMovieDetails: Single<MovieDetailEntity>) {
+        whenever(movieRemoteDataStore.getMovieDetails(any()))
+                .thenReturn(singleMovieDetails)
+    }
+
+    private fun stubMovieDataStoreFactoryRetrieveDataStore(movieDetailDataStore: MovieDetailDataStore) {
         whenever(movieDataStoreFactory.retrieveDataStore(any()))
-                .thenReturn(movieCacheDataStore)
+                .thenReturn(movieDetailDataStore)
     }
 
     private fun stubMovieCacheSaveMovieDetails(movie: MovieDetail, complete: Completable?) {
