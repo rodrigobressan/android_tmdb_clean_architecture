@@ -12,7 +12,7 @@ Just a simple project to try new stuff on Android. Feel free to use it just for 
 - RxJava 2
 - Dagger 2
 - Retrofit
-- SQLite
+- Room
 - Mockito
 - Robolectric
 - Espresso
@@ -26,9 +26,9 @@ In case of any questions, feel free to open an issue.
 
 #### Future improvements
 
-- Add Room;
-- Architecture Components;
-- Implementation of movie details section
+- [x] Add Room;
+- [x] Implementation of movie details section;
+- [ ] Architecture Components;
 
 #### License
 
