@@ -1,6 +1,5 @@
 package com.rodrigobresan.data.review.model
 
-import com.rodrigobresan.data.movie_detail.model.MovieDetailEntity
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4

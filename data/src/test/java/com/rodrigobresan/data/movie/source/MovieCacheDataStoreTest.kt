@@ -1,6 +1,8 @@
 package com.rodrigobresan.data.movie.source
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
 import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
@@ -9,9 +11,7 @@ import com.rodrigobresan.data.test.factory.MovieCategoryFactory
 import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.domain.movie_category.model.Category
 import io.reactivex.Completable
-import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

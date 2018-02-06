@@ -2,11 +2,8 @@ package com.rodrigobresan.data.review.source
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import com.rodrigobresan.data.movie.sources.data_store.remote.MovieRemoteDataStore
-import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import com.rodrigobresan.data.review.sources.data_store.local.ReviewRemoteDataStore
 import com.rodrigobresan.data.review.sources.data_store.remote.ReviewRemote
-import com.rodrigobresan.domain.movie_category.model.Category
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

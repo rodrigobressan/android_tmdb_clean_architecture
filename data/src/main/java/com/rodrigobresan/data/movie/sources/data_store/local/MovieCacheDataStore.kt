@@ -1,6 +1,5 @@
 package com.rodrigobresan.data.movie.sources.data_store.local
 
-import android.support.annotation.VisibleForTesting
 import com.rodrigobresan.data.category.model.CategoryEntity
 import com.rodrigobresan.data.category.sources.CategoryCache
 import com.rodrigobresan.data.movie.model.MovieEntity

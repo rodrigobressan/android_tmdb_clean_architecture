@@ -1,7 +1,6 @@
 package com.rodrigobresan.data.review.mapper
 
 import com.rodrigobresan.data.review.model.ReviewEntity
-import com.rodrigobresan.data.test.factory.MovieDetailFactory
 import com.rodrigobresan.data.test.factory.ReviewFactory
 import com.rodrigobresan.domain.review.model.Review
 import org.junit.Before

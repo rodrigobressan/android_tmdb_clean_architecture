@@ -1,16 +1,10 @@
 package com.rodrigobresan.data.review.source
 
-import com.nhaarman.mockito_kotlin.*
-import com.rodrigobresan.data.category.sources.CategoryCache
-import com.rodrigobresan.data.movie.sources.data_store.local.MovieCache
-import com.rodrigobresan.data.movie.sources.data_store.local.MovieCacheDataStore
-import com.rodrigobresan.data.movie_category.sources.MovieCategoryCache
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.data.review.sources.data_store.local.ReviewCache
 import com.rodrigobresan.data.review.sources.data_store.local.ReviewCacheDataStore
-import com.rodrigobresan.data.test.factory.MovieCategoryFactory
-import com.rodrigobresan.data.test.factory.MovieFactory
 import com.rodrigobresan.data.test.factory.ReviewFactory
-import com.rodrigobresan.domain.movie_category.model.Category
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before

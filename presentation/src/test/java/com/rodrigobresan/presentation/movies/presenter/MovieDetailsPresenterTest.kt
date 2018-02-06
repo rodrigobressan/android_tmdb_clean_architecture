@@ -11,7 +11,6 @@ import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContrac
 import com.rodrigobresan.presentation.movie_details.mapper.MovieDetailsMapper
 import com.rodrigobresan.presentation.movie_details.presenter.MovieDetailsPresenter
 import com.rodrigobresan.presentation.movies.factory.MovieDetailFactory
-import io.reactivex.Completable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Before

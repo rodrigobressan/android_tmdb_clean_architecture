@@ -3,7 +3,10 @@ package com.rodrigobresan.remote.service
 import com.google.gson.FieldNamingPolicy
 import com.nhaarman.mockito_kotlin.mock
 import okhttp3.Interceptor.Chain
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.CoreMatchers
 import org.junit.Assert
 import org.junit.Before
@@ -11,11 +14,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
-import com.sun.deploy.jardiff.JarDiffConstants.VERSION_HEADER
-import okhttp3.Request
-import okhttp3.mockwebserver.RecordedRequest
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
 
 
 @RunWith(JUnit4::class)

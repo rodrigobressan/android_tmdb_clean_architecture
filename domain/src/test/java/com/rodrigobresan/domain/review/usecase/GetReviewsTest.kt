@@ -6,11 +6,9 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.rodrigobresan.domain.base.executor.PostExecutionThread
 import com.rodrigobresan.domain.base.executor.ThreadExecutor
-import com.rodrigobresan.domain.movie_category.model.Category
 import com.rodrigobresan.domain.review.interactor.GetReviews
 import com.rodrigobresan.domain.review.model.Review
 import com.rodrigobresan.domain.review.repository.ReviewRepository
-import com.rodrigobresan.domain.test.factory.MovieFactory
 import com.rodrigobresan.domain.test.factory.ReviewFactory
 import io.reactivex.Single
 import org.junit.Before

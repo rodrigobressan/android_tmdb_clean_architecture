@@ -2,14 +2,11 @@ package com.rodrigobresan.cache.review.impl
 
 import android.arch.persistence.room.Room
 import com.rodrigobresan.cache.AppDatabase
-import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.review.mapper.ReviewCacheMapper
 import com.rodrigobresan.cache.test.factory.ReviewFactory
-import com.rodrigobresan.data.review.mapper.ReviewMapper
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config

@@ -1,7 +1,5 @@
 package com.rodrigobresan.cache.category.impl
 
-import com.rodrigobresan.cache.PreferencesHelper
-import com.rodrigobresan.cache.category.CategoryQueries
 import com.rodrigobresan.cache.category.dao.CategoryDao
 import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.data.category.model.CategoryEntity

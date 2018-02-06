@@ -7,7 +7,6 @@ import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.presentation.movies.contract.MoviesContract
 import com.rodrigobresan.presentation.movies.factory.MovieFactory
 import com.rodrigobresan.presentation.movies.mapper.MovieMapper
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Before
 import org.junit.Test

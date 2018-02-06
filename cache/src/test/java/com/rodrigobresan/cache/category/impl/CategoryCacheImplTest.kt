@@ -1,11 +1,8 @@
 package com.rodrigobresan.cache.movie.impl
 
-import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.cache.PreferencesHelper
-import com.rodrigobresan.cache.category.CategoryQueries
-import com.rodrigobresan.cache.category.dao.CategoryDao
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
 import com.rodrigobresan.cache.category.mapper.entity.CategoryCacheMapper
 import com.rodrigobresan.cache.category.model.CategoryCached

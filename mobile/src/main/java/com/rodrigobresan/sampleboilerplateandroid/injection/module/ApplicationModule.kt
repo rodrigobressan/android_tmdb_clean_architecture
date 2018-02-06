@@ -3,6 +3,7 @@ package com.rodrigobresan.sampleboilerplateandroid.injection.module
 import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.cache.PreferencesHelper
 import com.rodrigobresan.cache.category.dao.CategoryDao
 import com.rodrigobresan.cache.category.impl.CategoryCacheImpl
@@ -50,7 +51,6 @@ import com.rodrigobresan.remote.movies.mapper.ReviewRemoteMapper
 import com.rodrigobresan.remote.review.impl.ReviewRemoteImpl
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.service.MovieServiceFactory
-import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.sampleboilerplateandroid.BuildConfig
 import com.rodrigobresan.sampleboilerplateandroid.UiThread
 import com.rodrigobresan.sampleboilerplateandroid.injection.scope.PerApplication

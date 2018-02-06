@@ -1,28 +1,16 @@
 package com.rodrigobresan.cache.movie.impl
 
 import android.arch.persistence.room.Room
-import android.database.sqlite.SQLiteDatabase
 import com.rodrigobresan.cache.AppDatabase
 import com.rodrigobresan.cache.PreferencesHelper
-import com.rodrigobresan.cache.category.CategoryQueries
-import com.rodrigobresan.cache.category.model.CategoryCached
-import com.rodrigobresan.cache.movie.MovieQueries
-import com.rodrigobresan.cache.movie.model.MovieCached
-import com.rodrigobresan.cache.movie_category.MovieCategoryQueries
 import com.rodrigobresan.cache.movie_category.impl.MovieCategoryCacheImpl
 import com.rodrigobresan.cache.movie_category.mapper.entity.MovieCategoryCacheMapper
-import com.rodrigobresan.cache.movie_category.model.MovieCategoryCached
-import com.rodrigobresan.cache.test.factory.CategoryFactory
-import com.rodrigobresan.cache.test.factory.MovieCategoryFactory
-import com.rodrigobresan.cache.test.factory.MovieFactory
-import com.rodrigobresan.data.movie_category.model.MovieCategoryEntity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import kotlin.test.assertEquals
 
 /**
  * Class for testing MovieCategoryCacheImpl class

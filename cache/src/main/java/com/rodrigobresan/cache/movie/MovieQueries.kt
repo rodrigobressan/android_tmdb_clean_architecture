@@ -1,7 +1,5 @@
 package com.rodrigobresan.cache.movie
 
-import com.rodrigobresan.cache.movie_category.MovieCategoryQueries.MovieCategoryTable
-
 /**
  * Object containing the queries for the movie table
  */

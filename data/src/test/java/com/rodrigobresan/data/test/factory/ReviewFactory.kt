@@ -1,9 +1,7 @@
 package com.rodrigobresan.data.test.factory
 
 import com.rodrigobresan.base.DataFactory
-import com.rodrigobresan.data.movie.model.MovieEntity
 import com.rodrigobresan.data.review.model.ReviewEntity
-import com.rodrigobresan.domain.movies.model.Movie
 import com.rodrigobresan.domain.review.model.Review
 
 class ReviewFactory {
