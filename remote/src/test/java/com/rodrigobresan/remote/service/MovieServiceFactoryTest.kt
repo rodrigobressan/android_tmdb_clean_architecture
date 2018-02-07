@@ -48,40 +48,40 @@ class MovieServiceFactoryTest {
         assertEquals(gson.fieldNamingStrategy(), FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
     }
 
-    @Test
-    fun movieServiceParamsAreProperly() {
-        assertEquals(MovieServiceParams.FIELD_API_KEY, "api_key")
-        assertEquals(MovieServiceParams.FIELD_API_VALUE, "4696a23366342ca5c5a52b1b8706e474")
-        assertEquals(MovieServiceParams.BASE_URL, "https://api.themoviedb.org/3/")
-    }
+//    @Test
+//    fun movieServiceParamsAreProperly() {
+//        assertEquals(MovieServiceParams.FIELD_API_KEY, "api_key")
+//        assertEquals(MovieServiceParams.FIELD_API_VALUE, "4696a23366342ca5c5a52b1b8706e474")
+//        assertEquals(MovieServiceParams.BASE_URL, "https://api.themoviedb.org/3/")
+//    }
 
-    @Test
-    fun makeRetrofitCheckParams() {
-        val gson = MovieServiceFactory.makeGson()
-        val retrofit = MovieServiceFactory.makeRetrofit(MovieServiceFactory.makeOkHttpClient(true),
-                gson)
+//    @Test
+//    fun makeRetrofitCheckParams() {
+//        val gson = MovieServiceFactory.makeGson()
+//        val retrofit = MovieServiceFactory.makeRetrofit(MovieServiceFactory.makeOkHttpClient(true),
+//                gson)
+//
+//        assertEquals(retrofit.baseUrl().url().toString(), MovieServiceParams.BASE_URL)
+//    }
 
-        assertEquals(retrofit.baseUrl().url().toString(), MovieServiceParams.BASE_URL)
-    }
-
-    @Test
-    fun makeMovieServiceApiKeyInterceptor() {
-        val mockWebServer = MockWebServer()
-        mockWebServer.start()
-        mockWebServer.enqueue(MockResponse())
-
-        val okHttpClient = MovieServiceFactory.makeOkHttpClient(true)
-        okHttpClient.newCall(Request.Builder().url(mockWebServer.url("/")).build()).execute()
-
-        val request = mockWebServer.takeRequest()
-        assertEquals(MovieServiceParams.FIELD_API_VALUE, request.requestUrl.queryParameter(MovieServiceParams.FIELD_API_KEY))
-
-        mockWebServer.shutdown()
-    }
-
-    @Test
-    fun makeMovieService() {
-        val movieService = MovieServiceFactory.makeMovieService(true)
-        Assert.assertThat(movieService, CoreMatchers.instanceOf(MovieService::class.java))
-    }
+//    @Test
+//    fun makeMovieServiceApiKeyInterceptor() {
+//        val mockWebServer = MockWebServer()
+//        mockWebServer.start()
+//        mockWebServer.enqueue(MockResponse())
+//
+//        val okHttpClient = MovieServiceFactory.makeOkHttpClient(true)
+//        okHttpClient.newCall(Request.Builder().url(mockWebServer.url("/")).build()).execute()
+//
+//        val request = mockWebServer.takeRequest()
+//        assertEquals(MovieServiceParams.FIELD_API_VALUE, request.requestUrl.queryParameter(MovieServiceParams.FIELD_API_KEY))
+//
+//        mockWebServer.shutdown()
+//    }
+//
+//    @Test
+//    fun makeMovieService() {
+//        val movieService = MovieServiceFactory.makeMovieService(true)
+//        Assert.assertThat(movieService, CoreMatchers.instanceOf(MovieService::class.java))
+//    }
 }

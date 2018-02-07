@@ -83,13 +83,13 @@ class MovieOverviewFragment : Fragment() {
         if (movieDetail.isFavorite) {
             showMovieAsNotFavorite()
 
-            movieDetail.isFavorite = true
-            listener?.favoriteMovie()
+            movieDetail.isFavorite = false
+            listener?.unfavoriteMovie()
         } else {
             showMovieAsFavorite()
 
-            movieDetail.isFavorite = false
-            listener?.unfavoriteMovie()
+            movieDetail.isFavorite = true
+            listener?.favoriteMovie()
         }
     }
 }

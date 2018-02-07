@@ -5,6 +5,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    flavorDimensions "default"
+
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
@@ -41,6 +43,25 @@ android {
         ignoreWarnings true
     }
 
+    productFlavors {
+        demo {
+            applicationIdSuffix = ".demo"
+        }
+        pro {
+        }
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+            buildConfigField "String", "API_URL", "\"http://demo0080297.mockable.io/\""
+            buildConfigField "String", "API_KEY", "\"\""
+        }
+        release {
+            buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "API_KEY", "\"4696a23366342ca5c5a52b1b8706e474\""
+        }
+    }
 }
 
 

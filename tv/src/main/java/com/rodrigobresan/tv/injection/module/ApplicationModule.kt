@@ -49,6 +49,7 @@ import com.rodrigobresan.remote.movie_detail.impl.MovieDetailRemoteImpl
 import com.rodrigobresan.remote.movies.impl.MovieRemoteImpl
 import com.rodrigobresan.remote.movies.mapper.ReviewRemoteMapper
 import com.rodrigobresan.remote.review.impl.ReviewRemoteImpl
+import com.rodrigobresan.remote.service.ApiConfiguration
 import com.rodrigobresan.remote.service.MovieService
 import com.rodrigobresan.remote.service.MovieServiceFactory
 import com.rodrigobresan.tv.BuildConfig
@@ -204,10 +205,19 @@ open class ApplicationModule {
         return uiThread
     }
 
+
     @Provides
     @PerApplication
-    internal fun provideMovieService(): MovieService {
-        return MovieServiceFactory.makeMovieService(BuildConfig.DEBUG)
+    internal fun provideApiConfiguration(): ApiConfiguration {
+        val apiUrl = BuildConfig.API_URL
+        val apiKey = BuildConfig.API_KEY
+        val apiConfiguration = ApiConfiguration(apiUrl, apiKey)
+        return apiConfiguration
+    }
 
+    @Provides
+    @PerApplication
+    internal fun provideMovieService(apiConfiguration: ApiConfiguration): MovieService {
+        return MovieServiceFactory.makeMovieService(apiConfiguration, BuildConfig.DEBUG)
     }
 }

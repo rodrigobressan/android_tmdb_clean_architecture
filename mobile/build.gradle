@@ -19,6 +19,15 @@ android {
         testInstrumentationRunner "com.rodrigobresan.sampleboilerplateandroid.test.TestRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("../releasekeystore")
+            storePassword "123456"
+            keyAlias 'releaseAlias'
+            keyPassword "123456"
+        }
+    }
+
     productFlavors {
         demo {
             applicationIdSuffix = ".demo"
@@ -30,6 +39,13 @@ android {
     buildTypes {
         debug {
             testCoverageEnabled true
+            buildConfigField "String", "API_URL", "\"http://demo0080297.mockable.io/\""
+            buildConfigField "String", "API_KEY", "\"\""
+        }
+        release {
+            signingConfig signingConfigs.release
+            buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "API_KEY", "\"4696a23366342ca5c5a52b1b8706e474\""
         }
     }
 

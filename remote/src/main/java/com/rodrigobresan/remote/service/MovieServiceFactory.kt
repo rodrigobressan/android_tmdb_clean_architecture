@@ -15,23 +15,23 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object MovieServiceFactory {
 
-    fun makeMovieService(isDebug: Boolean): MovieService {
-        val okHttpClient = makeOkHttpClient(isDebug)
-        return makeMovieService(okHttpClient, makeGson())
+    fun makeMovieService(apiConfiguration: ApiConfiguration, isDebug: Boolean): MovieService {
+        val okHttpClient = makeOkHttpClient(apiConfiguration, isDebug)
+        return makeMovieService(apiConfiguration, okHttpClient, makeGson())
     }
 
-    fun makeOkHttpClient(isDebug: Boolean): OkHttpClient {
+    fun makeOkHttpClient(apiConfiguration: ApiConfiguration, isDebug: Boolean): OkHttpClient {
         return OkHttpClient.Builder()
                 .addInterceptor(makeLoggingInterceptor(isDebug))
-                .addInterceptor(makeApiKeyInterceptor())
+                .addInterceptor(makeApiKeyInterceptor(apiConfiguration))
                 .build()
     }
 
-    fun makeApiKeyInterceptor(): Interceptor {
+    fun makeApiKeyInterceptor(apiConfiguration: ApiConfiguration): Interceptor {
         return Interceptor {
             var request = it?.request()
             val url = request?.url()?.newBuilder()
-                    ?.addQueryParameter(MovieServiceParams.FIELD_API_KEY, MovieServiceParams.FIELD_API_VALUE)
+                    ?.addQueryParameter(apiConfiguration.authenticationKey, apiConfiguration.apiKey)
                     ?.build()
 
             request = request?.newBuilder()?.url(url)?.build()
@@ -39,14 +39,14 @@ object MovieServiceFactory {
         }
     }
 
-    fun makeMovieService(okHttpClient: OkHttpClient, gson: Gson): MovieService {
-        val retrofit = makeRetrofit(okHttpClient, gson)
+    fun makeMovieService(apiConfiguration: ApiConfiguration, okHttpClient: OkHttpClient, gson: Gson): MovieService {
+        val retrofit = makeRetrofit(apiConfiguration, okHttpClient, gson)
         return retrofit.create(MovieService::class.java)
     }
 
-    fun makeRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+    fun makeRetrofit(apiConfiguration: ApiConfiguration, okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         val retrofit = Retrofit.Builder()
-                .baseUrl(MovieServiceParams.BASE_URL)
+                .baseUrl(apiConfiguration.baseUrl)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
