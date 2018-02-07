@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco-android'
+apply plugin: 'com.github.gfx.ribbonizer'
+
 
 android {
     flavorDimensions "default"
@@ -26,6 +28,12 @@ android {
             keyAlias 'releaseAlias'
             keyPassword "123456"
         }
+        qa {
+            storeFile file("../qakeystore")
+            storePassword "123456"
+            keyAlias 'qaAlias'
+            keyPassword "123456"
+        }
     }
 
     productFlavors {
@@ -33,16 +41,27 @@ android {
             applicationIdSuffix = ".demo"
         }
         pro {
+            applicationIdSuffix = ".pro"
         }
     }
 
     buildTypes {
         debug {
+            debuggable true
             testCoverageEnabled true
+            applicationIdSuffix ".debug"
+            buildConfigField "String", "API_URL", "\"http://demo0080297.mockable.io/\""
+            buildConfigField "String", "API_KEY", "\"\""
+        }
+        qa {
+            debuggable true
+            signingConfig signingConfigs.qa
+            applicationIdSuffix ".qa"
             buildConfigField "String", "API_URL", "\"http://demo0080297.mockable.io/\""
             buildConfigField "String", "API_KEY", "\"\""
         }
         release {
+            debuggable false
             signingConfig signingConfigs.release
             buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
             buildConfigField "String", "API_KEY", "\"4696a23366342ca5c5a52b1b8706e474\""
@@ -93,8 +112,8 @@ dependencies {
 
     implementation project(':presentation')
     implementation project(':data')
-    implementation project(':cache')
     implementation project(':remote')
+    implementation project(':cache')
 
     implementation mobileUiDependencies.javaxAnnotation
     implementation "android.arch.persistence.room:runtime:1.0.0"
@@ -157,6 +176,31 @@ dependencies {
 
     kaptTest mobileUiDependencies.daggerCompiler
     kaptAndroidTest mobileUiDependencies.daggerCompiler
+}
+
+ribbonizer {
+    // "manifest application[android:icon]" is automatically added to the list
+    iconNames "@drawable/ic_launcher"
+
+    // badge colors: debug = gray; qa = yellow; release = green
+    builder { variant, iconFile ->
+        switch (variant.buildType.name) {
+            case "debug":
+                def filter = customColorRibbonFilter(variant, iconFile, "#FF0000")
+                filter.label = "DEV"
+                return filter
+                break
+
+            case "qa":
+                def filter = yellowRibbonFilter(variant, iconFile)
+                filter.label = "QA"
+                return filter
+                break
+        }
+    }
+
+    forcedVariantsNames "demoRelease"
+    forcedVariantsNames "proRelease"
 }
 
 apply plugin: 'com.google.gms.google-services'

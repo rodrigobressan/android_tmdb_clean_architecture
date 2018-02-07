@@ -13,8 +13,7 @@
         android:id="@+id/img_movie_picture"
         android:layout_width="104dp"
         android:layout_height="156dp"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/ic_launcher_background" />
+        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -55,7 +54,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/margin_small"
-            android:src="@mipmap/ic_launcher"
             android:visibility="gone" />
 
     </RelativeLayout>

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
+
     publishNonDefault true
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -25,6 +26,15 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    buildTypes {
+        debug {
+        }
+        qa {
+        }
+        release {
+        }
     }
 
     packagingOptions {

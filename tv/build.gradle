@@ -5,6 +5,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    publishNonDefault true
+
     flavorDimensions "default"
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -19,18 +21,12 @@ android {
         testInstrumentationRunner "com.rodrigobresan.sampleboilerplateandroid.test.TestRunner"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
     dexOptions {
         preDexLibraries = false
         dexInProcess = false
         javaMaxHeapSize "4g"
     }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -43,27 +39,52 @@ android {
         ignoreWarnings true
     }
 
+    signingConfigs {
+        release {
+            storeFile file("../releasekeystore")
+            storePassword "123456"
+            keyAlias 'releaseAlias'
+            keyPassword "123456"
+        }
+        qa {
+            storeFile file("../qakeystoretv")
+            storePassword "123456"
+            keyAlias 'qaAlias'
+            keyPassword "123456"
+        }
+    }
+
     productFlavors {
         demo {
             applicationIdSuffix = ".demo"
         }
         pro {
+            applicationIdSuffix = ".pro"
         }
     }
 
     buildTypes {
         debug {
+            debuggable true
             testCoverageEnabled true
+            applicationIdSuffix ".debug"
+            buildConfigField "String", "API_URL", "\"http://demo0080297.mockable.io/\""
+            buildConfigField "String", "API_KEY", "\"\""
+        }
+        qa {
+            debuggable true
+            applicationIdSuffix ".qa"
+            signingConfig signingConfigs.qa
             buildConfigField "String", "API_URL", "\"http://demo0080297.mockable.io/\""
             buildConfigField "String", "API_KEY", "\"\""
         }
         release {
+            debuggable false
             buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
             buildConfigField "String", "API_KEY", "\"4696a23366342ca5c5a52b1b8706e474\""
         }
     }
 }
-
 
 kapt {
     correctErrorTypes = true
@@ -88,8 +109,9 @@ dependencies {
 
     implementation project(':presentation')
     implementation project(':data')
-    implementation project(':cache')
     implementation project(':remote')
+    implementation project(':cache')
+
 
     implementation mobileUiDependencies.javaxAnnotation
     implementation 'com.github.florent37:glidepalette:2.1.1'
