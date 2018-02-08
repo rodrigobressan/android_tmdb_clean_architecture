@@ -73,13 +73,7 @@ after_script:
   - ./gradlew :mobile:crashlyticsUploadDistributionDemoDebug
 
 notifications:
-  email:
-    - rcbresan@gmail.com
-#  slack:
-#    rooms:
-#      - secure: xoxp-311680303568-312233065843-311784987729-937357a717199797a3f0972511d8c1d5
-#    on_success: always
-#    on_failure: always
+    slack: tmdbclient:QXNo4mSfAtG572KVpLx9MCLa
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
