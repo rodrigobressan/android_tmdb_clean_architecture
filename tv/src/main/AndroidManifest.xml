@@ -36,8 +36,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".movie_details.DetailsActivity" />
-        <activity android:name=".PlaybackActivity" />
-        <activity android:name=".BrowseErrorActivity" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3bef09d104ff17d4d5b580a06157bd407ad77ad6" />
+
     </application>
 
 </manifest>

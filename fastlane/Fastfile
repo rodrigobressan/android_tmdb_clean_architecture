@@ -1,0 +1,35 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new Demo Debug Build to Crashlytics Beta"
+  lane :betaDemoDebug do
+    gradle(task: ":mobile:assembleDemoDebug")
+    crashlytics(
+      api_token: '3bef09d104ff17d4d5b580a06157bd407ad77ad6',
+      build_secret: '9e42ffadb40d3944ba5fdf81f2f9f88f7ac118df411268e95b975e93180c2ef0',
+      notifications: true
+    )
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "assembleRelease")
+    upload_to_play_store
+  end
+end

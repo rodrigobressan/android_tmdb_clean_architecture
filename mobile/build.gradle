@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco-android'
 apply plugin: 'com.github.gfx.ribbonizer'
-
+apply plugin: 'io.fabric'
 
 android {
     flavorDimensions "default"
@@ -19,6 +19,8 @@ android {
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         multiDexEnabled = true
         testInstrumentationRunner "com.rodrigobresan.sampleboilerplateandroid.test.TestRunner"
+        versionCode 6
+        versionName "1.5"
     }
 
     signingConfigs {
@@ -118,6 +120,10 @@ dependencies {
     implementation mobileUiDependencies.javaxAnnotation
     implementation "android.arch.persistence.room:runtime:1.0.0"
     kapt "android.arch.persistence.room:compiler:1.0.0"
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
+        transitive = true;
+    }
 
     compile 'com.google.firebase:firebase-core:11.6.0'
     compile 'com.google.firebase:firebase-auth:11.6.0'

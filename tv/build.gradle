@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+
 
 android {
     publishNonDefault true
@@ -112,6 +114,10 @@ dependencies {
     implementation project(':remote')
     implementation project(':cache')
 
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
+        transitive = true;
+    }
 
     implementation mobileUiDependencies.javaxAnnotation
     implementation 'com.github.florent37:glidepalette:2.1.1'
