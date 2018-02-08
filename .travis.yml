@@ -60,7 +60,7 @@ before_install:
 
 script:
 #  - ./gradlew test jacocoTestReport
-  - ./gradlew :mobile:assembleDemoDebug --stacktrace --no-daemon
+  - ./gradlew :mobile:assembleDebug --stacktrace --no-daemon
 #  - ./gradlew :remote:test
 #  - ./gradlew :cache:test
 #  - ./gradlew :data:test
@@ -71,6 +71,7 @@ script:
 
 after_script:
   - ./gradlew :mobile:crashlyticsUploadDistributionDemoDebug
+  - ./gradlew :mobile:crashlyticsUploadDistributionProDebug
 
 notifications:
     slack: tmdbclient:QXNo4mSfAtG572KVpLx9MCLa
