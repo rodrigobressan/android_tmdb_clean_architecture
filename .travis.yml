@@ -49,15 +49,13 @@ after_script:
 #- "./gradlew :mobile:crashlyticsUploadDistributionProQa"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- openssl aes-256-cbc -K $encrypted_4bc940c959eb_key -iv $encrypted_4bc940c959eb_iv
-  -in TMDB-Client-c607b36fce38.json.enc -out TMDB-Client-c607b36fce38.json
-  -d
+- openssl aes-256-cbc -K $encrypted_4bc940c959eb_key -iv $encrypted_4bc940c959eb_iv -in TMDBClient-60be7311e0d5.json.enc -out TMDBClient-60be7311e0d5.json -d
 - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-127.0.0-linux-x86_64.tar.gz
 - tar xf google-cloud-sdk-127.0.0-linux-x86_64.tar.gz
 - echo "y" | ./google-cloud-sdk/bin/gcloud components update beta
-- gcloud config set project tmdb-client
-- ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file TMDB-Client-c607b36fce38.json
-- ./google-cloud-sdk/bin/gcloud beta test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./mobile/build/outputs/apk/androidTest/demo/debug/mobile-demo-debug-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
+- gcloud config set project tmdbclient
+- ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file TMDBClient-60be7311e0d5.json
+- ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./mobile/build/outputs/apk/androidTest/demo/debug/mobile-demo-debug-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
 
 notifications:
   slack:
