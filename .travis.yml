@@ -33,21 +33,31 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_install:
+- openssl aes-256-cbc -K $encrypted_4bc940c959eb_key -iv $encrypted_4bc940c959eb_iv
+  -in TMDB-Client-c607b36fce38.json.enc -out ~\/Downloads/TMDB-Client-c607b36fce38.json
+  -d
 - chmod +x gradlew
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 script:
-- "./gradlew test jacocoTestReport"
-- "./gradlew :mobile:assembleDebug --stacktrace --no-daemon"
-- "./gradlew :mobile:assembleQa --stacktrace --no-daemon"
+#- "./gradlew test jacocoTestReport"
+- "./gradlew :mobile:assembleDemoDebug --stacktrace --no-daemon"
+#- "./gradlew :mobile:assembleQa --stacktrace --no-daemon"
 after_script:
 - "./gradlew :mobile:crashlyticsUploadDistributionDemoDebug"
-- "./gradlew :mobile:crashlyticsUploadDistributionProDebug"
-- "./gradlew :mobile:crashlyticsUploadDistributionDemoQa"
-- "./gradlew :mobile:crashlyticsUploadDistributionProQa"
+#- "./gradlew :mobile:crashlyticsUploadDistributionProDebug"
+#- "./gradlew :mobile:crashlyticsUploadDistributionDemoQa"
+#- "./gradlew :mobile:crashlyticsUploadDistributionProQa"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+- openssl aes-256-cbc -K $encrypted_78f5c5933ac8_key -iv $encrypted_78f5c5933ac8_iv -in TMDB-Client-c607b36fce38.json.enc -out TMDB-Client-c607b36fce38.json -d
+- wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-127.0.0-linux-x86_64.tar.gz
+- tar xf google-cloud-sdk-127.0.0-linux-x86_64.tar.gz
+- echo "y" | ./google-cloud-sdk/bin/gcloud components update beta
+- ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file TMDB-Client-c607b36fce38.json
+- ./google-cloud-sdk/bin/gcloud beta test android run --async --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./app/build/output/apk/app-debug-androidTest.apk --device-ids Nexus5 --os-version-ids 22 --locales fr --orientations portrait --project project-id
+
 notifications:
   slack:
     secure: ZBi4hBzplJNK8GXau+pKqIMjfeJCSDKSmeXYy8mr3/LsW/+OVhVNM3Exz97eNA+JN1W+oerIgZn6MY9VyN6U4QSxVblawvTWewPafsZ8z2DSQ2yYEbiziqhCOdXPTk3dKwcSHu371+xYBIPRIPXPz0hd4rTnjEchtd12gNC24J6hg/jpPpMJnsWMl2lHwNzsVZTp3pj37zVIF9pdCncURiZF7pMzPeP6XUCNryDExnbixC+gmx8aeDRtowvH/pwrSzLKr7Rr79X9PnYhjntPVDcLlzEf6ekEMzyAxNOxnINN0pxDziQaGBNNQ3/TApo9OthmKArtktNmEW3uBqVZo8I1rBOK3Kc0j+McmnMLSuOxas1Z3Qv6gkgeci2069xI+Ibzq8gVJRbcNB1IKtG5vzLn5ueAek7AJCTjsbvwC+MipFea74aWNNzb+uzJt0QCh6wGdtwZeJODgtKi8MML4eWORpew/pK4hQrOFxObshjQzF0IeneG2FNbNr7bXHJI6VCZEwJjQXptB5JGKU4vkf5iGT+Mb/1BNBieskNGJVeYjSQsviRLO/RZfiyQNddOJnw8MjwN9SUuWEKqo0MFBAu8pxZgeOf3ysVqJ1tuYlIG5eFx74gPi4DKYmq331UaQP2y/E8bH8c0bEg/AlEpxLcAxZWcZ2YSg2xopo6JhZg=
