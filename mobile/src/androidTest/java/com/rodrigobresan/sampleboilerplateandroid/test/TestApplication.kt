@@ -3,6 +3,7 @@ package com.rodrigobresan.sampleboilerplateandroid.test
 import android.app.Activity
 import android.app.Application
 import android.support.test.InstrumentationRegistry
+import com.rodrigobresan.sampleboilerplateandroid.injection.component.DaggerTestApplicationComponent
 import com.rodrigobresan.sampleboilerplateandroid.injection.component.TestApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

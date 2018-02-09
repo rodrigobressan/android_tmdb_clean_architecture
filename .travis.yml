@@ -2,77 +2,52 @@ language: android
 dist: precise
 sudo: required
 jdk:
- - oraclejdk8
-# Use the Travis Container-Based Infrastructure
-
+- oraclejdk8
 env:
   global:
-    - ANDROID_API_LEVEL=26
-    - ANDROID_API_LEVEL_22=22
-    - ANDROID_BUILD_TOOLS_VERSION=26.0.2
-    - ANDROID_ABI=armeabi-v7a
-    - ANDROID_TAG=google_apis
-    - ANDROID_TARGET=android-26
-    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
-
+  - ANDROID_API_LEVEL=26
+  - ANDROID_API_LEVEL_22=22
+  - ANDROID_BUILD_TOOLS_VERSION=26.0.2
+  - ANDROID_ABI=armeabi-v7a
+  - ANDROID_TAG=google_apis
+  - ANDROID_TARGET=android-26
+  - ADB_INSTALL_TIMEOUT=20
 android:
   components:
-    - tools
-    - platform-tools
-    #- android-$ANDROID_API_LEVEL_22
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - tools
-    - android-$ANDROID_API_LEVEL
-    # For Google APIs
-    - addon-google_apis-google-$ANDROID_API_LEVEL
-    # Google Play Services
-    - extra-google-google_play_services
-    # Support library
-    - extra-android-support
-    # Latest artifacts in local repository
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - android-sdk-license-.+
-    # Specify at least one system image
-    - sys-img-armeabi-v7a-google_apis-$ANDROID_API_LEVEL
-    - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL_22
-
+  - tools
+  - platform-tools
+  - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+  - tools
+  - android-$ANDROID_API_LEVEL
+  - addon-google_apis-google-$ANDROID_API_LEVEL
+  - extra-google-google_play_services
+  - extra-android-support
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - android-sdk-license-.+
+  - sys-img-armeabi-v7a-google_apis-$ANDROID_API_LEVEL
+  - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL_22
   licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
-# list of directories to Cache
-
+  - android-sdk-preview-license-.+
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_install:
-  - chmod +x gradlew
-  - mkdir "$ANDROID_HOME/licenses" || true
-  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-
-
-#before_script:
-#  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-#  - emulator -avd test -no-audio -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
-
+- chmod +x gradlew
+- mkdir "$ANDROID_HOME/licenses" || true
+- echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+- echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 script:
-  - ./gradlew test jacocoTestReport
-  - ./gradlew :mobile:assembleDebug --stacktrace --no-daemon
-  - ./gradlew :mobile:assembleQa --stacktrace --no-daemon
-
-  #- ./gradlew build connectedAndroidTest --stacktrace
-
+- "./gradlew test jacocoTestReport"
+- "./gradlew :mobile:assembleDebug --stacktrace --no-daemon"
+- "./gradlew :mobile:assembleQa --stacktrace --no-daemon"
 after_script:
-  - ./gradlew :mobile:crashlyticsUploadDistributionDemoDebug
-  - ./gradlew :mobile:crashlyticsUploadDistributionProDebug
-  - ./gradlew :mobile:crashlyticsUploadDistributionDemoQa
-  - ./gradlew :mobile:crashlyticsUploadDistributionProQa
-
-notifications:
-    slack: tmdbclient:QXNo4mSfAtG572KVpLx9MCLa
-
+- "./gradlew :mobile:crashlyticsUploadDistributionDemoDebug"
+- "./gradlew :mobile:crashlyticsUploadDistributionProDebug"
+- "./gradlew :mobile:crashlyticsUploadDistributionDemoQa"
+- "./gradlew :mobile:crashlyticsUploadDistributionProQa"
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+notifications:
+  slack:
+    secure: ZBi4hBzplJNK8GXau+pKqIMjfeJCSDKSmeXYy8mr3/LsW/+OVhVNM3Exz97eNA+JN1W+oerIgZn6MY9VyN6U4QSxVblawvTWewPafsZ8z2DSQ2yYEbiziqhCOdXPTk3dKwcSHu371+xYBIPRIPXPz0hd4rTnjEchtd12gNC24J6hg/jpPpMJnsWMl2lHwNzsVZTp3pj37zVIF9pdCncURiZF7pMzPeP6XUCNryDExnbixC+gmx8aeDRtowvH/pwrSzLKr7Rr79X9PnYhjntPVDcLlzEf6ekEMzyAxNOxnINN0pxDziQaGBNNQ3/TApo9OthmKArtktNmEW3uBqVZo8I1rBOK3Kc0j+McmnMLSuOxas1Z3Qv6gkgeci2069xI+Ibzq8gVJRbcNB1IKtG5vzLn5ueAek7AJCTjsbvwC+MipFea74aWNNzb+uzJt0QCh6wGdtwZeJODgtKi8MML4eWORpew/pK4hQrOFxObshjQzF0IeneG2FNbNr7bXHJI6VCZEwJjQXptB5JGKU4vkf5iGT+Mb/1BNBieskNGJVeYjSQsviRLO/RZfiyQNddOJnw8MjwN9SUuWEKqo0MFBAu8pxZgeOf3ysVqJ1tuYlIG5eFx74gPi4DKYmq331UaQP2y/E8bH8c0bEg/AlEpxLcAxZWcZ2YSg2xopo6JhZg=
