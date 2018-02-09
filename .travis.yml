@@ -55,7 +55,7 @@ after_success:
 - tar xf google-cloud-sdk-127.0.0-linux-x86_64.tar.gz
 - echo "y" | ./google-cloud-sdk/bin/gcloud components update beta
 - ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file TMDB-Client-c607b36fce38.json
-- ./google-cloud-sdk/bin/gcloud beta test android run --async --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./app/build/output/apk/app-debug-androidTest.apk --device-ids Nexus5 --os-version-ids 22 --locales fr --orientations portrait --project project-id
+- ./google-cloud-sdk/bin/gcloud beta test android run --async --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./mobile/build/outputs/apk/androidTest/demo/debug/mobile-demo-debug-androidTest.apk --device-ids Nexus5 --os-version-ids 22 --locales fr --orientations portrait --project project-id
 
 notifications:
   slack:
