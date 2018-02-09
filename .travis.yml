@@ -57,7 +57,7 @@ after_success:
 - echo "y" | ./google-cloud-sdk/bin/gcloud components update beta
 - gcloud config set project tmdb-client
 - ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file TMDB-Client-c607b36fce38.json
-- ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./mobile/build/outputs/apk/androidTest/demo/debug/mobile-demo-debug-androidTest.apk --device model=Nexus10,version=21,locale=en,orientation=portrait --device model=Nexus5,version=23,locale=en,orientation=portrait --device model=Nexus6P,version=27,locale=en,orientation=portrait
+- ./google-cloud-sdk/bin/gcloud beta test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./mobile/build/outputs/apk/androidTest/demo/debug/mobile-demo-debug-androidTest.apk --device model=Nexus10,version=21,locale=en,orientation=portrait --device model=Nexus5,version=23,locale=en,orientation=portrait --device model=Nexus6P,version=27,locale=en,orientation=portrait
 
 notifications:
   slack:
