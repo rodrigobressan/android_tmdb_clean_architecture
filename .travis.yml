@@ -40,9 +40,9 @@ before_install:
 script:
 #- "./gradlew test jacocoTestReport"
 - "./gradlew :mobile:assembleDemoDebug --stacktrace --no-daemon"
+- "./gradlew :mobile:assembleAndroidTest"
 #- "./gradlew :mobile:assembleQa --stacktrace --no-daemon"
 after_script:
-- "./gradlew :mobile:assembleAndroidTest"
 - "./gradlew :mobile:crashlyticsUploadDistributionDemoDebug"
 #- "./gradlew :mobile:crashlyticsUploadDistributionProDebug"
 #- "./gradlew :mobile:crashlyticsUploadDistributionDemoQa"
