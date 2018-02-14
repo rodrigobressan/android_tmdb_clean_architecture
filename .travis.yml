@@ -12,6 +12,7 @@ env:
   - ANDROID_TAG=google_apis
   - ANDROID_TARGET=android-26
   - ADB_INSTALL_TIMEOUT=20
+
 android:
   components:
   - tools
@@ -32,30 +33,14 @@ android:
   - android-sdk-preview-license-52d11cd2
   - android-sdk-license-.+
   - google-gdk-license-.+
-before_install:
-- chmod +x gradlew
-- mkdir "$ANDROID_HOME/licenses" || true
-- echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-- echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-script:
-- "./gradlew test jacocoTestReport"
-- "./gradlew :mobile:assembleDemoDebug --stacktrace --no-daemon"
-- "./gradlew :mobile:assembleAndroidTest"
-#- "./gradlew :mobile:assembleQa --stacktrace --no-daemon"
-after_script:
-- "./gradlew :mobile:crashlyticsUploadDistributionDemoDebug"
-- "./gradlew :mobile:crashlyticsUploadDistributionProDebug"
-#- "./gradlew :mobile:crashlyticsUploadDistributionDemoQa"
-#- "./gradlew :mobile:crashlyticsUploadDistributionProQa"
-after_success:
-- bash <(curl -s https://codecov.io/bash)
-- openssl aes-256-cbc -K $encrypted_4bc940c959eb_key -iv $encrypted_4bc940c959eb_iv -in TMDBClient-60be7311e0d5.json.enc -out TMDBClient-60be7311e0d5.json -d
-- wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-188.0.1-linux-x86_64.tar.gz
-- tar xf google-cloud-sdk-188.0.1-linux-x86_64.tar.gz
-- echo "y" | ./google-cloud-sdk/bin/gcloud components update beta
-- gcloud config set project tmdbclient
-- ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file TMDBClient-60be7311e0d5.json
-- ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./mobile/build/outputs/apk/androidTest/demo/debug/mobile-demo-debug-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
+
+before_install: ./scripts/ci/before_install.sh
+
+script: ./scripts/ci/install.sh
+
+after_script: ./scripts/ci/after_script.sh
+
+after_success: ./scripts/ci/after_success.sh
 
 notifications:
   slack:

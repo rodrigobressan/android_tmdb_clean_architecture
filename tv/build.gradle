@@ -51,7 +51,7 @@ android {
         qa {
             storeFile file("../qakeystoretv")
             storePassword "123456"
-            keyAlias 'qaAlias'
+            keyAlias 'tvAlias'
             keyPassword "123456"
         }
     }

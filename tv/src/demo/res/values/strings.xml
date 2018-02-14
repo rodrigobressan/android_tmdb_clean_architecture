@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TMDB Client DEMO</string>
+    <string name="browse_title"><![CDATA[TMDB Client DEMO]]></string>
+</resources>

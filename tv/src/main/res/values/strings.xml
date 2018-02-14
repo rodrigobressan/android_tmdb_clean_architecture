@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">tv</string>
+    <string name="app_name">TMDB Client</string>
     <string name="browse_title"><![CDATA[TMDB Client]]></string>
     <string name="related_movies">Related Videos</string>
     <string name="grid_view">Grid View</string>

@@ -71,6 +71,7 @@ open class ApplicationModule {
     @Provides
     fun providesAppDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, DbConstants.DbConfig.FILE_NAME)
+                .allowMainThreadQueries()
                 .build()
     }
 
