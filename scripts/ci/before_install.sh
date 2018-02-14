@@ -1,5 +1,9 @@
 #!/bin/bash -xe
 
+chmod +x ./before_install.sh
+chmod +x ./install.sh
+chmod +x ./after_script.sh
+chmod +x ./after_success.sh
 chmod +x gradlew
 mkdir "$ANDROID_HOME/licenses" || true
 echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
