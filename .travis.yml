@@ -34,7 +34,12 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 
-before_install: ./scripts/ci/before_install.sh
+before_install:
+- chmod +x ./scripts/before_install.sh
+- chmod +x ./scripts/install.sh
+- chmod +x ./scripts/after_script.sh
+- chmod +x ./scripts/after_success.sh
+- ./scripts/ci/before_install.sh
 
 script: ./scripts/ci/install.sh
 
