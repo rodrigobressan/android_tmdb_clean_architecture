@@ -148,6 +148,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailsContract.View,
         reviewsFragment.loadReviews(review)
     }
 
+    override fun showErrorLoadingReviews() {
+        reviewsFragment.showErrorView()
+    }
+
     @SuppressLint("RestrictedApi")
     private fun setUpToolbar() {
         val toolbar = toolbar_movie_details as Toolbar

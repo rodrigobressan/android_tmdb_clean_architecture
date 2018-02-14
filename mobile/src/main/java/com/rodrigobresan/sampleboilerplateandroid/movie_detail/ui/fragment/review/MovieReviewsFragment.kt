@@ -35,12 +35,28 @@ class MovieReviewsFragment : Fragment() {
     }
 
     fun loadReviews(review: List<Review>) {
+        txt_movie_reviews_error.visibility = View.GONE
+        txt_movie_reviews_empty.visibility = View.GONE
+        rv_movie_reviews.visibility = View.VISIBLE
+
         val adapter = ReviewAdapter()
         adapter.reviewList = review
         val layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         rv_movie_reviews.layoutManager = layoutManager
         rv_movie_reviews.adapter = adapter
         adapter.notifyDataSetChanged()
+    }
+
+    fun showErrorView() {
+        rv_movie_reviews.visibility = View.GONE
+        txt_movie_reviews_empty.visibility = View.GONE
+        txt_movie_reviews_error.visibility = View.VISIBLE
+    }
+
+    fun showEmptyView() {
+        rv_movie_reviews.visibility = View.GONE
+        txt_movie_reviews_error.visibility = View.GONE
+        txt_movie_reviews_empty.visibility = View.VISIBLE
     }
 
 }

@@ -16,6 +16,7 @@ jacocoTestReport {
         csv.enabled true
         html.enabled true
         html.destination "${buildDir}/jacocoHtml"
+
     }
 }
 

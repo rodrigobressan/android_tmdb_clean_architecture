@@ -48,6 +48,7 @@ interface MovieDetailsContract {
         fun showOfflineModeCachedData()
 
         fun loadReviews(review: List<Review>)
+        fun showErrorLoadingReviews()
     }
 
     /**

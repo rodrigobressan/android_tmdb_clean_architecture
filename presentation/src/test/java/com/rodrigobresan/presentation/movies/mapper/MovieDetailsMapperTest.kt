@@ -25,6 +25,10 @@ class MovieDetailsMapperTest {
         val movieView = movieMapper.mapToView(movie)
         assertEquals(movie.id, movieView.id)
         assertEquals(movie.title, movieView.title)
+        assertEquals(movie.isFavorite, movieView.isFavorite)
+        assertEquals(movie.tagline, movieView.tagline)
+        assertEquals(movie.overview, movieView.overview)
+        assertEquals(movie.backdropPath, movieView.backdropPath)
         assertEquals(movie.posterPath, movieView.posterPath)
         assertEquals(movie.voteAverage, movieView.voteAverage, 0.1)
     }

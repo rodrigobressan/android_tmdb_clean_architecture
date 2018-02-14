@@ -43,5 +43,8 @@ class MovieDetailMapperTest {
         assertEquals(movieEntity.voteAverage, movie.voteAverage)
         assertEquals(movieEntity.posterPath, movie.posterPath)
         assertEquals(movieEntity.backdropPath, movie.backdropPath)
+        assertEquals(movieEntity.overview, movie.overview)
+        assertEquals(movieEntity.tagline, movie.tagline)
+        assertEquals(movieEntity.isFavorite, movie.isFavorite)
     }
 }

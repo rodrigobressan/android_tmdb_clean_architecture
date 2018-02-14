@@ -2,15 +2,18 @@ package com.rodrigobresan.presentation.movies.presenter
 
 import com.nhaarman.mockito_kotlin.*
 import com.rodrigobresan.data.connection.ConnectionStatus
+import com.rodrigobresan.domain.interactor.SingleUseCase
 import com.rodrigobresan.domain.movie_detail.interactor.GetMovieDetails
 import com.rodrigobresan.domain.movie_detail.model.MovieDetail
 import com.rodrigobresan.domain.movies.interactor.FavoriteMovie
 import com.rodrigobresan.domain.movies.interactor.UnfavoriteMovie
 import com.rodrigobresan.domain.review.interactor.GetReviews
+import com.rodrigobresan.domain.review.model.Review
 import com.rodrigobresan.presentation.movie_details.contract.MovieDetailsContract
 import com.rodrigobresan.presentation.movie_details.mapper.MovieDetailsMapper
 import com.rodrigobresan.presentation.movie_details.presenter.MovieDetailsPresenter
 import com.rodrigobresan.presentation.movies.factory.MovieDetailFactory
+import com.rodrigobresan.presentation.movies.factory.ReviewFactory
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import org.junit.Before
@@ -33,6 +36,7 @@ class MovieDetailsPresenterTest {
     private lateinit var movieDetailsMapper: MovieDetailsMapper
 
     private lateinit var captorMovieDetail: KArgumentCaptor<DisposableSingleObserver<MovieDetail>>
+    private lateinit var captorMovieReview: KArgumentCaptor<DisposableSingleObserver<List<Review>>>
     private lateinit var captorFavoriteMovie: KArgumentCaptor<DisposableCompletableObserver>
 
     private lateinit var connectionStatus: ConnectionStatus
@@ -40,6 +44,7 @@ class MovieDetailsPresenterTest {
     @Before
     fun setUp() {
         captorMovieDetail = argumentCaptor<DisposableSingleObserver<MovieDetail>>()
+        captorMovieReview = argumentCaptor<DisposableSingleObserver<List<Review>>>()
         captorFavoriteMovie = argumentCaptor<DisposableCompletableObserver>()
 
         connectionStatus = mock()
@@ -83,6 +88,26 @@ class MovieDetailsPresenterTest {
         verify(movieDetailsView).showErrorState()
     }
 
+    @Test
+    fun loadMovieReviewsSuccess() {
+        val reviews = ReviewFactory.makeReviewList(5)
+        movieDetailsPresenter.loadMovieDetails(0)
+
+        verify(getReviews).execute(captorMovieReview.capture(), eq(0))
+        captorMovieReview.firstValue.onSuccess(reviews)
+
+        verify(movieDetailsView).loadReviews(reviews)
+    }
+
+    @Test
+    fun loadMovieReviewsErrorShowErrorView() {
+        movieDetailsPresenter.loadMovieDetails(0)
+
+        verify(getReviews).execute(captorMovieReview.capture(), eq(0))
+        captorMovieReview.firstValue.onError(RuntimeException())
+
+        verify(movieDetailsView).showErrorLoadingReviews()
+    }
 //    @Test
 //    fun loadMovieDetailsShowEmptyStateWhenResponseIsNotFound() {
 //        movieDetailsPresenter.loadMovieDetails(0)

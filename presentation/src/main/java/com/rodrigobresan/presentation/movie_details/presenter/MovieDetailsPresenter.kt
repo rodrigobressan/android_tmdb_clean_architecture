@@ -37,7 +37,6 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
         favoriteMoviesUseCase.execute(movieId)
                 .subscribe({
                     // TODO user feedback
-                    System.out.println("DONE")
                 })
     }
 
@@ -62,6 +61,8 @@ class MovieDetailsPresenter @Inject constructor(val connectionStatus: com.rodrig
 
     inner class MovieReviewsSubscriber : DisposableSingleObserver<List<Review>>() {
         override fun onError(e: Throwable) {
+            movieDetailsView.showErrorLoadingReviews()
+            // TODO show error view for review section
         }
 
         override fun onSuccess(review: List<Review>) {

@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_movie_reviews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txt_movie_reviews_error"
+        android:gravity="center"
+        android:text="There was an error loading the reviews :-("
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txt_movie_reviews_empty"
+        android:gravity="center"
+        android:text="There are no reviews for this movie yet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
