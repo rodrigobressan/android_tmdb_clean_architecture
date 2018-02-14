@@ -30,7 +30,3 @@ gcloud config set project tmdbclient
 # Upload Mobile Debug Artifacts
 ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/debug/mobile-demo-debug.apk --test ./mobile/build/outputs/apk/androidTest/demo/debug/mobile-demo-debug-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
 ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/pro/debug/mobile-pro-debug.apk --test ./mobile/build/outputs/apk/androidTest/pro/debug/mobile-pro-debug-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
-
-# Upload Mobile QA Artifacts
-./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/qa/mobile-demo-qa.apk --test ./mobile/build/outputs/apk/androidTest/demo/qa/mobile-demo-qa-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
-./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/pro/qa/mobile-pro-qa.apk --test ./mobile/build/outputs/apk/androidTest/pro/qa/mobile-pro-qa-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
