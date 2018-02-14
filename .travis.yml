@@ -35,10 +35,10 @@ android:
   - google-gdk-license-.+
 
 before_install:
-- chmod +x ./scripts/before_install.sh
-- chmod +x ./scripts/install.sh
-- chmod +x ./scripts/after_script.sh
-- chmod +x ./scripts/after_success.sh
+- chmod +x ./scripts/ci/before_install.sh
+- chmod +x ./scripts/ci/install.sh
+- chmod +x ./scripts/ci/after_script.sh
+- chmod +x ./scripts/ci/after_success.sh
 - ./scripts/ci/before_install.sh
 
 script: ./scripts/ci/install.sh
