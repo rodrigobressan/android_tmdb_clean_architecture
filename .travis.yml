@@ -4,6 +4,7 @@ sudo: required
 jdk:
 - oraclejdk8
 env:
+  - testBuildType=debug
   global:
   - ANDROID_API_LEVEL=26
   - ANDROID_API_LEVEL_22=22

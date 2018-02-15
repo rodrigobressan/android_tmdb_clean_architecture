@@ -7,6 +7,24 @@ apply plugin: 'com.github.gfx.ribbonizer'
 apply plugin: 'io.fabric'
 
 android {
+
+    switch (System.getenv('testBuildType')) {
+        case "qa":
+            testBuildType "qa"
+            break
+
+        case "debug":
+            testBuildType "debug"
+            break
+
+        case "release":
+            testBuildType "release"
+            break
+
+        default:
+            testBuildType "debug"
+    }
+
     flavorDimensions "default"
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
