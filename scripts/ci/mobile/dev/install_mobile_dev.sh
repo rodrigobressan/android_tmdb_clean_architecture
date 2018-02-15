@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 # Execute JaCoCo Test Report (later deploy to CodeCov.io)
-./gradlew test jacocoTestReport
+./gradlew clean :data:test :base:test :remote:test :cache:testDebug :domain:test :presentation:test :mobile:testDemoDebug --profile
 
 # Assemble mobile debug artifact
 ./gradlew :mobile:assembleDebug --stacktrace --no-daemon
