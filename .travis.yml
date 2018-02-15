@@ -34,7 +34,28 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 
-before_install: ./scripts/ci/before_install.sh
+before_install:
+# common
+- chmod +x ./scripts/ci/before_install.sh
+- chmod +x ./scripts/ci/after_success.sh
+
+# Mobile Dev
+- chmod +x ./scripts/ci/mobile/dev/install_mobile_dev.sh
+- chmod +x ./scripts/ci/mobile/dev/after_script_mobile_dev.sh
+
+# Mobile QA
+- chmod +x ./scripts/ci/mobile/qa/install_mobile_qa.sh
+- chmod +x ./scripts/ci/mobile/qa/after_script_mobile_qa.sh
+
+# TV Dev
+- chmod +x ./scripts/ci/tv/dev/install_tv_dev.sh
+- chmod +x ./scripts/ci/tv/dev/after_script_tv_dev.sh
+
+# TV QA
+- chmod +x ./scripts/ci/tv/qa/install_tv_qa.sh
+- chmod +x ./scripts/ci/tv/qa/after_script_tv_qa.sh
+
+- ./scripts/ci/before_install.sh
 
 script: ./scripts/ci/mobile/dev/install_mobile_dev.sh
 
