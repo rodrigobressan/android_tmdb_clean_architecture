@@ -9,9 +9,6 @@ generate_post_data()
 		"branch": "dev",
 		"config": {
 			"merge_mode": "deep_merge",
-			"env": {
-			    "testBuildType": "debug"
-			},
 			"script": "./scripts/ci/mobile/debug/install_mobile_dev.sh",
 			"after_script": "./scripts/ci/mobile/debug/after_script_mobile_dev.sh"
 		}
