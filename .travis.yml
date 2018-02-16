@@ -47,6 +47,10 @@ before_install:
 - chmod +x ./scripts/ci/mobile/qa/install_mobile_qa.sh
 - chmod +x ./scripts/ci/mobile/qa/after_script_mobile_qa.sh
 
+# Mobile Release
+- chmod +x ./scripts/ci/mobile/release/install_mobile_release.sh
+- chmod +x ./scripts/ci/mobile/release/after_script_mobile_release.sh
+
 # TV Dev
 - chmod +x ./scripts/ci/tv/dev/install_tv_dev.sh
 - chmod +x ./scripts/ci/tv/dev/after_script_tv_dev.sh
