@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco-android'
 apply plugin: 'com.github.gfx.ribbonizer'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
 
 android {
 
@@ -32,6 +33,12 @@ android {
     compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
     buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
 
+    playAccountConfigs {
+        defaultAccountConfig {
+            jsonFile = file('TMDBClient-60be7311e0d5.json')
+        }
+    }
+
     defaultConfig {
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
@@ -39,6 +46,7 @@ android {
         testInstrumentationRunner "com.rodrigobresan.sampleboilerplateandroid.test.TestRunner"
         versionCode 10
         versionName "2.0"
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     signingConfigs {
@@ -116,6 +124,10 @@ android {
     buildToolsVersion '26.0.2'
 }
 
+play {
+    track = 'beta'
+    untrackOld = true
+}
 kapt {
     correctErrorTypes = true
 }

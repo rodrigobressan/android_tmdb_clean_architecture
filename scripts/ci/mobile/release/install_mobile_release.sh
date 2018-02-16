@@ -19,6 +19,8 @@ gcloud config set project tmdbclient
 
 ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file TMDBClient-60be7311e0d5.json
 
+./gradlew :mobile:publishApkProRelease
+
 # Upload Mobile Release Artifacts
 ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/demo/release/mobile-demo-release.apk --test ./mobile/build/outputs/apk/androidTest/demo/release/mobile-demo-release-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait
 ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app ./mobile/build/outputs/apk/pro/release/mobile-pro-release.apk --test ./mobile/build/outputs/apk/androidTest/pro/release/mobile-pro-release-androidTest.apk --device model=Nexus5,version=23,locale=en,orientation=portrait

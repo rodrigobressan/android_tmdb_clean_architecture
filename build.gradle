@@ -8,15 +8,26 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
+        // Gradle build tools
         classpath 'com.android.tools.build:gradle:3.0.0-beta7'
+
+        // Kotlin Plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // JaCoCo (Java Code Coverage)
         classpath "com.dicedmelon.gradle:jacoco-android:0.1.1"
+
+        // Google Services
         classpath 'com.google.gms:google-services:3.1.0'
 
+        // Ribbonizer for adding the badge into our many different build types (debug, QA, etc)
         classpath 'com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0'
+
+        // Fabric (beta distribution, crashlytics, analytics)
         classpath 'io.fabric.tools:gradle:1.+'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+
+        // Google Play Publisher
+        classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
     }
 }
 apply from: 'dependencies.gradle'
