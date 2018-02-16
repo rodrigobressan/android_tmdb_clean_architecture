@@ -6,7 +6,15 @@ generate_post_data()
 {
 	"request": {
 		"message": "Deploy Mobile QA script called",
-		"branch": "dev"
+		"branch": "dev",
+		"config": {
+			"merge_mode": "deep_merge",
+			"env": {
+                "matrix": ["testBuildType=qa"]
+			},
+			"script": "./scripts/ci/mobile/qa/install_mobile_qa.sh",
+			"after_script": "./scripts/ci/mobile/qa/after_script_mobile_qa.sh"
+		}
 	}
 }
 EOF
