@@ -1,2 +1,0 @@
-json_key_file "/Users/rodrigobresan/Downloads/Google Play Android Developer-4bb9689ae57b.json" # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
-package_name "com.rodrigobresan.sampleboilerplateandroid.pro" # e.g. com.krausefx.app
