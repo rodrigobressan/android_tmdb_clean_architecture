@@ -17,7 +17,6 @@ class CategoryCacheImpl @Inject constructor(
 
     override fun clearCategories(): Completable {
         return Completable.defer {
-            // TODO write clear categories
             Completable.complete()
         }
     }

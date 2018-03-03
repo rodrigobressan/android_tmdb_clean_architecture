@@ -23,7 +23,6 @@ class MovieCacheImpl @Inject constructor(
 
     override fun clearMovies(): Completable {
         return Completable.defer {
-            // TODO clear movies
             Completable.complete()
         }
     }
@@ -33,6 +32,7 @@ class MovieCacheImpl @Inject constructor(
             movies.forEach {
                 insertMovie(it)
             }
+
             Completable.complete()
         }
     }

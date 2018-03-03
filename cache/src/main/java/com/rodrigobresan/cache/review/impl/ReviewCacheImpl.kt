@@ -14,7 +14,6 @@ class ReviewCacheImpl @Inject constructor(
 
     override fun clearReviews(): Completable {
         return Completable.defer {
-            // TODO write clear reviews
             Completable.complete()
         }
     }

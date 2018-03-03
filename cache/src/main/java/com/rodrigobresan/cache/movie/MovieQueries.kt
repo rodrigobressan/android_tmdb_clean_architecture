@@ -6,6 +6,5 @@ package com.rodrigobresan.cache.movie
 object MovieQueries {
     object MovieTable {
         const val TABLE_NAME = "movie"
-        const val MOVIE_ID = "movie_id"
     }
 }

@@ -39,13 +39,11 @@ class MovieCategoryCacheImpl @Inject constructor(
 
     override fun clearMovieCategories(): Completable {
         return Completable.defer {
-            // TODO write clear movie categories
             Completable.complete()
         }
     }
 
     override fun saveMovieCategory(movieCategoryEntity: MovieCategoryEntity): Completable {
-
         return Completable.defer {
             movieCategoryDao.insert(cacheMapper.mapToCached(movieCategoryEntity))
             Completable.complete()

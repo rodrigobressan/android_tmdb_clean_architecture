@@ -51,13 +51,13 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("../releasekeystore")
+            storeFile file("../keystores/releasekeystore")
             storePassword "123456"
             keyAlias 'releaseAlias'
             keyPassword "123456"
         }
         qa {
-            storeFile file("../qakeystore")
+            storeFile file("../keystores/qakeystore")
             storePassword "123456"
             keyAlias 'qaAlias'
             keyPassword "123456"
