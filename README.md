@@ -69,7 +69,6 @@ This project's architecture was heavily inspired by Bufferoos Clean Architecture
 - [ ] Architecture Components;
 - [ ] Auto-bump version;
 - [ ] Generate changelog based on the previous commits;
-- [ ] For Dev/QA artifacts, provide
 - [ ] Open Movie in Netflix app, in case it's installed;
 
 #### License
